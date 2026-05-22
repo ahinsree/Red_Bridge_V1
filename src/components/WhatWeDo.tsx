@@ -2,14 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Compass, Users, Database, ShieldCheck, ArrowRight, Eye, RefreshCw, Zap, Maximize2, X } from "lucide-react";
+import { Compass, Users, Database, Maximize2, X } from "lucide-react";
 
 interface Pillar {
   id: string;
   num: string;
   title: string;
   shortDesc: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   description: string;
   capabilities: { name: string; desc: string }[];
   schematic: React.ReactNode;

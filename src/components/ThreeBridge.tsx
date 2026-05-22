@@ -42,7 +42,7 @@ export default function ThreeBridge() {
       <div
         className="absolute inset-0 w-full h-full pointer-events-none transition-all"
         style={{
-          backgroundImage: "url('/images/hero-bg.png')",
+          backgroundImage: `url(${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}/images/hero-bg.png)`,
           backgroundSize: "cover",
           backgroundPosition: isMobile ? "70% center" : "center",
           backgroundRepeat: "no-repeat",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Landmark,
   Activity,
@@ -17,7 +17,7 @@ interface IndustryItem {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   color: string;
   schematic: React.ReactNode;
 }
