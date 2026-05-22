@@ -1,103 +1,178 @@
-import Image from "next/image";
+"use client";
+
+import Header from "@/components/Header";
+import ThreeBridge from "@/components/ThreeBridge";
+import Services from "@/components/Services";
+import Industries from "@/components/Industries";
+import WhatWeDo from "@/components/WhatWeDo";
+import CaseStudies from "@/components/CaseStudies";
+import ContactForm from "@/components/ContactForm";
+import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
+import { ArrowRight, ArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const handleScrollTo = (id: string) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="relative min-h-screen bg-background text-foreground selection:bg-bridge-red/30 selection:text-cream">
+      {/* Global Background Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0" />
+
+      {/* Header */}
+      <Header />
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden px-6 md:px-8">
+        {/* 3D WebGL / Image Backdrop */}
+        <ThreeBridge />
+
+        {/* Hero Content */}
+        <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-8 flex flex-col items-start gap-6 mt-12 lg:mt-0">
+            {/* Tag */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center gap-2 px-3 py-1 rounded bg-bridge-red/10 border border-bridge-red/20 text-xs font-mono tracking-widest text-bridge-red uppercase"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-bridge-red animate-pulse" />
+              Advisory & Transformation
+            </motion.div>
+
+            {/* Main Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-serif text-5xl md:text-7xl lg:text-8xl text-cream leading-[1.05] tracking-tight max-w-4xl"
+            >
+              Bridging Insight <br />
+              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-cream via-cream/80 to-bridge-red">to Impact.</span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-sm md:text-base text-cream/60 max-w-xl leading-relaxed font-sans"
+            >
+              World-class advisory and experience transformation partner. We combine deep strategic design with raw engineering excellence to solve high-stakes enterprise bottlenecks.
+            </motion.p>
+
+            {/* Philosophy callout */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="font-serif text-lg md:text-xl italic text-bridge-red font-medium tracking-wide mt-2"
+            >
+              &quot;Distinct by Design. Made to Matter.&quot;
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap gap-4 mt-4 w-full sm:w-auto"
+            >
+              <button
+                onClick={() => handleScrollTo("#contact")}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 rounded bg-bridge-red text-cream text-xs font-mono tracking-widest uppercase hover:bg-bridge-red/90 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-bridge-red/25 cursor-pointer border border-white/5"
+              >
+                Schedule Briefing
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => handleScrollTo("#services")}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 rounded bg-white/5 border border-white/10 text-cream text-xs font-mono tracking-widest uppercase hover:text-bridge-red hover:border-bridge-red/30 transition-all duration-300 cursor-pointer"
+              >
+                Explore Capabilities
+              </button>
+            </motion.div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/35 z-10">
+          <span className="text-[9px] font-mono tracking-widest uppercase">Scroll to brief</span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <ArrowDown className="w-4 h-4 text-cream/40" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Marquee Section */}
+      <section className="py-12 bg-black/20 border-y border-white/5 overflow-hidden w-full select-none relative z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 mb-4">
+          <p className="text-[10px] font-mono text-cream/35 uppercase tracking-widest text-center">
+            Partnering across enterprise domains
+          </p>
+        </div>
+        <div className="w-full relative flex items-center overflow-x-hidden">
+          <div className="animate-marquee whitespace-nowrap flex gap-16 text-xs font-mono tracking-widest text-cream/45 uppercase items-center">
+            <span>FINANCIAL SERVICES TRANSFORMATION</span>
+            <span className="text-bridge-red">•</span>
+            <span>CLINICAL PROVIDER SYSTEMS</span>
+            <span className="text-bridge-red">•</span>
+            <span>OMNICHANNEL RETAIL NETWORKS</span>
+            <span className="text-bridge-red">•</span>
+            <span>PREDICTIVE EXPERIENCE INTELLIGENCE</span>
+            <span className="text-bridge-red">•</span>
+            <span>ENTERPRISE DATA FABRICS</span>
+            <span className="text-bridge-red">•</span>
+            
+            {/* Duplicate for infinite loop */}
+            <span>FINANCIAL SERVICES TRANSFORMATION</span>
+            <span className="text-bridge-red">•</span>
+            <span>CLINICAL PROVIDER SYSTEMS</span>
+            <span className="text-bridge-red">•</span>
+            <span>OMNICHANNEL RETAIL NETWORKS</span>
+            <span className="text-bridge-red">•</span>
+            <span>PREDICTIVE EXPERIENCE INTELLIGENCE</span>
+            <span className="text-bridge-red">•</span>
+            <span>ENTERPRISE DATA FABRICS</span>
+            <span className="text-bridge-red">•</span>
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* Services Section */}
+      <Services />
+
+      {/* Industries We Serve Section */}
+      <Industries />
+
+      {/* What We Do Section */}
+      <section id="what-we-do" className="py-24 px-6 md:px-8 max-w-7xl mx-auto relative z-10 border-t border-white/5">
+        <WhatWeDo />
+      </section>
+
+      {/* Case Studies Section */}
+      <CaseStudies />
+
+      {/* Contact Form Section */}
+      <ContactForm />
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Floating Chatbot */}
+      <Chatbot />
     </div>
   );
 }
