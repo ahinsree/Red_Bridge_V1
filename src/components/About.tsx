@@ -1,17 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Layers, Gauge, Zap, TrendingUp } from "lucide-react";
+import { Layers, Gauge, Zap } from "lucide-react";
 
 interface PillarItem {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
-  desc: string;
-}
-
-interface MetricItem {
-  value: string;
-  label: string;
   desc: string;
 }
 
@@ -31,29 +25,6 @@ export default function About() {
       icon: Zap,
       title: "Uncompromising Delivery",
       desc: "No bloated corporate consulting overhead. We run lean, high-velocity engagements that prioritize immediate production value and long-term architectural health.",
-    },
-  ];
-
-  const metrics: MetricItem[] = [
-    {
-      value: "$4.2B+",
-      label: "Strategy Value Governed",
-      desc: "Enterprise capital transformations guided.",
-    },
-    {
-      value: "12ms",
-      label: "Ingestion SLA",
-      desc: "Median real-time data pipeline latency.",
-    },
-    {
-      value: "98.4%",
-      label: "Alignment Index",
-      desc: "Average organizational synchronization score.",
-    },
-    {
-      value: "2.4x",
-      label: "Conversion Uplift",
-      desc: "Average multiplier in onboarding conversions.",
     },
   ];
 
@@ -127,42 +98,6 @@ export default function About() {
           </div>
         </div>
 
-      </div>
-
-      {/* Metrics Section (Bottom Row) */}
-      <div className="mt-20 pt-12 border-t border-white/5 relative z-10">
-        <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-bridge-red uppercase mb-8">
-          <TrendingUp className="w-4 h-4" />
-          Verified Performance Indices
-        </div>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {metrics.map((metric, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-black/25 border border-white/5 rounded p-6 flex flex-col justify-between min-h-[140px] hover:border-bridge-red/15 transition-all duration-300 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-[120px] h-[120px] bg-bridge-red/3 rounded-full filter blur-[35px] pointer-events-none" />
-              
-              <span className="font-mono text-3xl md:text-4xl lg:text-5xl font-semibold text-cream tracking-tight leading-none mb-4">
-                {metric.value}
-              </span>
-              
-              <div>
-                <span className="text-[10px] font-mono text-bridge-red uppercase tracking-wider block mb-1">
-                  {metric.label}
-                </span>
-                <span className="text-[10px] font-sans text-cream/40 leading-tight block">
-                  {metric.desc}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
