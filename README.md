@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Red Bridge Advisory - Digital Core
 
-## Getting Started
+This repository houses the corporate digital presence and interactive advisory portal for **Red Bridge Advisory**. Built using Next.js, React, Tailwind CSS, Vanilla CSS custom models, and Framer Motion.
 
-First, run the development server:
+---
+
+## 🚀 Getting Started
+
+To run the development server locally:
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the portal.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✍️ Content & Portal Operations Guide
 
-## Learn More
+The website is designed for **Git-based content management** (short-term, low-frequency updates). You can update text, articles, navigation order, and interactive AI responses directly inside the codebase.
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Managing Insights (Briefings & Articles)
+Articles listed in the **Insights Ledger** are managed in [src/data/insights.ts](file:///Users/ahinsree/Developer/Red_Bridge_/src/data/insights.ts). 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To add or update an article, open that file and add a new entry to the `insightsData` array matching the schema:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+{
+  id: "article-slug-url-safe",                 // Unique string id (e.g. "my-article")
+  category: "Strategic Governance",            // Category tag displayed above title
+  readTime: "6 Min Read",                      // Read time indicator
+  date: "Oct 24, 2025",                        // Date of publication
+  title: "The Slide Deck Fallacy...",          // Main headline
+  summary: "Traditional advisory firms...",    // Brief description (2-3 sentences)
+  author: "Red Bridge Research",               // Author signature
+}
+```
 
-## Deploy on Vercel
+### 2. Modifying the AI Chatbot responses
+The floating chatbot assistant's keyword-matching rules and quick replies are managed in [src/components/Chatbot.tsx](file:///Users/ahinsree/Developer/Red_Bridge_/src/components/Chatbot.tsx).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **Quick Reply Shortcut Buttons**: Update the `quickReplies` list near the top of the component:
+  ```typescript
+  const quickReplies = [
+    { label: "Strategic Advisory", query: "Tell me about your Strategic Advisory services." },
+    // Add or modify shortcut buttons here
+  ];
+  ```
+* **Response Match Rules**: To add answers for new client questions, add keywords and matching replies into the `responseRules` array inside the `handleSend` function:
+  ```typescript
+  {
+    keywords: ["pricing", "cost", "rates", "fees"],
+    response: "Our advisory engagements are custom-scoped..."
+  }
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Organizing Header Navigation Order
+To change the visual ordering or naming of links in the navigation bar, modify the `navLinks` list in [src/components/Header.tsx](file:///Users/ahinsree/Developer/Red_Bridge_/src/components/Header.tsx):
+
+```typescript
+const navLinks = [
+  { name: "Solutions", href: "#services" },
+  { name: "Industries", href: "#industries" },
+  // ...
+];
+```
+
+---
+
+## 🛠️ Verification & Deployment
+
+Before pushing changes to GitHub, always verify type safety and formatting guidelines:
+
+```bash
+# Run type check compiler
+npx tsc --noEmit
+
+# Run code linter
+npm run lint
+```
+
+When changes are pushed to the `main` branch, the GitHub Actions deployment pipeline automatically compiles and deploys the production bundle to GitHub Pages.
