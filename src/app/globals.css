@@ -215,3 +215,9 @@ html, body {
   }
 }
 
+/* Drawer SVG Schematic blueprint override */
+.drawer-schematic-container .card-schematic {
+  opacity: 0.65 !important;
+}
+
+

@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Landmark,
   Activity,
@@ -11,6 +12,9 @@ import {
   Radio,
   GraduationCap,
   ArrowUpRight,
+  X,
+  FileText,
+  ArrowRight,
 } from "lucide-react";
 
 interface IndustryItem {
@@ -20,9 +24,12 @@ interface IndustryItem {
   icon: React.ComponentType<{ className?: string }>;
   color: string;
   schematic: React.ReactNode;
+  briefing: string[];
 }
 
 export default function Industries() {
+  const [activeIndustry, setActiveIndustry] = useState<IndustryItem | null>(null);
+
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -97,7 +104,12 @@ export default function Industries() {
           <text x="135" y="38" fill="rgba(250, 250, 248, 0.4)" fontFamily="monospace" fontSize="5.5">LOW: 120.45</text>
           <text x="145" y="165" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">TRANS_LEDGER_SYS</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "The modern financial landscape demands a migration from legacy monolithic ledgers to distributed, real-time transaction fabrics that maintain ACID compliance at scale.",
+        "By implementing microsecond-latency event-driven architectures and edge-optimized verification, financial institutions can eliminate settle-phase friction, increase transaction throughput, and enhance security profiles.",
+        "Red Bridge works with global banking leaders to design resilient experience networks that bridge legacy cores with next-generation digital banking APIs."
+      ]
     },
     {
       id: 2,
@@ -124,7 +136,12 @@ export default function Industries() {
           <text x="30" y="45" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">GEN_SEQUENCE: AT-CG-TA</text>
           <text x="30" y="165" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">DATA_FABRIC_NODE_L4</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "Connecting disparate clinical data silos requires a high-performance, compliant data fabric that guarantees interoperability without sacrificing patient privacy.",
+        "We deploy secure experience networks and unified patient interfaces that combine electronic health records, diagnostic telemetry, and clinical trial datasets in real time.",
+        "By optimizing query performance across federated health networks, we enable researchers and practitioners to collaborate at the speed of thought."
+      ]
     },
     {
       id: 3,
@@ -148,7 +165,12 @@ export default function Industries() {
           <text x="30" y="30" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">OMNICHANNEL_MAP_V3</text>
           <text x="30" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">CONSUMER_NPS: +84%</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "Modern commerce is defined by omnichannel orchestration—delivering seamless, personalized experiences across physical, web, mobile, and conversational interfaces.",
+        "Through sub-second data streaming and predictive customer analytics, we help retailers map and respond to user behavior at every touchpoint of their buying journey.",
+        "Our architectures ensure high-concurrency cart processing, real-time inventory synchronization, and AI-driven personalization engines that boost conversion rates."
+      ]
     },
     {
       id: 4,
@@ -173,7 +195,12 @@ export default function Industries() {
           <text x="25" y="30" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">AI_ENGINE_CORE_v1.0</text>
           <text x="135" y="170" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">NODE_SYS: OK</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "Scaling SaaS platforms requires robust engineering design patterns, sub-second API performance, and reliable AI integration capabilities.",
+        "We advise technology organizations on re-architecting their systems for elastic scale, building secure multitenant frameworks, and establishing zero-trust access controls.",
+        "By standardizing telemetry data pipelines and reducing build-to-deploy loop latencies, we optimize developer experience and engineering velocity."
+      ]
     },
     {
       id: 5,
@@ -197,7 +224,12 @@ export default function Industries() {
           <text x="30" y="25" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">DIGITAL_TWIN: ACTIVE</text>
           <text x="110" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">SCALE: 1:500</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "Industry 4.0 leverages digital twins and real-time sensor streams to optimize factory floor operations, minimize downtime, and manage value chain supply lines.",
+        "Our solutions construct unified industrial data fabrics that ingest high-velocity IoT telemetry, perform predictive anomaly detection, and orchestrate maintenance workflows.",
+        "By bridging operational technology (OT) with enterprise software, we unlock unparalleled visibility and operational efficiency."
+      ]
     },
     {
       id: 6,
@@ -221,7 +253,12 @@ export default function Industries() {
           <text x="30" y="20" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">CIVIC_TRANS_SYS: L2</text>
           <text x="30" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">INFRA_LOAD: 34% (OK)</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "Public sector digital transformation requires resilient, accessible, and secure citizen-facing portals built on modern cloud-native infrastructures.",
+        "We build smart city networks, open-data pipelines, and identity federation architectures that prioritize accessibility, trust, and scalability.",
+        "Our design system approach guarantees compliance with international accessibility standards (WCAG) while delivering responsive, clean public services."
+      ]
     },
     {
       id: 7,
@@ -247,7 +284,12 @@ export default function Industries() {
           <text x="30" y="25" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">FREQUENCY_BAND: 5G_NSA</text>
           <text x="30" y="180" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">LATENCY: 4.2ms (EXCELLENT)</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "The rollout of 5G networks unlocks ultra-low latency applications, requiring next-generation edge computing architectures and real-time traffic analysis.",
+        "We design high-throughput network monitoring interfaces and predictive load-balancing frameworks that operate at the packet level.",
+        "By optimizing data plane performance and visual telemetry, telecom operators can locate network bottlenecks and deliver premium quality of service."
+      ]
     },
     {
       id: 8,
@@ -272,7 +314,12 @@ export default function Industries() {
           <text x="30" y="25" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">KNOWLEDGE_LINK_ENGINE</text>
           <text x="30" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">PROP_SCORE: 0.994</text>
         </svg>
-      )
+      ),
+      briefing: [
+        "Next-generation education platforms leverage adaptive learning algorithms and rich visual interfaces to create personalized student outcomes.",
+        "We build unified educational portals and knowledge graph engines that track student engagement, tailor content delivery, and streamline administration.",
+        "Our architectures are designed for high-concurrency classroom environments, ensuring seamless live video feeds, real-time collaborations, and accessible learning tools."
+      ]
     },
   ];
 
@@ -319,7 +366,8 @@ export default function Industries() {
                 onPointerLeave={handlePointerLeave}
                 onPointerUp={handlePointerLeave}
                 onPointerCancel={handlePointerLeave}
-                className="group tilt-card relative flex flex-col justify-between p-7 min-h-[290px] rounded bg-[#0A0A0A]/40 border border-white/5 overflow-hidden transition-all duration-500 ease-out cursor-default select-none glass-panel red-glow-hover"
+                onClick={() => setActiveIndustry(ind)}
+                className="group tilt-card relative flex flex-col justify-between p-7 min-h-[340px] rounded bg-[#0A0A0A]/40 border border-white/5 overflow-hidden transition-all duration-500 ease-out cursor-pointer select-none glass-panel red-glow-hover"
                 style={{
                   transformStyle: "preserve-3d",
                   transform: "perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))",
@@ -356,7 +404,7 @@ export default function Industries() {
                 </div>
 
                 {/* Card Content Bottom: Typography */}
-                <div className="flex flex-col gap-2.5 mt-12 z-10" style={{ transform: "translate3d(0, 0, 10px)" }}>
+                <div className="flex flex-col gap-2.5 mt-8 z-10" style={{ transform: "translate3d(0, 0, 10px)" }}>
                   {/* Title */}
                   <h3 className="font-serif text-xl md:text-2xl text-cream leading-tight">
                     {ind.title}
@@ -367,6 +415,22 @@ export default function Industries() {
                   </p>
                 </div>
 
+                {/* Footer / Read Briefing */}
+                <div 
+                  className="flex justify-between items-center pt-4 border-t border-white/5 mt-auto z-10 w-full"
+                  style={{ transform: "translate3d(0, 0, 15px)" }}
+                >
+                  <span className="text-[10px] font-mono text-cream/35 uppercase tracking-widest">
+                    Briefing Available
+                  </span>
+                  
+                  <div className="flex items-center gap-1 text-[10px] font-mono text-bridge-red uppercase tracking-wider group-hover:translate-x-1 transition-transform duration-300">
+                    <FileText className="w-3.5 h-3.5 mr-1" />
+                    Read Briefing
+                    <ArrowRight className="w-3 h-3 ml-0.5" />
+                  </div>
+                </div>
+
                 {/* Decorative bottom hairline accent that glows red on hover */}
                 <div className="absolute bottom-0 inset-x-0 h-[1.5px] card-hairline pointer-events-none" />
               </div>
@@ -374,6 +438,76 @@ export default function Industries() {
           })}
         </div>
       </div>
+
+      {/* Industry Detail Drawer Overlay & Drawer */}
+      <AnimatePresence>
+        {activeIndustry && (
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveIndustry(null)}
+              className="fixed inset-0 bg-black z-50 backdrop-blur-sm"
+            />
+
+            {/* Sliding Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 220 }}
+              className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-background/98 border-l border-white/5 z-50 p-8 md:p-12 overflow-y-auto flex flex-col justify-between shadow-2xl"
+            >
+              <div>
+                {/* Header Actions */}
+                <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
+                  <span className="text-[10px] font-mono tracking-widest text-bridge-red uppercase">
+                    Sector Briefing • SEC_{activeIndustry.id.toString().padStart(2, '0')}
+                  </span>
+                  <button
+                    onClick={() => setActiveIndustry(null)}
+                    className="text-cream/50 hover:text-cream transition-colors p-2 rounded bg-white/5 hover:bg-white/10 cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* SVG Schematic Blueprint Box */}
+                <div className="relative w-full h-64 mb-8 overflow-hidden rounded border border-white/5 bg-black/45 flex items-center justify-center drawer-schematic-container">
+                  <div className="w-48 h-48 relative">
+                    {activeIndustry.schematic}
+                  </div>
+                </div>
+
+                {/* Title and Icon */}
+                <div className="flex items-start gap-4 mb-8">
+                  <div className="p-3 rounded border border-white/10 bg-white/5 text-bridge-red mt-1 shrink-0">
+                    {React.createElement(activeIndustry.icon, { className: "w-6 h-6" })}
+                  </div>
+                  <h3 className="font-serif text-3xl md:text-4xl text-cream leading-tight">
+                    {activeIndustry.title}
+                  </h3>
+                </div>
+
+                {/* Briefing Content */}
+                <div className="space-y-6 text-sm font-sans text-cream/75 leading-relaxed">
+                  {activeIndustry.briefing.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer signature */}
+              <div className="mt-12 pt-6 border-t border-white/5 text-[10px] font-mono text-cream/35 uppercase flex justify-between items-center">
+                <span>Sector ID: SEC_{activeIndustry.id.toString().padStart(2, '0')}</span>
+                <span className="text-bridge-red font-semibold">Red Bridge Advisory</span>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
