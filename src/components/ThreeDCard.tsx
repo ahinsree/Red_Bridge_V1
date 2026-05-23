@@ -19,9 +19,10 @@ export const useThreeDCard = () => useContext(ThreeDCardContext);
 interface ThreeDCardProps {
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
-export default function ThreeDCard({ children, className = "" }: ThreeDCardProps) {
+export default function ThreeDCard({ children, className = "", onClick }: ThreeDCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -70,6 +71,7 @@ export default function ThreeDCard({ children, className = "" }: ThreeDCardProps
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={onClick}
         style={{
           transform: transformStyle,
           transition: transitionStyle,
@@ -82,3 +84,4 @@ export default function ThreeDCard({ children, className = "" }: ThreeDCardProps
     </ThreeDCardContext.Provider>
   );
 }
+
