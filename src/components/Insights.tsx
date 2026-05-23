@@ -5,6 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, BookOpen, FileText, X } from "lucide-react";
 import { insightsData, InsightArticle } from "@/data/insights";
 
+const calculateReadTime = (paragraphs: string[]): string => {
+  const fullText = paragraphs.join(" ");
+  const wordCount = fullText.trim().split(/\s+/).filter(Boolean).length;
+  const wpm = 200; // Industry standard reading speed (WPM)
+  const minutes = Math.ceil(wordCount / wpm);
+  return `${Math.max(1, minutes)} Min Read`;
+};
+
 export default function Insights() {
   const [activeArticle, setActiveArticle] = useState<InsightArticle | null>(null);
   return (
@@ -48,7 +56,7 @@ export default function Insights() {
                   <div className="flex items-center gap-4">
                     <span className="flex items-center gap-1">
                       <BookOpen className="w-3 h-3 text-cream/30" />
-                      {article.readTime}
+                      {calculateReadTime(article.content)}
                     </span>
                     <span>{article.date}</span>
                   </div>
@@ -145,7 +153,7 @@ export default function Insights() {
                 <div className="flex items-center gap-6 text-[10px] font-mono text-cream/45 uppercase mb-4">
                   <span>{activeArticle.date}</span>
                   <span>•</span>
-                  <span>{activeArticle.readTime}</span>
+                  <span>{calculateReadTime(activeArticle.content)}</span>
                 </div>
 
                 {/* Title */}
