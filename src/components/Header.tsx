@@ -78,7 +78,7 @@ export default function Header() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="flex items-center gap-2 cursor-pointer group -ml-1 md:-ml-3"
+            className="flex items-center gap-2 cursor-pointer group -ml-3 md:-ml-6"
           >
             <div className="relative w-[24px] h-[36px] flex items-center justify-center">
               <Image
