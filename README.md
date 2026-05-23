@@ -106,7 +106,7 @@ Here are the latest portal enhancements:
 8. **Interactive Briefing Slide Drawers**: Built slide-in right drawer components inside **Insights**, **Industries**, and **Solutions (Capabilities)** sections using Framer Motion spring physics. Cards show dynamic briefings on click.
 9. **Dynamic Reading Time Indicators**: Replaced static read time fields with a calculator module running at an industry-standard 200 WPM to auto-compute read-times from paragraph arrays.
 10. **Live System Clock Widget**: Embedded a real-time running clock widget inside the portal header menu that matches local time formats (`HH:MM:SS AM/PM • DD MMM YYYY`).
-11. **Header Brand Leftward Alignment**: Shifted the brand logo slightly leftwards (`-ml-1 md:-ml-3`) to optically align it flush with the left border of the text blocks.
+11. **Header Brand Leftward Alignment**: Shifted the brand logo slightly leftwards (`-ml-3 md:-ml-6`) to optically align it flush with the left border of the text blocks.
 12. **Employee Experience (EX) Re-alignment**: Aligned workforce velocity articles with Employee Experience corporate values, addressing internal environment friction.
 13. **Agentic Compliance Asset Refinement**: Updated the Agentic AI compliance framework illustration asset (`public/images/insight_agentic.png`) to improve visual fidelity.
 
