@@ -29,19 +29,12 @@ export default function Chatbot() {
     { label: "Strategic Advisory", query: "Tell me about your Strategic Advisory services." },
     { label: "CX Transformation", query: "How do you approach Customer Experience?" },
     { label: "Experience Intelligence", query: "What is AI-driven Experience Intelligence?" },
+    { label: "Industries & Sectors", query: "What industries do you specialize in?" },
+    { label: "Case Studies", query: "Can you share some case studies?" },
+    { label: "Pricing & Retainers", query: "How do you charge for your services?" },
+    { label: "Careers", query: "Are you hiring?" },
     { label: "Schedule Briefing", query: "I would like to book a consultation." }
   ];
-
-  const botResponses: Record<string, string> = {
-    "tell me about your strategic advisory services.": 
-      "Our Strategic Advisory practice aligns executive vision with actionable execution. We focus on business model innovation, organizational design, and scaling digital capability models. No hype, just clear outcomes.",
-    "how do you approach customer experience?": 
-      "We design Customer Experiences (CX) that drive bottom-line retention. By linking journey touchpoints to hard financial metrics (like customer lifetime value and cost-to-serve), we turn CX into a strategic asset.",
-    "what is ai-driven experience intelligence?": 
-      "Experience Intelligence bridges modern data engineering with predictive analytics. We design data pipelines, ingest real-time signals, and feed custom AI models to forecast customer behaviors and operational bottlenecks.",
-    "i would like to book a consultation.": 
-      "Excellent choice. You can scroll down to our booking form at the bottom of this page, or write directly to our executive client desk at briefing@redbridgeadvisory.com. We typically respond within 4 hours."
-  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -66,10 +59,49 @@ export default function Chatbot() {
       const normalizedQuery = text.trim().toLowerCase();
       let responseText = "Thank you for your inquiry. A senior advisory coordinator has been alerted to review your message. You can also contact us directly at briefing@redbridgeadvisory.com.";
 
-      // Check if we have a match
-      for (const [key, val] of Object.entries(botResponses)) {
-        if (normalizedQuery.includes(key) || key.includes(normalizedQuery)) {
-          responseText = val;
+      // Rule-based keyword matching for common client inquiries
+      const responseRules = [
+        {
+          keywords: ["strategic advisory", "strategy", "business model", "organizational design", "capabilities", "what do you do", "services"],
+          response: "Our Strategic Advisory practice aligns executive vision with actionable execution. We focus on business model innovation, organizational design, and scaling digital capability models. No hype, just clear outcomes."
+        },
+        {
+          keywords: ["customer experience", "cx", "ex", "employee experience", "satisfaction", "retention", "journey", "culture", "workforce"],
+          response: "We design Customer Experiences (CX) and Employee Experiences (EX) that drive bottom-line retention. By linking journey touchpoints to hard financial metrics (like customer lifetime value and cost-to-serve), we turn experience design into a strategic asset."
+        },
+        {
+          keywords: ["ai", "intelligence", "data engineering", "predictive", "machine learning", "ml", "data pipelines", "analytics"],
+          response: "Experience Intelligence bridges modern data engineering with predictive analytics. We design data pipelines, ingest real-time signals, and feed custom AI models to forecast customer behaviors and operational bottlenecks."
+        },
+        {
+          keywords: ["industries", "sectors", "healthcare", "finance", "retail", "telecom", "banking", "public sector", "manufactur"],
+          response: "We serve key enterprise domains including Financial Services (banking, capital markets), Healthcare (clinical systems, digital health), Omnichannel Retail, Telecommunications, and the Public Sector/Smart Infrastructure."
+        },
+        {
+          keywords: ["case studies", "projects", "work", "examples", "clients", "track record"],
+          response: "We have executed major transformations, including routing critical clinical records for national providers, engineering analytics engines processing billions of retail events, and deploying strategic models for banking networks. Check the 'Case Studies' section above for detailed metrics."
+        },
+        {
+          keywords: ["pricing", "cost", "rates", "fees", "how much", "budget"],
+          response: "Our advisory engagements are custom-scoped based on target enterprise outcomes and complexity. We typically operate on retainer or fixed-fee milestone structures. Contact our client desk at briefing@redbridgeadvisory.com to arrange a scoped proposal briefing."
+        },
+        {
+          keywords: ["careers", "jobs", "join", "recruiting", "position", "work at"],
+          response: "We are always looking for elite strategic designers, principal data engineers, and transformation architects. Visit our Careers section or send your details directly to talent@redbridgeadvisory.com."
+        },
+        {
+          keywords: ["consultation", "book", "meeting", "briefing", "schedule", "contact", "talk", "email", "call"],
+          response: "Excellent choice. You can scroll down to our booking form at the bottom of this page, or write directly to our executive client desk at briefing@redbridgeadvisory.com. We typically respond within 4 hours."
+        },
+        {
+          keywords: ["about", "philosophy", "who are you", "who is", "red bridge", "agency", "firm"],
+          response: "Red Bridge Advisory is a premier strategic and experience transformation partner. Distinct by Design, Made to Matter. We combine deep business consulting with modern systems engineering to solve high-stakes enterprise challenges."
+        }
+      ];
+
+      for (const rule of responseRules) {
+        if (rule.keywords.some(kw => normalizedQuery.includes(kw))) {
+          responseText = rule.response;
           break;
         }
       }
