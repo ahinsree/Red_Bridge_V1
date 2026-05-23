@@ -13,6 +13,16 @@ const calculateReadTime = (paragraphs: string[]): string => {
   return `${Math.max(1, minutes)} Min Read`;
 };
 
+const formatArticleDate = (daysAgo: number): string => {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+};
+
 export default function Insights() {
   const [activeArticle, setActiveArticle] = useState<InsightArticle | null>(null);
   return (
@@ -58,7 +68,7 @@ export default function Insights() {
                       <BookOpen className="w-3 h-3 text-cream/30" />
                       {calculateReadTime(article.content)}
                     </span>
-                    <span>{article.date}</span>
+                    <span>{formatArticleDate(article.daysAgo)}</span>
                   </div>
                 </div>
 
@@ -151,7 +161,7 @@ export default function Insights() {
 
                 {/* Meta Row */}
                 <div className="flex items-center gap-6 text-[10px] font-mono text-cream/45 uppercase mb-4">
-                  <span>{activeArticle.date}</span>
+                  <span>{formatArticleDate(activeArticle.daysAgo)}</span>
                   <span>•</span>
                   <span>{calculateReadTime(activeArticle.content)}</span>
                 </div>
