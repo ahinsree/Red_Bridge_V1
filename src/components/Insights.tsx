@@ -51,6 +51,18 @@ export default function Insights() {
                   </div>
                 </div>
 
+                {/* Article Graphic Header */}
+                {article.imageUrl && (
+                  <div className="relative w-full h-48 mb-6 overflow-hidden rounded border border-white/5 bg-black/45">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}${article.imageUrl}`}
+                      alt={article.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-700 ease-out"
+                    />
+                  </div>
+                )}
+
                 {/* Title */}
                 <h3 className="font-serif text-2xl text-cream mb-4 group-hover:text-bridge-red transition-colors duration-300">
                   {article.title}

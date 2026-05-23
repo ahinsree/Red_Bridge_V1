@@ -38,6 +38,7 @@ To add or update an article, open that file and add a new entry to the `insights
   title: "The Slide Deck Fallacy...",          // Main headline
   summary: "Traditional advisory firms...",    // Brief description (2-3 sentences)
   author: "Red Bridge Research",               // Author signature
+  imageUrl: "/images/insight_strategy.png",    // Optional: relative path to public graphic asset
 }
 ```
 
