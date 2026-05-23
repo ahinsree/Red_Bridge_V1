@@ -23,7 +23,7 @@ interface IndustryItem {
 }
 
 export default function Industries() {
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     
@@ -40,12 +40,14 @@ export default function Industries() {
     card.style.setProperty("--tilt-y", `${normX * 8}deg`);
     card.style.setProperty("--shine-x", `${e.clientX - rect.left}px`);
     card.style.setProperty("--shine-y", `${e.clientY - rect.top}px`);
+    card.setAttribute("data-active", "true");
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     card.style.setProperty("--tilt-x", "0deg");
     card.style.setProperty("--tilt-y", "0deg");
+    card.removeAttribute("data-active");
   };
 
   const industries: IndustryItem[] = [
@@ -56,7 +58,7 @@ export default function Industries() {
       icon: Landmark,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           {/* Tech Grid Gridlines */}
           <path d="M 0 40 L 200 40 M 0 80 L 200 80 M 0 120 L 200 120 M 0 160 L 200 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200" stroke="rgba(250, 250, 248, 0.05)" strokeWidth="0.5" />
           {/* Analytical coordinate lines */}
@@ -104,7 +106,7 @@ export default function Industries() {
       icon: Activity,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           <path d="M 20 100 L 180 100" stroke="rgba(250,250,248,0.05)" strokeWidth="0.5" strokeDasharray="4 4" />
           {/* DNA Double Helix structure */}
           <path d="M 30 100 Q 55 50 80 100 T 130 100 T 180 100" fill="none" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="1" />
@@ -131,7 +133,7 @@ export default function Industries() {
       icon: ShoppingBag,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           <circle cx="100" cy="100" r="60" stroke="rgba(250, 250, 248, 0.05)" strokeWidth="0.75" />
           <circle cx="100" cy="100" r="35" stroke="rgba(250, 250, 248, 0.03)" strokeWidth="0.5" />
           {/* Retail Global Connection Arcs */}
@@ -155,7 +157,7 @@ export default function Industries() {
       icon: Cpu,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           <rect x="65" y="65" width="70" height="70" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" />
           {/* Chip circuit pins */}
           <path d="M 65 75 L 50 75 M 65 90 L 50 90 M 65 105 L 50 105 M 65 120 L 50 120 M 135 75 L 150 75 M 135 90 L 150 90 M 135 105 L 150 105 M 135 120 L 150 120 M 75 65 L 75 50 M 90 65 L 90 50 M 105 65 L 105 50 M 120 65 L 120 50 M 75 135 L 75 150 M 90 135 L 90 150 M 105 135 L 105 150 M 120 135 L 120 150" stroke="rgba(250,250,248,0.15)" strokeWidth="0.75" />
@@ -180,7 +182,7 @@ export default function Industries() {
       icon: Factory,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           {/* Isometric smart factory floor layout */}
           <path d="M 100 30 L 170 70 L 100 110 L 30 70 Z" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
           <path d="M 100 80 L 170 120 L 100 160 L 30 120 Z" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
@@ -204,7 +206,7 @@ export default function Industries() {
       icon: Building2,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           {/* Smart city mesh network */}
           <polygon points="100,30 150,75 130,140 70,140 50,75" stroke="rgba(250,250,248,0.08)" strokeWidth="0.75" />
           <line x1="100" y1="30" x2="100" y2="140" stroke="rgba(250,250,248,0.1)" strokeWidth="0.5" />
@@ -228,7 +230,7 @@ export default function Industries() {
       icon: Radio,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           <circle cx="100" cy="110" r="6" fill="rgba(194,25,42,0.3)" stroke="#C2192A" strokeWidth="1" />
           <circle cx="100" cy="110" r="2" fill="#FAFAF8" />
           {/* Transmission towers and 5G wave propagation arcs */}
@@ -254,7 +256,7 @@ export default function Industries() {
       icon: GraduationCap,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full opacity-10 md:opacity-0 md:group-hover:opacity-25 transition-opacity duration-1000">
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           {/* Knowledge network matrix map */}
           <circle cx="100" cy="80" r="30" stroke="rgba(250,250,248,0.08)" strokeWidth="0.75" strokeDasharray="3 3" />
           <line x1="100" y1="80" x2="50" y2="130" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
@@ -313,8 +315,10 @@ export default function Industries() {
             return (
               <div
                 key={ind.id}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                onPointerMove={handlePointerMove}
+                onPointerLeave={handlePointerLeave}
+                onPointerUp={handlePointerLeave}
+                onPointerCancel={handlePointerLeave}
                 className="group tilt-card relative flex flex-col justify-between p-7 min-h-[290px] rounded bg-[#0A0A0A]/40 border border-white/5 overflow-hidden transition-all duration-500 ease-out cursor-default select-none glass-panel red-glow-hover"
                 style={{
                   transformStyle: "preserve-3d",
@@ -326,11 +330,11 @@ export default function Industries() {
 
                 {/* Card glow overlays */}
                 {/* Subtle red core glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_140px_at_80%_80%,rgba(194,25,42,0.06),transparent)] opacity-5 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_140px_at_80%_80%,rgba(194,25,42,0.06),transparent)] card-core-glow pointer-events-none z-0" />
                 
                 {/* Interactive Flash-light reflection shine */}
                 <div 
-                  className="absolute inset-0 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0" 
+                  className="absolute inset-0 card-flashlight pointer-events-none z-0" 
                   style={{
                     background: "radial-gradient(circle 180px at var(--shine-x, 0px) var(--shine-y, 0px), rgba(250, 250, 248, 0.045), transparent 80%)"
                   }}
@@ -339,15 +343,15 @@ export default function Industries() {
                 {/* Card Content Top: Icon & Tech indicator */}
                 <div className="flex justify-between items-start z-10" style={{ transform: "translate3d(0, 0, 20px)" }}>
                   {/* Icon container */}
-                  <div className="p-3.5 rounded bg-white/5 border border-white/5 text-cream/70 md:group-hover:text-bridge-red md:group-hover:border-bridge-red/30 md:group-hover:bg-bridge-red/5 transition-all duration-500 ease-out">
-                    <Icon className="w-5 h-5 transition-transform duration-500 md:group-hover:scale-110" />
+                  <div className="p-3.5 rounded border card-icon-container">
+                    <Icon className="w-5 h-5 card-icon" />
                   </div>
                   {/* Decorative index / tech tag */}
                   <div className="flex items-center gap-1.5">
-                    <span className="font-mono text-[8px] tracking-widest text-cream/30 md:group-hover:text-bridge-red/50 transition-colors uppercase">
+                    <span className="font-mono text-[8px] tracking-widest uppercase card-index-tag">
                       SEC_{ind.id.toString().padStart(2, '0')}
                     </span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-cream/20 md:group-hover:text-bridge-red md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5 transition-all duration-300" />
+                    <ArrowUpRight className="w-3.5 h-3.5 card-arrow" />
                   </div>
                 </div>
 
@@ -358,13 +362,13 @@ export default function Industries() {
                     {ind.title}
                   </h3>
                   {/* Description */}
-                  <p className="font-sans text-[11px] md:text-xs text-cream/50 leading-relaxed font-light md:group-hover:text-cream/75 transition-colors duration-500">
+                  <p className="font-sans text-[11px] md:text-xs leading-relaxed font-light card-description">
                     {ind.description}
                   </p>
                 </div>
 
                 {/* Decorative bottom hairline accent that glows red on hover */}
-                <div className="absolute bottom-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/5 to-transparent md:group-hover:via-bridge-red/40 transition-all duration-700 pointer-events-none" />
+                <div className="absolute bottom-0 inset-x-0 h-[1.5px] card-hairline pointer-events-none" />
               </div>
             );
           })}
