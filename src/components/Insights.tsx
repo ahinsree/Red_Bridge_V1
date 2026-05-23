@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, FileText } from "lucide-react";
-import { insightsData } from "@/data/insights";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, BookOpen, FileText, X } from "lucide-react";
+import { insightsData, InsightArticle } from "@/data/insights";
 
 export default function Insights() {
+  const [activeArticle, setActiveArticle] = useState<InsightArticle | null>(null);
   return (
     <section id="insights" className="py-24 px-6 md:px-8 max-w-7xl mx-auto border-t border-white/5 relative">
       {/* Background ambient lighting element */}
@@ -35,9 +37,10 @@ export default function Insights() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="group"
+            className="group cursor-pointer"
+            onClick={() => setActiveArticle(article)}
           >
-            <div className="glass-panel p-8 rounded-lg border border-white/5 hover:border-bridge-red/20 hover:bg-white/2 transition-all duration-500 h-full flex flex-col justify-between cursor-default">
+            <div className="glass-panel p-8 rounded-lg border border-white/5 hover:border-bridge-red/20 hover:bg-white/2 transition-all duration-500 h-full flex flex-col justify-between">
               <div>
                 {/* Meta details */}
                 <div className="flex justify-between items-center mb-6 text-[10px] font-mono tracking-wider text-cream/45 uppercase border-b border-white/5 pb-4">
@@ -90,6 +93,83 @@ export default function Insights() {
           </motion.div>
         ))}
       </div>
+
+      {/* Article Detail Drawer Overlay & Drawer */}
+      <AnimatePresence>
+        {activeArticle && (
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveArticle(null)}
+              className="fixed inset-0 bg-black z-50 backdrop-blur-sm"
+            />
+
+            {/* Sliding Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 220 }}
+              className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-background/98 border-l border-white/5 z-50 p-8 md:p-12 overflow-y-auto flex flex-col justify-between shadow-2xl"
+            >
+              <div>
+                {/* Header Actions */}
+                <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
+                  <span className="text-[10px] font-mono tracking-widest text-bridge-red uppercase">
+                    {activeArticle.category} • Briefing
+                  </span>
+                  <button
+                    onClick={() => setActiveArticle(null)}
+                    className="text-cream/50 hover:text-cream transition-colors p-2 rounded bg-white/5 hover:bg-white/10 cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Article Image */}
+                {activeArticle.imageUrl && (
+                  <div className="relative w-full h-64 mb-8 overflow-hidden rounded border border-white/5 bg-black/45">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}${activeArticle.imageUrl}`}
+                      alt={activeArticle.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                {/* Meta Row */}
+                <div className="flex items-center gap-6 text-[10px] font-mono text-cream/45 uppercase mb-4">
+                  <span>{activeArticle.date}</span>
+                  <span>•</span>
+                  <span>{activeArticle.readTime}</span>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-serif text-3xl md:text-4xl text-cream leading-tight mb-8">
+                  {activeArticle.title}
+                </h3>
+
+                {/* Article Content (Paragraphs) */}
+                <div className="space-y-6 text-sm font-sans text-cream/75 leading-relaxed">
+                  {activeArticle.content.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer signature */}
+              <div className="mt-12 pt-6 border-t border-white/5 text-[10px] font-mono text-cream/35 uppercase flex justify-between items-center">
+                <span>Authored by {activeArticle.author}</span>
+                <span className="text-bridge-red font-semibold">Red Bridge Advisory</span>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
