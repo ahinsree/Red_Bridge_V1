@@ -30,8 +30,6 @@ export default function ContactForm() {
     
     setLoading(true);
     
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby4TulyqiGqreZZ-1lOnCTNDLMQruY1U0lW2bHp2c7fY_ubPAVtrIxpbVJDU9sXFtBB/exec";
-    
     // Print submission details to browser console for local verification
     console.log("Captured Briefing Request Submission:", formState);
     
@@ -49,19 +47,23 @@ export default function ContactForm() {
     }
 
     try {
-      // Pipe data directly to Google Sheets Web App
-      await fetch(GOOGLE_SCRIPT_URL, {
+      // Securely submit data to local server-side Next.js API endpoint
+      const response = await fetch("/api/contact", {
         method: "POST",
-        mode: "no-cors", // Bypasses browser CORS checks for Google Apps Scripts
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formState),
       });
-      console.log("Submission details successfully piped to Google Sheets API.");
+
+      if (!response.ok) {
+        throw new Error(`Server API returned non-ok status: ${response.status}`);
+      }
+
+      console.log("Submission details successfully captured by server API.");
       setSubmitted(true);
     } catch (error) {
-      console.error("Failed to submit to Google Sheet:", error);
+      console.error("Failed to submit to server API route:", error);
       // Fallback: still show success screen to preserve user experience
       setSubmitted(true);
     } finally {
