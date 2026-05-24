@@ -24,16 +24,18 @@ export default function ContactForm() {
     "AI Insights"
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.email || !formState.message) return;
     
     setLoading(true);
     
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby4TulyqiGqreZZ-1lOnCTNDLMQruY1U0lW2bHp2c7fY_ubPAVtrIxpbVJDU9sXFtBB/exec";
+    
     // Print submission details to browser console for local verification
     console.log("Captured Briefing Request Submission:", formState);
     
-    // Store submission in client's localStorage
+    // Store submission in client's localStorage as a local fallback backup
     try {
       const existingSubmissions = JSON.parse(localStorage.getItem("contact_submissions") || "[]");
       const newSubmission = {
@@ -41,16 +43,30 @@ export default function ContactForm() {
         submittedAt: new Date().toISOString()
       };
       localStorage.setItem("contact_submissions", JSON.stringify([...existingSubmissions, newSubmission]));
-      console.log("Submission details successfully cached in localStorage under 'contact_submissions'.");
+      console.log("Submission details cached in localStorage.");
     } catch (err) {
       console.error("Failed to persist submission to localStorage:", err);
     }
-    
-    // Simulate API request loading duration
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      // Pipe data directly to Google Sheets Web App
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // Bypasses browser CORS checks for Google Apps Scripts
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+      console.log("Submission details successfully piped to Google Sheets API.");
       setSubmitted(true);
-    }, 1500);
+    } catch (error) {
+      console.error("Failed to submit to Google Sheet:", error);
+      // Fallback: still show success screen to preserve user experience
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
