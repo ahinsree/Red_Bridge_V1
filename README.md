@@ -112,6 +112,8 @@ Here are the latest portal enhancements:
 14. **Contact Form Submission Capturing**: Wired the advisory briefing request form to print lead details to the browser console and cache them in the client's `localStorage` under `contact_submissions` with timestamps for easy local verification.
 15. **Solutions Drawer 3D Centering & Parallax**: Centered the 3D WebGL canvas within the Solutions slide-drawer and enabled complete cursor hover-to-rotate tilt interactions inside the drawer by wrapping it in the dynamic 3D card layout context.
 16. **Live Google Sheets API Integration**: Connected the corporate briefing request form to your Google Sheets macro API endpoint, enabling secure asynchronous submissions directly to your live spreadsheet.
+17. **Secure API Routing & Environment Variables**: Secured sensitive spreadsheet Web App credentials by migrating them to a server-side environment file (`.env.local`) ignored by Git, and proxying submission calls through a dedicated, local Next.js server API endpoint (`/api/contact`).
+
 
 
 
