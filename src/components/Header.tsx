@@ -8,29 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [timeString, setTimeString] = useState<string>("");
-
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      const time = now.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true
-      });
-      const date = now.toLocaleDateString("en-US", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-      });
-      setTimeString(`${time} • ${date}`);
-    };
-    
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,13 +95,6 @@ export default function Header() {
 
           {/* Right: CTA button & Mobile trigger */}
           <div className="flex items-center gap-4">
-            {timeString && (
-              <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded bg-white/5 border border-white/5 text-[9px] font-mono tracking-widest text-cream/45 uppercase select-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-bridge-red animate-pulse" />
-                <span>SYS_TIME // {timeString}</span>
-              </div>
-            )}
-
             <button
               onClick={() => handleScrollTo("#contact")}
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded bg-bridge-red text-cream text-xs font-mono tracking-widest uppercase hover:bg-bridge-red/90 transition-all duration-300 hover:scale-102 hover:shadow-lg hover:shadow-bridge-red/20 group cursor-pointer border border-white/5"
