@@ -31,7 +31,7 @@ export default function HeroSlider() {
       headline: "Bridging Insight",
       italicWord: "to Impact.",
       sub: "Where boardroom whiteboard strategy meets the active production codebase. We dismantle high-stakes enterprise bottlenecks with surgical precision.",
-      visualUrl: "/images/hero-bg.png",
+      visualUrl: "/images/hero-bridge-bg.png",
       tabLabel: "Strategic Advisory",
       cta1Text: "Schedule Briefing",
       cta1Href: "#contact",
