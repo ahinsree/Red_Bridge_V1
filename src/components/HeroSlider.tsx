@@ -48,12 +48,14 @@ export default function HeroSlider() {
       headline: "Bridging Experience",
       italicWord: "to Intelligence.",
       sub: "Sensing operational friction before it triggers churn. We synchronize customer experience signals with employee environments to secure enterprise momentum.",
-      visualUrl: "/images/insight_devex.png",
+      visualUrl: "/images/hero-experience-bg.png",
       tabLabel: "CX & EX Frameworks",
       cta1Text: "Explore Insights",
       cta1Href: "#insights",
       cta2Text: "Initiate Briefing",
-      cta2Href: "#contact"
+      cta2Href: "#contact",
+      bgPosition: "right center",
+      bgPositionMobile: "right center"
     },
     {
       id: 2,
