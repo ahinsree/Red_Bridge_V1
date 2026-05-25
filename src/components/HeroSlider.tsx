@@ -16,6 +16,8 @@ interface SlideItem {
   cta1Href: string;
   cta2Text: string;
   cta2Href: string;
+  bgPosition?: string;
+  bgPositionMobile?: string;
 }
 
 export default function HeroSlider() {
@@ -36,7 +38,9 @@ export default function HeroSlider() {
       cta1Text: "Schedule Briefing",
       cta1Href: "#contact",
       cta2Text: "Explore Capabilities",
-      cta2Href: "#services"
+      cta2Href: "#services",
+      bgPosition: "right center",
+      bgPositionMobile: "right center"
     },
     {
       id: 1,
@@ -150,7 +154,7 @@ export default function HeroSlider() {
             style={{
               backgroundImage: `url(${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}${activeSlide.visualUrl})`,
               backgroundSize: "cover",
-              backgroundPosition: isMobile ? "70% center" : "center",
+              backgroundPosition: isMobile ? (activeSlide.bgPositionMobile || "70% center") : (activeSlide.bgPosition || "center"),
               backgroundRepeat: "no-repeat",
               transform: `translate3d(${mousePos.x * -16}px, ${mousePos.y * -16}px, 0) scale(1.03)`,
               transition: "transform 0.6s cubic-bezier(0.1, 0.8, 0.2, 1)",
