@@ -40,6 +40,19 @@ export default function HeroSlider() {
     },
     {
       id: 1,
+      tag: "Experience Intelligence",
+      headline: "Bridging Experience",
+      italicWord: "to Intelligence.",
+      sub: "Merging customer experience signals with employee experience environments to remove operational friction and optimize enterprise velocity.",
+      visualUrl: "/images/insight_devex.png",
+      tabLabel: "CX & EX Frameworks",
+      cta1Text: "Explore Insights",
+      cta1Href: "#insights",
+      cta2Text: "Initiate Briefing",
+      cta2Href: "#contact"
+    },
+    {
+      id: 2,
       tag: "Agentic AI & Compliance",
       headline: "Governing the",
       italicWord: "Agentic Frontier.",
@@ -52,7 +65,7 @@ export default function HeroSlider() {
       cta2Href: "#contact"
     },
     {
-      id: 2,
+      id: 3,
       tag: "Agility & Engineering",
       headline: "Unlocking",
       italicWord: "Workforce Velocity.",
@@ -62,19 +75,6 @@ export default function HeroSlider() {
       cta1Text: "Explore Case Studies",
       cta1Href: "#case-studies",
       cta2Text: "Request Briefing",
-      cta2Href: "#contact"
-    },
-    {
-      id: 3,
-      tag: "Experience Intelligence",
-      headline: "Bridging Experience",
-      italicWord: "to Intelligence.",
-      sub: "Merging customer experience signals with employee experience environments to remove operational friction and optimize enterprise velocity.",
-      visualUrl: "/images/insight_devex.png",
-      tabLabel: "CX & EX Frameworks",
-      cta1Text: "Explore Insights",
-      cta1Href: "#insights",
-      cta2Text: "Initiate Briefing",
       cta2Href: "#contact"
     }
   ];
