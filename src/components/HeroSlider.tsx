@@ -63,12 +63,14 @@ export default function HeroSlider() {
       headline: "Governing the",
       italicWord: "Agentic Frontier.",
       sub: "High-stakes intelligence without data exposure. We engineer secure, self-governing AI lattices reinforced by real-time behavioral guardrails.",
-      visualUrl: "/images/insight_agentic.png",
+      visualUrl: "/images/hero-ai-bg.png",
       tabLabel: "Governing AI",
       cta1Text: "Read AI Research",
       cta1Href: "#insights",
       cta2Text: "Partner With Us",
-      cta2Href: "#contact"
+      cta2Href: "#contact",
+      bgPosition: "right center",
+      bgPositionMobile: "right center"
     },
     {
       id: 3,
@@ -76,12 +78,14 @@ export default function HeroSlider() {
       headline: "Unlocking",
       italicWord: "Workforce Velocity.",
       sub: "Eradicating systemic organizational inertia. We weave continuous telemetry fabrics directly into internal environments to accelerate workforce velocity.",
-      visualUrl: "/images/insight_telemetry.png",
+      visualUrl: "/images/hero-velocity-bg.png",
       tabLabel: "Workforce Velocity",
       cta1Text: "Explore Case Studies",
       cta1Href: "#case-studies",
       cta2Text: "Request Briefing",
-      cta2Href: "#contact"
+      cta2Href: "#contact",
+      bgPosition: "right center",
+      bgPositionMobile: "right center"
     }
   ];
 
