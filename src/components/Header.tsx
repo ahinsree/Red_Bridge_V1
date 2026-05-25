@@ -67,10 +67,10 @@ export default function Header() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-base font-medium text-cream tracking-wider leading-none">
+              <span className="font-serif text-lg font-medium text-cream tracking-wider leading-none">
                 Red Bridge
               </span>
-              <span className="font-mono text-[9px] text-cream/40 uppercase tracking-widest mt-0.5 leading-none">
+              <span className="font-mono text-[10px] text-cream/40 uppercase tracking-widest mt-1 leading-none">
                 Advisory
               </span>
             </div>
@@ -86,7 +86,7 @@ export default function Header() {
                   e.preventDefault();
                   handleScrollTo(link.href);
                 }}
-                className="text-xs font-mono tracking-widest text-cream/60 hover:text-bridge-red hover:red-text-glow transition-all duration-300 uppercase"
+                className="text-sm font-mono tracking-widest text-cream/60 hover:text-bridge-red hover:red-text-glow transition-all duration-300 uppercase"
               >
                 {link.name}
               </a>
@@ -97,7 +97,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => handleScrollTo("#contact")}
-              className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded bg-bridge-red text-cream text-xs font-mono tracking-widest uppercase hover:bg-bridge-red/90 transition-all duration-300 hover:scale-102 hover:shadow-lg hover:shadow-bridge-red/20 group cursor-pointer border border-white/5"
+              className="hidden sm:flex items-center gap-2 px-6 py-3 rounded bg-bridge-red text-cream text-sm font-mono tracking-widest uppercase hover:bg-bridge-red/90 transition-all duration-300 hover:scale-102 hover:shadow-lg hover:shadow-bridge-red/20 group cursor-pointer border border-white/5"
             >
               Let&apos;s Talk
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -136,10 +136,10 @@ export default function Header() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="text-lg font-serif text-cream hover:text-bridge-red transition-colors flex items-center justify-between"
+                  className="text-xl font-serif text-cream hover:text-bridge-red transition-colors flex items-center justify-between"
                 >
                   {link.name}
-                  <span className="text-[10px] font-mono text-cream/20">0{i + 1}</span>
+                  <span className="text-xs font-mono text-cream/20">0{i + 1}</span>
                 </motion.a>
               ))}
             </nav>
@@ -153,7 +153,7 @@ export default function Header() {
               </a>
               <button
                 onClick={() => handleScrollTo("#contact")}
-                className="w-full py-3 rounded bg-bridge-red text-cream text-xs font-mono tracking-widest uppercase hover:bg-bridge-red/90 transition-all text-center flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded bg-bridge-red text-cream text-sm font-mono tracking-widest uppercase hover:bg-bridge-red/90 transition-all text-center flex items-center justify-center gap-2"
               >
                 Schedule Consultation
                 <ArrowRight className="w-3.5 h-3.5" />
