@@ -21,6 +21,14 @@ interface SlideItem {
   bgPositionMobile?: string;
 }
 
+const getOptimizedHeroImage = (url: string, mobile: boolean) => {
+  if (!url) return "";
+  const dotIndex = url.lastIndexOf(".");
+  if (dotIndex === -1) return url;
+  const base = url.substring(0, dotIndex);
+  return `${base}-${mobile ? "mobile" : "desktop"}.webp`;
+};
+
 export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -164,7 +172,7 @@ export default function HeroSlider() {
             }}
           >
             <Image
-              src={`${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}${activeSlide.visualUrl}`}
+              src={`${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}${getOptimizedHeroImage(activeSlide.visualUrl, isMobile)}`}
               alt={activeSlide.tag}
               fill
               priority={activeSlide.id === 0}
