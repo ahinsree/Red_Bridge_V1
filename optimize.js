@@ -37,7 +37,7 @@ async function optimizeImages() {
     try {
       const metadata = await sharp(filePath).metadata();
       
-      // A. Generate optimized desktop WebP (Max width 1920px, quality 80)
+      // A. Generate optimized desktop WebP (Max width 1920px, quality 90)
       const desktopFilename = `${basename}-desktop.webp`;
       const desktopPath = path.join(imagesDir, desktopFilename);
       
@@ -46,13 +46,13 @@ async function optimizeImages() {
         desktopPipeline = desktopPipeline.resize(1920);
       }
       await desktopPipeline
-        .webp({ quality: 80, effort: 6 })
+        .webp({ quality: 90, effort: 6 })
         .toFile(desktopPath);
       
       const desktopSize = fs.statSync(desktopPath).size;
       console.log(`  -> Created desktop WebP: ${desktopFilename} (${Math.round(desktopSize / 1024)} KB)`);
       
-      // B. Generate optimized mobile WebP (Max width 800px, quality 70)
+      // B. Generate optimized mobile WebP (Max width 800px, quality 80)
       const mobileFilename = `${basename}-mobile.webp`;
       const mobilePath = path.join(imagesDir, mobileFilename);
       
@@ -61,7 +61,7 @@ async function optimizeImages() {
         mobilePipeline = mobilePipeline.resize(800);
       }
       await mobilePipeline
-        .webp({ quality: 70, effort: 6 })
+        .webp({ quality: 80, effort: 6 })
         .toFile(mobilePath);
         
       const mobileSize = fs.statSync(mobilePath).size;
