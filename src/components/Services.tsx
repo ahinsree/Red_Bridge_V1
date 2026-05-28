@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Compass, Users, Smile, Cpu, Database, Eye, LucideIcon, X, FileText, ArrowRight } from "lucide-react";
+import { Compass, Users, Cpu, LucideIcon, X, FileText, ArrowRight, Building2, Globe, GraduationCap } from "lucide-react";
 import ThreeDCard from "./ThreeDCard";
 import ThreeDWidget from "./ThreeDWidget";
 
@@ -21,74 +21,74 @@ export default function Services() {
   const services: ServiceItem[] = [
     {
       icon: Compass,
-      title: "Strategic Advisory",
-      desc: "Align executive leadership on high-stakes choices, market positioning, and corporate transformation pathways.",
-      details: ["Corporate Strategy", "Market Entry & Scaling", "Operating Model Design"],
+      title: "Strategy & Transformation",
+      desc: "Align corporate and institutional leadership on high-stakes choices, market positioning, and corporate transformation pathways.",
+      details: ["Corporate Strategy", "Operating Models", "Digital Core Design"],
       type: "strategy",
       briefing: [
-        "In high-stakes corporate situations, traditional slide decks fall short of managing operational reality. We bridge strategy with engineering validation to ensure leadership directives translate directly into execution.",
-        "Our strategic advisory helps organizations define operational models, evaluate market expansions, and align cross-functional priorities around measurable business impact.",
-        "By verifying choices using real-world data telemetry, executive leadership gains high-fidelity clarity before committing capital to long-term digital investments."
+        "In high-stakes corporate transformations, traditional advisory slide decks fail to account for software engineering realities. We bridge executive choices with code-level validation.",
+        "Our Strategic Transformation practice partners with enterprises to formulate operating model designs, execute legwork, and build high-performance leadership governance.",
+        "By reinforcing top-down direction with continuous data feedback loops, we ensure that digital strategies translate directly into verified operational velocity."
       ]
     },
     {
       icon: Users,
-      title: "Customer Experience (CX)",
-      desc: "Redesign the customer lifecycle, optimizing across channels to turn client satisfaction into recurring revenue growth.",
-      details: ["Journey Mapping", "Channel Strategy", "NPS Growth Engineering"],
+      title: "Experience Advisory",
+      desc: "Redesign the citizen and customer lifecycles across every touchpoint to unlock lifetime engagement and satisfaction indices.",
+      details: ["Customer Journeys", "Incentive Alignment", "Engagement Telemetry"],
       type: "cx",
       briefing: [
-        "Modern digital experiences are the primary engine of customer retention and advocacy. We redesign customer lifecycles across every brand touchpoint to build seamless omnichannel user journeys.",
-        "We deploy behavior telemetry pipelines and predictive CX dashboards that measure satisfaction indices (NPS, CSAT) in real-time, matching user interactions with engineering metrics.",
-        "By bridging design systems with fast-rendering clientside architectures, we enable platforms to deliver lag-free experiences that directly boost conversion and customer loyalty."
-      ]
-    },
-    {
-      icon: Smile,
-      title: "Employee Experience (EX)",
-      desc: "Align workforce incentives, culture, and workspaces to drive retention and attract elite global talent.",
-      details: ["Culture Audit & Reform", "Digital Workplace Architectures", "Incentive Alignment"],
-      type: "ex",
-      briefing: [
-        "Enterprise software friction degrades staff productivity and leads to engineering team burnout. We audit developer and workspace environments to build friction-free internal systems.",
-        "Our EX frameworks optimize local developer virtualization, streamline CI/CD compile cycles, and automate compliance workflows to reduce environment fatigue.",
-        "Optimizing employee experience lowers engineering workforce turn by up to 62%, preserving intellectual property and driving cleaner, faster software delivery to production."
-      ]
-    },
-    {
-      icon: Database,
-      title: "Data Engineering",
-      desc: "Architect enterprise ingestion systems, clean pipelines, and real-time streaming engines to unlock insight.",
-      details: ["Real-time Data Pipelines", "Cloud Ingestion Engines", "Enterprise Storage Fabric"],
-      type: "data",
-      briefing: [
-        "Enterprise scaling requires robust real-time data streaming engines, clean ingestion pipelines, and secure storage fabrics that serve consistent truth.",
-        "We architect high-throughput data pipelines that ingest telemetry streams from distributed nodes, maintaining ACID compliance and zero-loss guarantees under peak loads.",
-        "By organizing federated databases into structured data lakes, we allow business analysts and ML models to query signals with microsecond latency."
-      ]
-    },
-    {
-      icon: Eye,
-      title: "Experience Intelligence",
-      desc: "Deploy automated ML pipelines to convert customer behavioral signals directly into real-time business action.",
-      details: ["Signal-to-Insight AI", "Customer Intelligence hubs", "Predictive Retention Modeling"],
-      type: "intelligence",
-      briefing: [
-        "Transforming raw behavioral signals into commercial action requires automated, low-latency machine learning pipelines operating at the edge.",
-        "We construct Signal-to-Insight AI systems that track client interactions, model predictive retention scores, and trigger real-time custom product recommendations.",
-        "Our experience intelligence engines help enterprises anticipate user intent, mitigate customer churn, and orchestrate real-time behavioral personalization."
+        "Connecting customer-facing experiences with internal employee environments is crucial for long-term retention and efficiency. We sense organizational friction before it triggers churn.",
+        "We map and redesign critical customer and user touchpoints across physical and digital channels, deploying behavior analytics and NPS growth dashboards.",
+        "By aligning digital workplace architectures with employee incentives, we lower workforce friction and drive elite performance across operations."
       ]
     },
     {
       icon: Cpu,
-      title: "Digital Transformation",
-      desc: "Inject cutting-edge AI capability matrices directly into your existing enterprise software stacks.",
-      details: ["Legacy modernization", "Cloud Native migrations", "AI Platform Integrations"],
+      title: "AI & Digital Transformation",
+      desc: "Inject cutting-edge intelligence pipelines and secure generative AI structures directly into existing enterprise operations without data exposure.",
+      details: ["Safe AI Lattices", "Edge ML Runtimes", "Enterprise Systems Integration"],
+      type: "intelligence",
+      briefing: [
+        "Deploying advanced artificial intelligence into existing corporate frameworks requires a deep understanding of compliance, security, and integration challenges.",
+        "We architect secure generative AI models and custom edge ML runtimes, configuring guardrails that prevent data leakage and preserve proprietary intelligence.",
+        "Our teams bridge legacy software core systems with flexible LLM boundaries, helping enterprises automate processing tasks without losing operational control."
+      ]
+    },
+    {
+      icon: Building2,
+      title: "Public Sector & Government",
+      desc: "Modernize public services, policy workflows, and civic governance structures with resilient, compliant, and accessible frameworks.",
+      details: ["Policy Orchestration", "Civic Technology", "Infrastructure Governance"],
       type: "transformation",
       briefing: [
-        "Injecting advanced AI capability into legacy enterprise structures requires careful orchestration, cloud-native migration protocols, and robust gateway design.",
-        "We modernize old monolithic application nodes, moving workloads to elastic containerized services secured by zero-trust identity networks.",
-        "Our teams design and build safe AI platform integration boundaries, enabling teams to utilize large language models securely while preserving corporate data integrity."
+        "Public sector agencies operate under rigorous mandates of reliability, compliance, and accessibility. We design civic platforms that deserve public trust.",
+        "Our services modernize administrative services, automate case management workflows, and construct secure, high-concurrency public service gateways.",
+        "By adhering strictly to WCAG accessibility compliance standards, we deliver civic tech interfaces that empower communities and streamline institutional delivery."
+      ]
+    },
+    {
+      icon: Globe,
+      title: "Tourism & Destination Development",
+      desc: "Construct comprehensive tourism ecosystems, master destination plans, and immersive experiences built to scale and endure.",
+      details: ["Master Planning", "Experience Design", "Ecosystem Orchestration"],
+      type: "ex",
+      briefing: [
+        "Successful destinations are complex ecosystems requiring master planning, physical infrastructure integration, and immersive experience design.",
+        "We partner with regional and national governments to conduct feasibility analyses, layout regional corridor designs, and model visitor flows.",
+        "By connecting digital guides, sensory physical spaces, and robust hospitality networks, we convert master visions into sustainable, highly competitive visitor realities."
+      ]
+    },
+    {
+      icon: GraduationCap,
+      title: "Entrepreneurship, MSME & Skilling",
+      desc: "Architect skilling platforms, MSME capacity frameworks, and digital engines to drive grassroots economic momentum.",
+      details: ["Enterprise Scaling", "Skills Infrastructure", "Capacity Telemetry"],
+      type: "data",
+      briefing: [
+        "Sustaining grassroots economic growth requires modular entrepreneurship engines, streamlined credit verification, and scalable capacity-building infrastructures.",
+        "We engineer digital skilling systems, automate local MSME grant management pipelines, and build analytics hubs mapping economic momentum.",
+        "Our platforms help policy makers deploy, measure, and scale target skills training campaigns, empowering thousands of local micro-enterprises directly."
       ]
     }
   ];

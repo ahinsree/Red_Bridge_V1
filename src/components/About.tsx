@@ -28,6 +28,33 @@ export default function About() {
     },
   ];
 
+  const people = [
+    {
+      name: "Marcus Vance",
+      role: "Managing Partner // Strategy & Transformation",
+      bio: "Former Tier-1 advisory director specializing in institutional operating models, capital restructuring, and sovereign master planning.",
+      email: "m.vance@redbridgeadvisory.com",
+      linkedin: "linkedin.com/in/marcus-vance-rba",
+      initials: "MV"
+    },
+    {
+      name: "Dr. Evelyn Chen",
+      role: "Partner // AI & Digital Transformation",
+      bio: "Systems architect and former lead ML research engineer. Evelyn directs our secure enterprise intelligence and high-velocity data platforms.",
+      email: "e.chen@redbridgeadvisory.com",
+      linkedin: "linkedin.com/in/evelyn-chen-rba",
+      initials: "EC"
+    },
+    {
+      name: "Siddharth Rao",
+      role: "Partner // Destination & Experience Advisory",
+      bio: "Pioneer in tourism destination designs and grassroots economic ecosystems. Siddharth has orchestrated master corridor plans globally.",
+      email: "s.rao@redbridgeadvisory.com",
+      linkedin: "linkedin.com/in/siddharth-rao-rba",
+      initials: "SR"
+    }
+  ];
+
   return (
     <section id="about" className="py-24 px-6 md:px-8 max-w-7xl mx-auto border-t border-white/5 relative overflow-hidden">
       {/* Soft ambient background glow */}
@@ -36,7 +63,7 @@ export default function About() {
       {/* Grid Layout for Narrative & Pillars */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start relative z-10">
         
-        {/* Left Column: Narrative (5 cols) */}
+        {/* Left Column: Narrative (6 cols) */}
         <div className="lg:col-span-6 flex flex-col gap-6">
           <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-bridge-red uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-bridge-red animate-pulse" />
@@ -97,7 +124,89 @@ export default function About() {
             })}
           </div>
         </div>
+      </div>
 
+      {/* ════════════════════════════════════════
+           LEADERSHIP / PRINCIPAL ADVISORS
+         ════════════════════════════════════════ */}
+      <div className="w-full h-px bg-white/5 my-20 relative z-10" />
+
+      <div className="relative z-10">
+        <div className="flex flex-col items-start gap-4 mb-12">
+          <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-bridge-red uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-bridge-red animate-pulse" />
+            Leadership // 03
+          </div>
+          <h3 className="font-serif text-3xl md:text-4xl text-cream leading-tight">
+            Principal Leadership
+          </h3>
+          <p className="font-sans text-xs md:text-sm text-cream/50 max-w-xl leading-relaxed">
+            Elite strategic consultants, systems architects, and destination designers operating as a single unified force to steer compound enterprise results.
+          </p>
+        </div>
+
+        {/* Leadership Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {people.map((person, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="glass-panel rounded border border-white/5 hover:border-bridge-red/25 transition-all duration-500 group overflow-hidden flex flex-col justify-between hover:bg-white/2"
+            >
+              {/* Profile Card Header (Custom Silhouette) */}
+              <div className="relative w-full h-56 bg-black/35 flex items-center justify-center overflow-hidden border-b border-white/5">
+                {/* Tech blueprint background overlay */}
+                <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 bg-[radial-gradient(#FAFAF8_1px,transparent_1px)] bg-[size:10px_10px]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent z-10" />
+                
+                {/* SVG Stylized silhouette logo mark representing professional advisor */}
+                <svg className="w-24 h-24 text-cream/5 group-hover:text-bridge-red/10 group-hover:scale-105 transition-all duration-700 ease-out z-0" viewBox="0 0 100 100" fill="currentColor">
+                  <path d="M50 20 C61 20 70 29 70 40 C70 51 61 60 50 60 C39 60 30 51 30 40 C30 29 39 20 50 20 Z M50 65 C25 65 15 78 15 90 L85 90 C85 78 75 65 50 65 Z" />
+                </svg>
+
+                {/* Initials badge overlay */}
+                <div className="absolute bottom-4 right-4 w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs font-mono text-cream/40 group-hover:text-bridge-red group-hover:border-bridge-red/30 transition-all duration-500 z-20">
+                  {person.initials}
+                </div>
+              </div>
+
+              {/* Profile Card Body */}
+              <div className="p-6 flex-1 flex flex-col">
+                <h4 className="font-serif text-xl text-cream font-medium mb-1 group-hover:text-bridge-red transition-colors duration-300">
+                  {person.name}
+                </h4>
+                <div className="text-[9px] font-mono text-bridge-red uppercase tracking-widest mb-4">
+                  {person.role}
+                </div>
+                <p className="text-xs font-sans text-cream/60 leading-relaxed mb-6">
+                  {person.bio}
+                </p>
+              </div>
+
+              {/* Profile Card Footer */}
+              <div className="px-6 py-4 border-t border-white/5 flex gap-4 items-center">
+                <a
+                  href={`https://${person.linkedin}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-mono text-cream/40 hover:text-bridge-red transition-colors uppercase tracking-wider"
+                >
+                  LinkedIn
+                </a>
+                <span className="text-white/10 text-xs font-sans select-none">•</span>
+                <a
+                  href={`mailto:${person.email}`}
+                  className="text-[10px] font-mono text-cream/40 hover:text-bridge-red transition-colors uppercase tracking-wider"
+                >
+                  Brief
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import HeroSlider from "@/components/HeroSlider";
+import StatsBar from "@/components/StatsBar";
 import Services from "@/components/Services";
 import Industries from "@/components/Industries";
 import WhatWeDo from "@/components/WhatWeDo";
@@ -23,6 +24,9 @@ export default function Home() {
 
       {/* Hero Slider Carousel Section */}
       <HeroSlider />
+
+      {/* Quantitative Stats Bar */}
+      <StatsBar />
 
       {/* Marquee Section */}
       <section className="py-12 bg-black/20 border-y border-white/5 overflow-hidden w-full select-none relative z-10">

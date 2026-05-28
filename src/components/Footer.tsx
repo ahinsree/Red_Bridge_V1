@@ -53,16 +53,22 @@ export default function Footer() {
             </span>
             <ul className="flex flex-col gap-2.5 text-xs text-cream/60 font-sans">
               <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Strategic Advisory</a>
+                <a href="#services" className="hover:text-bridge-red transition-colors">Strategy &amp; Transformation</a>
               </li>
               <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Customer Experience (CX)</a>
+                <a href="#services" className="hover:text-bridge-red transition-colors">Experience Advisory</a>
               </li>
               <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Employee Experience (EX)</a>
+                <a href="#services" className="hover:text-bridge-red transition-colors">AI &amp; Digital Transformation</a>
               </li>
               <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Experience Intelligence</a>
+                <a href="#services" className="hover:text-bridge-red transition-colors">Public Sector &amp; Government</a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-bridge-red transition-colors">Tourism &amp; Destination Development</a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-bridge-red transition-colors">Entrepreneurship &amp; MSME</a>
               </li>
             </ul>
           </div>

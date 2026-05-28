@@ -4,13 +4,10 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Landmark,
-  Activity,
-  ShoppingBag,
   Cpu,
   Factory,
   Building2,
   Radio,
-  GraduationCap,
   ArrowUpRight,
   X,
   FileText,
@@ -60,192 +57,17 @@ export default function Industries() {
   const industries: IndustryItem[] = [
     {
       id: 1,
-      title: "Banking & Financial Services",
-      description: "High-velocity transformation and secure experience networks for global banks and financial institutions.",
-      icon: Landmark,
-      color: "from-bridge-red/20 to-transparent",
-      schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          {/* Tech Grid Gridlines */}
-          <path d="M 0 40 L 200 40 M 0 80 L 200 80 M 0 120 L 200 120 M 0 160 L 200 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200" stroke="rgba(250, 250, 248, 0.05)" strokeWidth="0.5" />
-          {/* Analytical coordinate lines */}
-          <line x1="20" y1="150" x2="180" y2="150" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" strokeDasharray="3 3" />
-          <line x1="30" y1="30" x2="30" y2="160" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" strokeDasharray="3 3" />
-          
-          {/* Dotted Trendline connecting the candle closes */}
-          <path d="M 50 120 L 80 125 L 110 80 L 140 90 L 170 48" fill="none" stroke="rgba(250, 250, 248, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
-
-          {/* Candle 1 (Bullish - White/Cream) */}
-          <line x1="50" y1="110" x2="50" y2="145" stroke="rgba(250, 250, 248, 0.4)" strokeWidth="0.75" />
-          <rect x="46" y="120" width="8" height="18" fill="rgba(250, 250, 248, 0.15)" stroke="rgba(250, 250, 248, 0.7)" strokeWidth="0.75" />
-
-          {/* Candle 2 (Bearish - Brand Red #C2192A) */}
-          <line x1="80" y1="90" x2="80" y2="135" stroke="rgba(194, 25, 42, 0.4)" strokeWidth="0.75" />
-          <rect x="76" y="100" width="8" height="25" fill="rgba(194, 25, 42, 0.15)" stroke="#C2192A" strokeWidth="0.75" />
-
-          {/* Candle 3 (Bullish - White/Cream) */}
-          <line x1="110" y1="70" x2="110" y2="115" stroke="rgba(250, 250, 248, 0.4)" strokeWidth="0.75" />
-          <rect x="106" y="80" width="8" height="25" fill="rgba(250, 250, 248, 0.15)" stroke="rgba(250, 250, 248, 0.7)" strokeWidth="0.75" />
-
-          {/* Candle 4 (Bearish - Brand Red #C2192A) */}
-          <line x1="140" y1="60" x2="140" y2="100" stroke="rgba(194, 25, 42, 0.4)" strokeWidth="0.75" />
-          <rect x="136" y="70" width="8" height="20" fill="rgba(194, 25, 42, 0.15)" stroke="#C2192A" strokeWidth="0.75" />
-
-          {/* Candle 5 (Bullish - White/Cream) */}
-          <line x1="170" y1="40" x2="170" y2="80" stroke="rgba(250, 250, 248, 0.4)" strokeWidth="0.75" />
-          <rect x="166" y="48" width="8" height="24" fill="rgba(250, 250, 248, 0.15)" stroke="rgba(250, 250, 248, 0.7)" strokeWidth="0.75" />
-
-          {/* Pulsing glow at the latest active close point */}
-          <circle cx="170" cy="48" r="3" fill="#C2192A" className="animate-pulse" />
-          
-          {/* Blueprint/Technical Decimals & Annotations */}
-          <text x="45" y="165" fill="rgba(250, 250, 248, 0.3)" fontFamily="monospace" fontSize="5.5">INDEX: RBX_8.04%</text>
-          <text x="135" y="30" fill="rgba(194, 25, 42, 0.8)" fontFamily="monospace" fontSize="5.5">HIGH: 184.20</text>
-          <text x="135" y="38" fill="rgba(250, 250, 248, 0.4)" fontFamily="monospace" fontSize="5.5">LOW: 120.45</text>
-          <text x="145" y="165" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">TRANS_LEDGER_SYS</text>
-        </svg>
-      ),
-      briefing: [
-        "The modern financial landscape demands a migration from legacy monolithic ledgers to distributed, real-time transaction fabrics that maintain ACID compliance at scale.",
-        "By implementing microsecond-latency event-driven architectures and edge-optimized verification, financial institutions can eliminate settle-phase friction, increase transaction throughput, and enhance security profiles.",
-        "Red Bridge works with global banking leaders to design resilient experience networks that bridge legacy cores with next-generation digital banking APIs."
-      ]
-    },
-    {
-      id: 2,
-      title: "Healthcare & Life Sciences",
-      description: "Digital health interfaces and data fabrics connecting providers, researchers, and patients.",
-      icon: Activity,
-      color: "from-bridge-red/20 to-transparent",
-      schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          <path d="M 20 100 L 180 100" stroke="rgba(250,250,248,0.05)" strokeWidth="0.5" strokeDasharray="4 4" />
-          {/* DNA Double Helix structure */}
-          <path d="M 30 100 Q 55 50 80 100 T 130 100 T 180 100" fill="none" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="1" />
-          <path d="M 30 100 Q 55 150 80 100 T 130 100 T 180 100" fill="none" stroke="#C2192A" strokeWidth="1" />
-          {/* Connecting Base pairs */}
-          <line x1="55" y1="75" x2="55" y2="125" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.75" />
-          <line x1="80" y1="100" x2="80" y2="100" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.75" />
-          <line x1="105" y1="75" x2="105" y2="125" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.75" />
-          <line x1="155" y1="75" x2="155" y2="125" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.75" />
-          {/* Pulsing health monitor scanner lines */}
-          <circle cx="55" cy="75" r="2" fill="#FAFAF8" />
-          <circle cx="55" cy="125" r="2" fill="#C2192A" />
-          <circle cx="105" cy="125" r="2.5" fill="#C2192A" className="animate-pulse" />
-          {/* Metadata labels */}
-          <text x="30" y="45" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">GEN_SEQUENCE: AT-CG-TA</text>
-          <text x="30" y="165" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">DATA_FABRIC_NODE_L4</text>
-        </svg>
-      ),
-      briefing: [
-        "Connecting disparate clinical data silos requires a high-performance, compliant data fabric that guarantees interoperability without sacrificing patient privacy.",
-        "We deploy secure experience networks and unified patient interfaces that combine electronic health records, diagnostic telemetry, and clinical trial datasets in real time.",
-        "By optimizing query performance across federated health networks, we enable researchers and practitioners to collaborate at the speed of thought."
-      ]
-    },
-    {
-      id: 3,
-      title: "Retail & E-Commerce",
-      description: "Unified omnichannel experiences and consumer analytics mapping the modern customer journey.",
-      icon: ShoppingBag,
-      color: "from-bridge-red/20 to-transparent",
-      schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          <circle cx="100" cy="100" r="60" stroke="rgba(250, 250, 248, 0.05)" strokeWidth="0.75" />
-          <circle cx="100" cy="100" r="35" stroke="rgba(250, 250, 248, 0.03)" strokeWidth="0.5" />
-          {/* Retail Global Connection Arcs */}
-          <path d="M 40 100 A 60 60 0 0 1 160 100" fill="none" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" strokeDasharray="3 2" />
-          <path d="M 100 40 A 60 60 0 0 1 100 160" fill="none" stroke="#C2192A" strokeWidth="1" />
-          {/* E-commerce grid charts */}
-          <rect x="75" y="85" width="12" height="30" fill="rgba(250,250,248,0.06)" stroke="rgba(250,250,248,0.15)" strokeWidth="0.5" />
-          <rect x="94" y="70" width="12" height="45" fill="rgba(194,25,42,0.1)" stroke="#C2192A" strokeWidth="0.5" />
-          <rect x="113" y="60" width="12" height="55" fill="rgba(250,250,248,0.06)" stroke="rgba(250,250,248,0.15)" strokeWidth="0.5" />
-          <circle cx="100" cy="40" r="2.5" fill="#FAFAF8" />
-          <circle cx="160" cy="100" r="2.5" fill="#C2192A" />
-          <text x="30" y="30" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">OMNICHANNEL_MAP_V3</text>
-          <text x="30" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">CONSUMER_NPS: +84%</text>
-        </svg>
-      ),
-      briefing: [
-        "Modern commerce is defined by omnichannel orchestration—delivering seamless, personalized experiences across physical, web, mobile, and conversational interfaces.",
-        "Through sub-second data streaming and predictive customer analytics, we help retailers map and respond to user behavior at every touchpoint of their buying journey.",
-        "Our architectures ensure high-concurrency cart processing, real-time inventory synchronization, and AI-driven personalization engines that boost conversion rates."
-      ]
-    },
-    {
-      id: 4,
-      title: "Technology & SaaS",
-      description: "Enterprise-grade product advisory, AI integration, and scalable data intelligence platforms.",
-      icon: Cpu,
-      color: "from-bridge-red/20 to-transparent",
-      schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          <rect x="65" y="65" width="70" height="70" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" />
-          {/* Chip circuit pins */}
-          <path d="M 65 75 L 50 75 M 65 90 L 50 90 M 65 105 L 50 105 M 65 120 L 50 120 M 135 75 L 150 75 M 135 90 L 150 90 M 135 105 L 150 105 M 135 120 L 150 120 M 75 65 L 75 50 M 90 65 L 90 50 M 105 65 L 105 50 M 120 65 L 120 50 M 75 135 L 75 150 M 90 135 L 90 150 M 105 135 L 105 150 M 120 135 L 120 150" stroke="rgba(250,250,248,0.15)" strokeWidth="0.75" />
-          {/* Central CPU matrix core */}
-          <rect x="75" y="75" width="50" height="50" fill="rgba(194, 25, 42, 0.05)" stroke="#C2192A" strokeWidth="1" />
-          {/* Neural link connections */}
-          <line x1="100" y1="75" x2="100" y2="125" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.5" />
-          <line x1="75" y1="100" x2="125" y2="100" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.5" />
-          {/* Pulsing core nodes */}
-          <circle cx="100" cy="100" r="4" fill="#C2192A" className="animate-pulse" />
-          <circle cx="85" cy="85" r="2.5" fill="#FAFAF8" />
-          <circle cx="115" cy="115" r="2.5" fill="#FAFAF8" />
-          <text x="25" y="30" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">AI_ENGINE_CORE_v1.0</text>
-          <text x="135" y="170" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">NODE_SYS: OK</text>
-        </svg>
-      ),
-      briefing: [
-        "Scaling SaaS platforms requires robust engineering design patterns, sub-second API performance, and reliable AI integration capabilities.",
-        "We advise technology organizations on re-architecting their systems for elastic scale, building secure multitenant frameworks, and establishing zero-trust access controls.",
-        "By standardizing telemetry data pipelines and reducing build-to-deploy loop latencies, we optimize developer experience and engineering velocity."
-      ]
-    },
-    {
-      id: 5,
-      title: "Manufacturing & Industrial",
-      description: "Smart factory automation, digital twins, and connected value chain experiences.",
-      icon: Factory,
-      color: "from-bridge-red/20 to-transparent",
-      schematic: (
-        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          {/* Isometric smart factory floor layout */}
-          <path d="M 100 30 L 170 70 L 100 110 L 30 70 Z" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
-          <path d="M 100 80 L 170 120 L 100 160 L 30 120 Z" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
-          {/* Connecting structural pillar lines */}
-          <line x1="30" y1="70" x2="30" y2="120" stroke="rgba(250,250,248,0.05)" strokeWidth="0.75" />
-          <line x1="100" y1="110" x2="100" y2="160" stroke="#C2192A" strokeWidth="0.75" />
-          <line x1="170" y1="70" x2="170" y2="120" stroke="rgba(250,250,248,0.05)" strokeWidth="0.75" />
-          {/* Automation loops */}
-          <circle cx="100" cy="70" r="3" fill="#C2192A" className="animate-pulse" />
-          <circle cx="135" cy="95" r="2.5" fill="#FAFAF8" />
-          <circle cx="65" cy="95" r="2.5" fill="#FAFAF8" />
-          <text x="30" y="25" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">DIGITAL_TWIN: ACTIVE</text>
-          <text x="110" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">SCALE: 1:500</text>
-        </svg>
-      ),
-      briefing: [
-        "Industry 4.0 leverages digital twins and real-time sensor streams to optimize factory floor operations, minimize downtime, and manage value chain supply lines.",
-        "Our solutions construct unified industrial data fabrics that ingest high-velocity IoT telemetry, perform predictive anomaly detection, and orchestrate maintenance workflows.",
-        "By bridging operational technology (OT) with enterprise software, we unlock unparalleled visibility and operational efficiency."
-      ]
-    },
-    {
-      id: 6,
       title: "Government & Public Sector",
-      description: "Smart city infrastructure and civic technology platforms delivering trusted public services.",
+      description: "Smart city systems, open-data frameworks, and resilient civic portals delivering trusted public services.",
       icon: Building2,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
         <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          {/* Smart city mesh network */}
           <polygon points="100,30 150,75 130,140 70,140 50,75" stroke="rgba(250,250,248,0.08)" strokeWidth="0.75" />
           <line x1="100" y1="30" x2="100" y2="140" stroke="rgba(250,250,248,0.1)" strokeWidth="0.5" />
           <line x1="50" y1="75" x2="150" y2="75" stroke="#C2192A" strokeWidth="0.75" />
           <line x1="70" y1="140" x2="150" y2="75" stroke="rgba(250,250,248,0.05)" strokeWidth="0.5" />
           <line x1="130" y1="140" x2="50" y2="75" stroke="rgba(250,250,248,0.05)" strokeWidth="0.5" />
-          {/* Node hubs */}
           <circle cx="100" cy="30" r="3" fill="#FAFAF8" />
           <circle cx="50" cy="75" r="2.5" fill="#C2192A" />
           <circle cx="150" cy="75" r="2.5" fill="#C2192A" />
@@ -255,27 +77,25 @@ export default function Industries() {
         </svg>
       ),
       briefing: [
-        "Public sector digital transformation requires resilient, accessible, and secure citizen-facing portals built on modern cloud-native infrastructures.",
-        "We build smart city networks, open-data pipelines, and identity federation architectures that prioritize accessibility, trust, and scalability.",
-        "Our design system approach guarantees compliance with international accessibility standards (WCAG) while delivering responsive, clean public services."
+        "Public sector agencies operate under high standards of accessibility, data transparency, and structural resilience.",
+        "We deploy secure citizen portals, municipal data sharing fabrics, and cloud-native database architectures that align with stringent policy requirements.",
+        "Our design solutions guarantee universal accessibility compliance (WCAG) while delivering smooth, modern services to hundreds of thousands of users."
       ]
     },
     {
-      id: 7,
-      title: "Telecommunications",
-      description: "High-speed network analytics and 5G experience transformation connecting global domains.",
+      id: 2,
+      title: "Tourism & Hospitality",
+      description: "Comprehensive master planning, destination flow telemetry, and seamless visitor experience networks.",
       icon: Radio,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
         <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
           <circle cx="100" cy="110" r="6" fill="rgba(194,25,42,0.3)" stroke="#C2192A" strokeWidth="1" />
           <circle cx="100" cy="110" r="2" fill="#FAFAF8" />
-          {/* Transmission towers and 5G wave propagation arcs */}
           <path d="M 85 95 A 20 20 0 0 1 115 95" stroke="rgba(250,250,248,0.12)" strokeWidth="0.75" />
           <path d="M 75 85 A 35 35 0 0 1 125 85" stroke="#C2192A" strokeWidth="0.75" />
           <path d="M 60 70 A 55 55 0 0 1 140 70" stroke="rgba(250,250,248,0.06)" strokeWidth="0.5" />
           <path d="M 45 55 A 75 75 0 0 1 155 55" stroke="rgba(250,250,248,0.04)" strokeWidth="0.5" />
-          {/* Network coordinate nodes */}
           <line x1="100" y1="110" x2="100" y2="160" stroke="rgba(250,250,248,0.2)" strokeWidth="0.75" />
           <line x1="100" y1="110" x2="60" y2="40" stroke="rgba(250,250,248,0.05)" strokeWidth="0.5" strokeDasharray="2 2" />
           <line x1="100" y1="110" x2="140" y2="40" stroke="rgba(250,250,248,0.05)" strokeWidth="0.5" strokeDasharray="2 2" />
@@ -286,41 +106,98 @@ export default function Industries() {
         </svg>
       ),
       briefing: [
-        "The rollout of 5G networks unlocks ultra-low latency applications, requiring next-generation edge computing architectures and real-time traffic analysis.",
-        "We design high-throughput network monitoring interfaces and predictive load-balancing frameworks that operate at the packet level.",
-        "By optimizing data plane performance and visual telemetry, telecom operators can locate network bottlenecks and deliver premium quality of service."
+        "The global hospitality and tourism landscape requires a radical integration of digital experiences and physical spaces.",
+        "We construct destination design frameworks, analyze visitor flow telemetry, and implement unified booking and discovery lattices.",
+        "By optimizing the traveler lifecycle across physical and digital platforms, we help governments and operators build enduring, highly competitive destinations."
       ]
     },
     {
-      id: 8,
-      title: "Education & Learning",
-      description: "Interactive digital learning environments and knowledge network intelligence engines.",
-      icon: GraduationCap,
+      id: 3,
+      title: "Infrastructure & Real Estate",
+      description: "Smart asset optimization, digital twins, and connected operating models for high-scale environments.",
+      icon: Factory,
       color: "from-bridge-red/20 to-transparent",
       schematic: (
         <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
-          {/* Knowledge network matrix map */}
-          <circle cx="100" cy="80" r="30" stroke="rgba(250,250,248,0.08)" strokeWidth="0.75" strokeDasharray="3 3" />
-          <line x1="100" y1="80" x2="50" y2="130" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
-          <line x1="100" y1="80" x2="150" y2="130" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
-          <line x1="100" y1="80" x2="100" y2="40" stroke="#C2192A" strokeWidth="0.75" />
-          <polygon points="100,28 106,40 94,40" fill="#C2192A" />
-          {/* Academic data nodes */}
-          <circle cx="100" cy="80" r="4.5" fill="rgba(194,25,42,0.2)" stroke="#C2192A" strokeWidth="1" className="animate-pulse" />
-          <circle cx="100" cy="80" r="1.5" fill="#FAFAF8" />
-          <circle cx="50" cy="130" r="3" fill="#FAFAF8" />
-          <circle cx="150" cy="130" r="3" fill="#C2192A" />
-          {/* Tech annotations */}
-          <text x="30" y="25" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">KNOWLEDGE_LINK_ENGINE</text>
-          <text x="30" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">PROP_SCORE: 0.994</text>
+          <path d="M 100 30 L 170 70 L 100 110 L 30 70 Z" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
+          <path d="M 100 80 L 170 120 L 100 160 L 30 120 Z" stroke="rgba(250,250,248,0.1)" strokeWidth="0.75" />
+          <line x1="30" y1="70" x2="30" y2="120" stroke="rgba(250,250,248,0.05)" strokeWidth="0.75" />
+          <line x1="100" y1="110" x2="100" y2="160" stroke="#C2192A" strokeWidth="0.75" />
+          <line x1="170" y1="70" x2="170" y2="120" stroke="rgba(250,250,248,0.05)" strokeWidth="0.75" />
+          <circle cx="100" cy="70" r="3" fill="#C2192A" className="animate-pulse" />
+          <circle cx="135" cy="95" r="2.5" fill="#FAFAF8" />
+          <circle cx="65" cy="95" r="2.5" fill="#FAFAF8" />
+          <text x="30" y="25" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">DIGITAL_TWIN: ACTIVE</text>
+          <text x="110" y="175" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">SCALE: 1:500</text>
         </svg>
       ),
       briefing: [
-        "Next-generation education platforms leverage adaptive learning algorithms and rich visual interfaces to create personalized student outcomes.",
-        "We build unified educational portals and knowledge graph engines that track student engagement, tailor content delivery, and streamline administration.",
-        "Our architectures are designed for high-concurrency classroom environments, ensuring seamless live video feeds, real-time collaborations, and accessible learning tools."
+        "Managing high-scale real estate portfolios and physical infrastructures requires continuous telemetry and digital twin models.",
+        "We design smart asset architectures that combine IoT sensor streams, energy telemetry, and maintenance dispatch workflows.",
+        "By building digital replicas of complex systems, we enable operators to achieve massive energy efficiencies and minimize lifecycle maintenance costs."
       ]
     },
+    {
+      id: 4,
+      title: "Financial Services",
+      description: "Microsecond-latency event ledgers and transaction networks for modern banking and financial operations.",
+      icon: Landmark,
+      color: "from-bridge-red/20 to-transparent",
+      schematic: (
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
+          <path d="M 0 40 L 200 40 M 0 80 L 200 80 M 0 120 L 200 120 M 0 160 L 200 160 M 40 0 L 40 200 M 80 0 L 80 200 M 120 0 L 120 200 M 160 0 L 160 200" stroke="rgba(250, 250, 248, 0.05)" strokeWidth="0.5" />
+          <line x1="20" y1="150" x2="180" y2="150" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" strokeDasharray="3 3" />
+          <line x1="30" y1="30" x2="30" y2="160" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" strokeDasharray="3 3" />
+          <path d="M 50 120 L 80 125 L 110 80 L 140 90 L 170 48" fill="none" stroke="rgba(250, 250, 248, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
+          <line x1="50" y1="110" x2="50" y2="145" stroke="rgba(250, 250, 248, 0.4)" strokeWidth="0.75" />
+          <rect x="46" y="120" width="8" height="18" fill="rgba(250, 250, 248, 0.15)" stroke="rgba(250, 250, 248, 0.7)" strokeWidth="0.75" />
+          <line x1="80" y1="90" x2="80" y2="135" stroke="rgba(194, 25, 42, 0.4)" strokeWidth="0.75" />
+          <rect x="76" y="100" width="8" height="25" fill="rgba(194, 25, 42, 0.15)" stroke="#C2192A" strokeWidth="0.75" />
+          <line x1="110" y1="70" x2="110" y2="115" stroke="rgba(250, 250, 248, 0.4)" strokeWidth="0.75" />
+          <rect x="106" y="80" width="8" height="25" fill="rgba(250, 250, 248, 0.15)" stroke="rgba(250, 250, 248, 0.7)" strokeWidth="0.75" />
+          <line x1="140" y1="60" x2="140" y2="100" stroke="rgba(194, 25, 42, 0.4)" strokeWidth="0.75" />
+          <rect x="136" y="70" width="8" height="20" fill="rgba(194, 25, 42, 0.15)" stroke="#C2192A" stroke-width="0.75" />
+          <line x1="170" y1="40" x2="170" y2="80" stroke="rgba(250, 250, 248, 0.4)" strokeWidth="0.75" />
+          <rect x="166" y="48" width="8" height="24" fill="rgba(250, 250, 248, 0.15)" stroke="rgba(250, 250, 248, 0.7)" strokeWidth="0.75" />
+          <circle cx="170" cy="48" r="3" fill="#C2192A" className="animate-pulse" />
+          <text x="45" y="165" fill="rgba(250, 250, 248, 0.3)" fontFamily="monospace" fontSize="5.5">INDEX: RBX_8.04%</text>
+          <text x="135" y="30" fill="rgba(194, 25, 42, 0.8)" fontFamily="monospace" fontSize="5.5">HIGH: 184.20</text>
+          <text x="135" y="38" fill="rgba(250, 250, 248, 0.4)" fontFamily="monospace" fontSize="5.5">LOW: 120.45</text>
+          <text x="145" y="165" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">TRANS_LEDGER_SYS</text>
+        </svg>
+      ),
+      briefing: [
+        "Banking and financial operations require secure, high-concurrency transaction cores that guarantee real-time data consistency.",
+        "We engineer secure ledgers, design edge payment verification interfaces, and optimize processing pipeline latencies.",
+        "Our strategic integrations help financial leaders safely bridge legacy backend databases with high-speed digital banking APIs."
+      ]
+    },
+    {
+      id: 5,
+      title: "Technology & Digital",
+      description: "Enterprise product advisory, AI infrastructure integration, and scalable data intelligence platforms.",
+      icon: Cpu,
+      color: "from-bridge-red/20 to-transparent",
+      schematic: (
+        <svg viewBox="0 0 200 200" fill="none" className="absolute inset-0 w-full h-full card-schematic transition-opacity duration-1000">
+          <rect x="65" y="65" width="70" height="70" stroke="rgba(250, 250, 248, 0.15)" strokeWidth="0.75" />
+          <path d="M 65 75 L 50 75 M 65 90 L 50 90 M 65 105 L 50 105 M 65 120 L 50 120 M 135 75 L 150 75 M 135 90 L 150 90 M 135 105 L 150 105 M 135 120 L 150 120 M 75 65 L 75 50 M 90 65 L 90 50 M 105 65 L 105 50 M 120 65 L 120 50 M 75 135 L 75 150 M 90 135 L 90 150 M 105 135 L 105 150 M 120 135 L 120 150" stroke="rgba(250,250,248,0.15)" strokeWidth="0.75" />
+          <rect x="75" y="75" width="50" height="50" fill="rgba(194, 25, 42, 0.05)" stroke="#C2192A" strokeWidth="1" />
+          <line x1="100" y1="75" x2="100" y2="125" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.5" />
+          <line x1="75" y1="100" x2="125" y2="100" stroke="rgba(250, 250, 248, 0.1)" strokeWidth="0.5" />
+          <circle cx="100" cy="100" r="4" fill="#C2192A" className="animate-pulse" />
+          <circle cx="85" cy="85" r="2.5" fill="#FAFAF8" />
+          <circle cx="115" cy="115" r="2.5" fill="#FAFAF8" />
+          <text x="25" y="30" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">AI_ENGINE_CORE_v1.0</text>
+          <text x="135" y="170" fill="rgba(250, 250, 248, 0.2)" fontFamily="monospace" fontSize="5">NODE_SYS: OK</text>
+        </svg>
+      ),
+      briefing: [
+        "Building scalable SaaS products and integrating artificial intelligence requires robust system structures and low latency architectures.",
+        "We advise high-growth technology platforms on multi-tenant core refactorings, zero-trust cloud security, and database design.",
+        "Our teams accelerate developer velocity by standardizing build telemetry pipelines and reducing compile-to-deploy loop cycle times."
+      ]
+    }
   ];
 
   return (

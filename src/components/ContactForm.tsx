@@ -9,7 +9,7 @@ export default function ContactForm() {
     name: "",
     email: "",
     org: "",
-    capability: "Strategic Advisory",
+    capability: "Strategy & Transformation",
     message: ""
   });
   
@@ -17,11 +17,12 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const capabilities = [
-    "Strategic Advisory",
-    "Customer Experience",
-    "Employee Experience",
-    "Data Engineering",
-    "AI Insights"
+    "Strategy & Transformation",
+    "Experience Advisory",
+    "AI & Digital Transformation",
+    "Public Sector & Government",
+    "Tourism & Destination Development",
+    "Entrepreneurship, MSME & Skilling"
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
