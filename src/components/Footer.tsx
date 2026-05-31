@@ -15,7 +15,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <div className="container">
+      <div className="footer__container">
         <div className="footer__grid">
           <div className="footer__brand">
             <div className="footer__logo">
