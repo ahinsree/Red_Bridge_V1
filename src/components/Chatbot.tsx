@@ -158,34 +158,34 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="fixed bottom-24 right-6 w-[310px] sm:w-[350px] h-[430px] glass-panel-glow rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-2xl"
+            className="fixed bottom-24 right-6 w-[310px] sm:w-[350px] h-[460px] glass-panel-glow rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-2xl"
           >
             {/* Header */}
-            <div className="p-4 border-b border-white/5 flex items-center justify-between bg-black/40">
+            <div className="p-4 border-b border-black/10 flex items-center justify-between bg-[#EDEAE2]">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-bridge-red/20 border border-bridge-red flex items-center justify-center text-bridge-red">
-                  <Sparkles className="w-4 h-4 animate-pulse" />
+                <div className="w-8 h-8 rounded-full bg-bridge-red/10 border border-bridge-red/25 flex items-center justify-center text-bridge-red">
+                  <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-sm font-semibold tracking-wide text-cream">
+                  <h4 className="font-serif text-sm font-semibold tracking-wide text-navy">
                     AI Advisor
                   </h4>
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-green-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-bridge-red/80">
+                    <span className="w-1.5 h-1.5 rounded-full bg-bridge-red animate-pulse" />
                     Online • Advisory Engine
                   </div>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-cream/40 hover:text-cream/80 transition-colors cursor-pointer"
+                className="text-navy/60 hover:text-navy transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Message Log */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-black/20">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#FAFAF8]/30">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -201,88 +201,55 @@ export default function Chatbot() {
                     }
                   >
                     <p className="whitespace-pre-line">{msg.text}</p>
-                    <span className="block text-[9px] text-cream/40 mt-1.5 font-mono text-right">
+                    <span className={`block text-[9px] mt-1.5 font-mono text-right ${msg.sender === "user" ? "text-white/60" : "text-navy/40"}`}>
                       {msg.timestamp}
                     </span>
                   </div>
                 </div>
               ))}
 
-              {/* Static Services Guide (Only shows when no active user conversations have happened yet) */}
+              {/* Static Practice Areas List (Only shows when no active user conversations have happened yet) */}
               {messages.length === 1 && (
-                <div className="pt-1.5 space-y-3">
-                  {/* Core Services Section */}
-                  <div className="space-y-1">
-                    <div className="text-[9.5px] font-mono tracking-widest text-bridge-red uppercase font-semibold">
-                      Core Services
-                    </div>
-                    <div className="grid grid-cols-1 gap-1.5">
-                      <button
-                        onClick={() => handleSend("Tell me about your Strategic Advisory services.")}
-                        className="chat-service-card"
-                        style={{ padding: "8px 10px" }}
-                      >
-                        <h5 className="text-[10px] font-serif font-semibold text-cream">Strategy &amp; Transformation</h5>
-                        <p className="text-[9px] text-cream/60 leading-normal mt-0.5">High-stakes corporate strategy &amp; capability design.</p>
-                      </button>
-                      <button
-                        onClick={() => handleSend("What is AI-driven Experience Intelligence?")}
-                        className="chat-service-card"
-                        style={{ padding: "8px 10px" }}
-                      >
-                        <h5 className="text-[10px] font-serif font-semibold text-cream">AI &amp; Digital</h5>
-                        <p className="text-[9px] text-cream/60 leading-normal mt-0.5">Custom predictive AI models &amp; robust data engineering.</p>
-                      </button>
-                      <button
-                        onClick={() => handleSend("How do you approach Customer Experience?")}
-                        className="chat-service-card"
-                        style={{ padding: "8px 10px" }}
-                      >
-                        <h5 className="text-[10px] font-serif font-semibold text-cream">Experience Advisory</h5>
-                        <p className="text-[9px] text-cream/60 leading-normal mt-0.5">Customer &amp; employee journeys linked to financial metrics.</p>
-                      </button>
-                    </div>
+                <div className="pt-2.5 space-y-3">
+                  <div className="text-[9.5px] font-mono tracking-widest text-[#B22030] uppercase font-bold">
+                    Advisory Practice Areas
                   </div>
-
-                  {/* Key Sectors Section */}
-                  <div className="space-y-1">
-                    <div className="text-[9.5px] font-mono tracking-widest text-bridge-red uppercase font-semibold">
-                      Key Sectors
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      <button
-                        onClick={() => handleSend("What public sector government systems do you serve?")}
-                        className="chat-service-card"
-                        style={{ padding: "6px 8px" }}
-                      >
-                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Govt &amp; Public</h5>
-                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">Agile infrastructure.</p>
-                      </button>
-                      <button
-                        onClick={() => handleSend("What banking and financial services do you serve?")}
-                        className="chat-service-card"
-                        style={{ padding: "6px 8px" }}
-                      >
-                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Finance &amp; Banking</h5>
-                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">Secure transactions.</p>
-                      </button>
-                      <button
-                        onClick={() => handleSend("What retail and healthcare systems do you serve?")}
-                        className="chat-service-card"
-                        style={{ padding: "6px 8px" }}
-                      >
-                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Retail &amp; Health</h5>
-                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">Clinical data pipelines.</p>
-                      </button>
-                      <button
-                        onClick={() => handleSend("What travel tourism and MSME sectors do you serve?")}
-                        className="chat-service-card"
-                        style={{ padding: "6px 8px" }}
-                      >
-                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Tourism &amp; MSME</h5>
-                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">National growth models.</p>
-                      </button>
-                    </div>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => handleSend("Tell me about your Strategy & Transformation services.")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug">01 Strategy &amp; Transformation</h5>
+                      <p className="text-[9px] leading-normal mt-0.5">Directional clarity, operating model design, and delivery.</p>
+                    </button>
+                    <button
+                      onClick={() => handleSend("What AI & Digital services do you provide?")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug">02 AI &amp; Digital</h5>
+                      <p className="text-[9px] leading-normal mt-0.5">Genuine readiness, capability assessment, and governance design.</p>
+                    </button>
+                    <button
+                      onClick={() => handleSend("Tell me about your Experience Advisory practice.")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug">03 Experience Advisory</h5>
+                      <p className="text-[9px] leading-normal mt-0.5">Human-centred customer and employee journey mapping.</p>
+                    </button>
+                    <button
+                      onClick={() => handleSend("Tell me about your Institutional Transformation practice.")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug">04 Institutional Transformation</h5>
+                      <p className="text-[9px] leading-normal mt-0.5">Structural change, reform, and capacity building for government.</p>
+                    </button>
+                    <button
+                      onClick={() => handleSend("Tell me about your Investment & Economic Advisory practice.")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug">05 Investment &amp; Economic Advisory</h5>
+                      <p className="text-[9px] leading-normal mt-0.5">Investment feasibility, economic growth, and policy design.</p>
+                    </button>
                   </div>
                 </div>
               )}
@@ -290,9 +257,9 @@ export default function Chatbot() {
               {isTyping && (
                 <div className="flex justify-start">
                   <div className="chat-bubble-bot flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cream/40 animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-cream/40 animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-cream/40 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-navy/40 animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-navy/40 animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-navy/40 animate-bounce" style={{ animationDelay: "300ms" }} />
                   </div>
                 </div>
               )}
@@ -300,7 +267,7 @@ export default function Chatbot() {
             </div>
 
             {/* Quick replies & Input Panel */}
-            <div className="p-3 border-t border-white/5 bg-black/35 flex flex-col gap-3">
+            <div className="p-3 border-t border-black/10 bg-[#EDEAE2]/45 flex flex-col gap-3">
               {/* Quick Replies */}
               <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-none">
                 {quickReplies.map((reply, i) => (
@@ -327,7 +294,7 @@ export default function Chatbot() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Ask a strategic question..."
-                  className="flex-1 bg-transparent text-xs text-cream outline-none placeholder-cream/30 py-1"
+                  className="flex-1 bg-transparent text-xs text-navy outline-none placeholder-[#1B263B]/40 py-1"
                 />
                 <button
                   type="submit"
