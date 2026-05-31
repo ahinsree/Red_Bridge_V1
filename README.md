@@ -22,27 +22,51 @@ Open [http://localhost:3000](http://localhost:3000) to view the portal.
 
 ## ✍️ Content & Portal Operations Guide
 
-The website is designed for **Git-based content management** (short-term, low-frequency updates). You can update text, articles, navigation order, and interactive AI responses directly inside the codebase.
+The website is designed for modern **Content Management (CMS)** and **Git-based portal operations**. You can update articles, AI chatbot interactions, navigation order, and styling options using visual dashboards or code.
 
-### 1. Managing Insights (Briefings & Articles)
-Articles listed in the **Insights Ledger** are managed in [src/data/insights.ts](file:///Users/ahinsree/Developer/Red_Bridge_/src/data/insights.ts). 
+### 1. Managing Insights (Content Management System)
 
-To add or update an article, open that file and add a new entry to the `insightsData` array matching the schema:
+Articles and briefings inside the **Insights** section are fully managed using **Decap CMS**. This allows non-technical editors to visually author, edit, and publish content without modifying code files.
 
-```typescript
-{
-  id: "article-slug-url-safe",                 // Unique string id (e.g. "my-article")
-  category: "Strategic Governance",            // Category tag displayed above title
-  daysAgo: 2,                                  // Number of days ago published (used for relative date generation)
-  title: "The Slide Deck Fallacy...",          // Main headline
-  summary: "Traditional advisory firms...",    // Brief description (2-3 sentences)
-  author: "Red Bridge Research",               // Author signature
-  imageUrl: "/images/insight_strategy.png",    // Optional: relative path to public graphic asset
-  content: [                                   // Paragraph content text array for detail drawer
-    "Traditional advisory firms deliver...",
-    "..."
-  ]
-}
+#### A. Accessing the Content Manager
+* **In Production**: Go to `https://<your-domain>/admin/` (or your live domain) and log in with your Git credentials.
+* **In Local Development**: 
+  1. Open a terminal inside the project directory and start the local CMS proxy:
+     ```bash
+     npx decap-server
+     ```
+  2. In another terminal, run your normal dev server:
+     ```bash
+     npm run dev
+     ```
+  3. Navigate to `http://localhost:3000/admin/`.
+
+#### B. Adding and Editing Essays
+1. **Create New**: Click the **New Insights** button in the dashboard, or click on an existing post to edit it.
+2. **Fill Collection Fields**:
+   * **Title**: The primary headline for the essay.
+   * **Publish Date**: The date when this essay should be chronologically listed (YYYY-MM-DD).
+   * **Category**: The tag label displayed above the title (e.g. `Strategy`, `Leadership · Essay`).
+   * **Featured Essay?**: Click this toggle to display this post as the large featured column on the left. (Note: Only one essay should have this toggle enabled at a time; all other essays are displayed in the links list on the right).
+   * **Excerpt**: A brief summary of the essay (2-3 sentences) used on the landing card.
+   * **Cover Image**: Upload an image. The CMS automatically saves the file inside the repository under `public/images/uploads/` and links it securely.
+   * **Body**: The rich-text markdown editor where you write the core paragraphs of your briefing.
+3. **Publishing**: Click the **Publish** button at the top of the interface.
+   * *Local Dev*: Writes a formatted `.md` file under `src/data/insights/` instantly.
+   * *Production*: Commits a `.md` file directly to the `main` branch of your GitHub repository. The automated **GitHub Pages action** detects the commit, runs our pre-build script to compile files, and deploys the live update in 2–3 minutes.
+
+#### C. Manual Code Authoring (Developer-only)
+Developers can skip the GUI and write markdown directly. Create a file under `src/data/insights/article-slug.md` with standard YAML frontmatter matching:
+```yaml
+---
+title: "Your headline goes here"
+date: "2026-05-31"
+category: "Strategy"
+featured: false
+excerpt: "A brief summary of your article..."
+image: "/images/uploads/your-graphic.png"
+---
+Your full body paragraphs here in standard Markdown.
 ```
 
 ### 2. Modifying the AI Chatbot responses
