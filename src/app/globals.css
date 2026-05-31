@@ -74,11 +74,8 @@ img { display: block; width: 100%; object-fit: cover; }
   box-shadow: 0 1px 20px rgba(0,0,0,0.05);
 }
 .nav__container {
-  max-width: 100%; padding: 0 40px;
+  max-width: 100%; padding: 0 var(--pad);
   height: 68px; display: flex; align-items: center; justify-content: space-between;
-}
-@media (max-width: 960px) {
-  .nav__container { padding: 0 24px; }
 }
 .nav__logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .logo-mark { height: 44px; width: auto; flex-shrink: 0; }
@@ -211,10 +208,7 @@ img { display: block; width: 100%; object-fit: cover; }
    LAYOUT HELPERS
 ═══════════════════════════════════ */
 .container { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); width: 100%; }
-.footer__container { max-width: 100%; margin: 0 auto; padding: 0 40px; width: 100%; }
-@media (max-width: 960px) {
-  .footer__container { padding: 0 24px; }
-}
+.footer__container { max-width: 100%; margin: 0 auto; padding: 0 var(--pad); width: 100%; }
 .section      { padding: 128px 0; width: 100%; }
 .section--cream    { background: var(--cream); }
 .section--offwhite { background: var(--offwhite); }
