@@ -1,10 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ContactForm() {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sectionRef.current && parallaxRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+
+            if (rect.top < viewHeight && rect.bottom > 0) {
+              const relativeY = rect.top - viewHeight;
+              const yTranslation = relativeY * 0.12; // parallax speed
+              parallaxRef.current.style.transform = `translate3d(0, ${yTranslation}px, 0)`;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,7 +65,20 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="section section--offwhite" id="contact">
+    <section ref={sectionRef} className="section contact-section" id="contact">
+      <div className="contact__bg">
+        <div className="contact__parallax-wrapper" ref={parallaxRef}>
+          <img
+            className="contact__bg-img"
+            src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=1920&q=80"
+            alt="Red Bridge Advisory architectural lines"
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+      <div className="contact__overlay"></div>
       <div className="container">
         <div className="contact__layout">
           <div className="contact__info reveal">
@@ -59,8 +101,16 @@ export default function ContactForm() {
                 </span>
               </div>
               <div className="contact__detail-item">
-                <span className="contact__detail-label">Location</span>
-                <span className="contact__detail-val">New Delhi, India</span>
+                <span className="contact__detail-label">Address</span>
+                <span className="contact__detail-val" style={{ lineHeight: "1.6" }}>
+                  <strong>Red Bridge Advisory Pvt Ltd.</strong>
+                  <br />
+                  Dotspace Business Center, TC 24/3088/2,
+                  <br />
+                  Ushasandya Building, Devasom Board Road,
+                  <br />
+                  Kowdiar, Thiruvananthapuram - 695003
+                </span>
               </div>
               <div className="contact__detail-item">
                 <span className="contact__detail-label">Response</span>
@@ -80,7 +130,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          <div className="reveal d2">
+          <div className="reveal d2 contact__form-card">
             <form id="contact-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-field">

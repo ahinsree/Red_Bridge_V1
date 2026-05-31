@@ -19,24 +19,24 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__brand">
             <div className="footer__logo">
-              <div className="nav__logo" style={{ gap: "12px" }} aria-label="Red Bridge Advisory">
+              <div className="nav__logo" style={{ gap: "8px" }} aria-label="Red Bridge Advisory">
                 <svg
                   className="logo-mark"
-                  viewBox="0 0 100 92"
+                  viewBox="0 0 74 112"
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
                   overflow="visible"
                 >
                   <defs>
-                    <mask id="footer-mk" maskUnits="userSpaceOnUse">
-                      <rect x="0" y="0" width="100" height="92" fill="white" />
-                      <rect x="-50" y="49" width="200" height="12" fill="black" transform="rotate(22.0000 50 55)" />
+                    <mask id="footer-logo-cut-mask">
+                      <circle cx="37" cy="62.5" r="24" fill="white" />
+                      <rect x="-13" y="56" width="100" height="13" fill="black" transform="rotate(30 37 62.5)" />
                     </mask>
                   </defs>
-                  <rect x="0" y="0" width="100" height="18" fill="#B22030" />
-                  <rect x="0" y="18" width="18" height="74" fill="#B22030" />
-                  <rect x="82" y="18" width="18" height="74" fill="#B22030" />
-                  <circle cx="50" cy="55" r="31" fill="#EDEAE2" mask="url(#footer-mk)" />
+                  <rect x="0" y="13" width="13" height="99" fill="#B22030" />
+                  <rect x="61" y="13" width="13" height="99" fill="#B22030" />
+                  <rect x="0" y="0" width="74" height="13" fill="#B22030" />
+                  <circle cx="37" cy="62.5" r="24" fill="#B22030" mask="url(#footer-logo-cut-mask)" />
                 </svg>
                 <div className="logo-wordmark" aria-hidden="true">
                   <span className="logo-wm-red logo-wm-red--lt">Red</span>
@@ -120,9 +120,11 @@ export default function Footer() {
               <a href="#" className="footer__link">
                 LinkedIn
               </a>
-              <a href="#" className="footer__link">
-                New Delhi, India
-              </a>
+              <div className="footer__link" style={{ pointerEvents: "none", lineHeight: "1.5" }}>
+                Dotspace Business Center, Kowdiar,
+                <br />
+                Thiruvananthapuram - 695003
+              </div>
             </div>
           </div>
         </div>

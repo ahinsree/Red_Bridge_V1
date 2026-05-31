@@ -26,14 +26,9 @@ export default function Chatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const quickReplies = [
-    { label: "Strategic Advisory", query: "Tell me about your Strategic Advisory services." },
-    { label: "CX Transformation", query: "How do you approach Customer Experience?" },
-    { label: "Experience Intelligence", query: "What is AI-driven Experience Intelligence?" },
-    { label: "Industries & Sectors", query: "What industries do you specialize in?" },
-    { label: "Case Studies", query: "Can you share some case studies?" },
-    { label: "Pricing & Retainers", query: "How do you charge for your services?" },
-    { label: "Careers", query: "Are you hiring?" },
-    { label: "Schedule Briefing", query: "I would like to book a consultation." }
+    { label: "Strategy", query: "Tell me about your Strategic Advisory services." },
+    { label: "AI & Digital", query: "What is AI-driven Experience Intelligence?" },
+    { label: "Book Consultation", query: "I would like to book a consultation." }
   ];
 
   useEffect(() => {
@@ -164,7 +159,7 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="fixed bottom-24 right-6 w-[360px] md:w-[400px] h-[520px] glass-panel-glow rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-2xl"
+            className="fixed bottom-24 right-6 w-[310px] sm:w-[350px] h-[430px] glass-panel-glow rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-2xl"
           >
             {/* Header */}
             <div className="p-4 border-b border-white/5 flex items-center justify-between bg-black/40">
@@ -200,11 +195,11 @@ export default function Chatbot() {
                   }`}
                 >
                   <div
-                    className={`max-w-[85%] rounded px-3.5 py-2.5 text-xs leading-relaxed ${
+                    className={
                       msg.sender === "user"
-                        ? "bg-bridge-red text-cream border border-white/10"
-                        : "bg-deep-navy/35 text-cream/90 border border-white/5"
-                    }`}
+                        ? "chat-bubble-user"
+                        : "chat-bubble-bot"
+                    }
                   >
                     <p className="whitespace-pre-line">{msg.text}</p>
                     <span className="block text-[9px] text-cream/40 mt-1.5 font-mono text-right">
@@ -214,9 +209,41 @@ export default function Chatbot() {
                 </div>
               ))}
 
+              {/* Static Services Guide (Only shows when no active user conversations have happened yet) */}
+              {messages.length === 1 && (
+                <div className="pt-1.5 space-y-2.5">
+                  <div className="text-[10px] font-mono tracking-widest text-bridge-red uppercase font-semibold">
+                    Core Services
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <button
+                      onClick={() => handleSend("Tell me about your Strategic Advisory services.")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold text-cream">Strategy &amp; Transformation</h5>
+                      <p className="text-[10px] text-cream/60 leading-normal mt-0.5">High-stakes corporate strategy &amp; capability design.</p>
+                    </button>
+                    <button
+                      onClick={() => handleSend("What is AI-driven Experience Intelligence?")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold text-cream">AI &amp; Digital (Intelligence)</h5>
+                      <p className="text-[10px] text-cream/60 leading-normal mt-0.5">Custom predictive AI models &amp; robust data engineering.</p>
+                    </button>
+                    <button
+                      onClick={() => handleSend("How do you approach Customer Experience?")}
+                      className="chat-service-card"
+                    >
+                      <h5 className="text-[11px] font-serif font-semibold text-cream">Experience Advisory</h5>
+                      <p className="text-[10px] text-cream/60 leading-normal mt-0.5">Customer &amp; employee journeys linked to hard financial metrics.</p>
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="max-w-[85%] rounded px-3.5 py-2.5 bg-deep-navy/35 text-cream/40 border border-white/5 text-xs flex items-center gap-1">
+                  <div className="chat-bubble-bot flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-cream/40 animate-bounce" style={{ animationDelay: "0ms" }} />
                     <span className="w-1.5 h-1.5 rounded-full bg-cream/40 animate-bounce" style={{ animationDelay: "150ms" }} />
                     <span className="w-1.5 h-1.5 rounded-full bg-cream/40 animate-bounce" style={{ animationDelay: "300ms" }} />
@@ -228,13 +255,13 @@ export default function Chatbot() {
 
             {/* Quick replies & Input Panel */}
             <div className="p-3 border-t border-white/5 bg-black/35 flex flex-col gap-3">
-              {/* Quick Replies Carousel */}
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {/* Quick Replies */}
+              <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-none">
                 {quickReplies.map((reply, i) => (
                   <button
                     key={i}
                     onClick={() => handleSend(reply.query)}
-                    className="flex-shrink-0 px-3 py-1.5 rounded bg-white/5 border border-white/5 text-[10px] font-mono tracking-wider text-cream/60 hover:text-cream hover:border-bridge-red/35 hover:bg-bridge-red/5 transition-all cursor-pointer whitespace-nowrap"
+                    className="chat-quick-reply"
                   >
                     {reply.label}
                   </button>
@@ -247,7 +274,7 @@ export default function Chatbot() {
                   e.preventDefault();
                   handleSend(inputValue);
                 }}
-                className="flex items-center gap-2 bg-black/40 rounded border border-white/5 px-2.5 py-1.5 focus-within:border-bridge-red/40 transition-colors"
+                className="chat-input-bar"
               >
                 <input
                   type="text"
@@ -264,6 +291,7 @@ export default function Chatbot() {
                   <Send className="w-3.5 h-3.5" />
                 </button>
               </form>
+
             </div>
           </motion.div>
         )}
