@@ -5,14 +5,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, BookOpen } from "lucide-react";
 import insightsData from "@/data/insights.json";
 
+interface InsightPost {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  featured: boolean;
+  excerpt: string;
+  image?: string;
+  body: string;
+}
+
 export default function Insights() {
-  const [activePost, setActivePost] = useState<any | null>(null);
+  const [activePost, setActivePost] = useState<InsightPost | null>(null);
+
+  const typedInsights = insightsData as InsightPost[];
 
   // Find the featured post, fallback to the first post if none are explicitly flagged
-  const featuredPost = insightsData.find((post) => post.featured) || insightsData[0];
+  const featuredPost = typedInsights.find((post) => post.featured) || typedInsights[0];
   
   // All other posts are listed as standard rows
-  const regularPosts = insightsData.filter((post) => post.slug !== featuredPost?.slug);
+  const regularPosts = typedInsights.filter((post) => post.slug !== featuredPost?.slug);
 
   // Calculate dynamic reading time based on body text length (200 words per minute)
   const calculateReadTime = (text: string): string => {
