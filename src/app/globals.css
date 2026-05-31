@@ -996,3 +996,54 @@ img { display: block; width: 100%; object-fit: cover; }
   .work-with__col { padding: 38px var(--pad); }
   .work-with__header { margin-bottom: 36px; }
 }
+
+/* ═══════════════════════════════════
+   PRACTICE MARQUEE
+═══════════════════════════════════ */
+.practice-marquee {
+  background: var(--cream);
+  border-bottom: 1px solid var(--divider-soft);
+  border-top: 1px solid var(--divider-soft);
+  padding: 16px 0;
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  display: block;
+  user-select: none;
+}
+.practice-marquee__wrap {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+.practice-marquee__list {
+  display: inline-flex;
+  gap: 60px;
+  animation: practiceMarqueeScroll 35s linear infinite;
+  white-space: nowrap;
+  padding-right: 60px;
+}
+.practice-marquee__item {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.practice-marquee__bullet {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: bold;
+}
+@keyframes practiceMarqueeScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+

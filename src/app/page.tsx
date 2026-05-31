@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import PracticeMarquee from "@/components/PracticeMarquee";
 import WhyRBA from "@/components/WhyRBA";
 import Advisory from "@/components/Advisory";
 import Sectors from "@/components/Sectors";
@@ -67,6 +68,9 @@ export default function Home() {
 
       {/* Hero Banner */}
       <Hero />
+
+      {/* Scrolling Practice Areas Marquee Bar */}
+      <PracticeMarquee />
 
       {/* Why Red Bridge */}
       <WhyRBA />
