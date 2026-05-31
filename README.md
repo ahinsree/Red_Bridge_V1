@@ -35,11 +35,15 @@ Articles and briefings inside the **Insights** section are fully managed using *
      ```bash
      npx decap-server
      ```
-  2. In another terminal, run your normal dev server:
+  2. (Optional) In another terminal, run our zero-dependency hot-reloader watcher to automatically recompile CMS saves on the fly:
+     ```bash
+     node watch-insights.js
+     ```
+  3. In another terminal, run your normal dev server:
      ```bash
      npm run dev
      ```
-  3. Navigate to `http://localhost:3000/admin/`.
+  4. Navigate to `http://localhost:3000/admin/`.
 
 #### B. Adding and Editing Essays
 1. **Create New**: Click the **New Insights** button in the dashboard, or click on an existing post to edit it.
