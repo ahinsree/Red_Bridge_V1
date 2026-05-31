@@ -1001,9 +1001,9 @@ img { display: block; width: 100%; object-fit: cover; }
    PRACTICE MARQUEE
 ═══════════════════════════════════ */
 .practice-marquee {
-  background: var(--cream);
-  border-bottom: 1px solid var(--divider-soft);
-  border-top: 1px solid var(--divider-soft);
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 16px 0;
   overflow: hidden;
   width: 100%;
@@ -1032,10 +1032,14 @@ img { display: block; width: 100%; object-fit: cover; }
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--charcoal);
+  color: rgba(237, 234, 226, 0.62);
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: color var(--ease);
+}
+.practice-marquee:hover .practice-marquee__item {
+  color: var(--cream);
 }
 .practice-marquee__bullet {
   color: var(--red);
