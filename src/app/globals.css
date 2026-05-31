@@ -1131,6 +1131,11 @@ img { display: block; width: 100%; object-fit: cover; }
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 40px rgba(178, 32, 48, 0.16); /* soft red brand glow */
+  font-family: var(--sans);
+}
+
+.glass-panel-glow h4 {
+  font-family: var(--serif);
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -1171,6 +1176,7 @@ img { display: block; width: 100%; object-fit: cover; }
   font-size: 11.5px;
   line-height: 1.45;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: var(--sans);
 }
 .chat-bubble-user {
   background: var(--red);
@@ -1182,6 +1188,7 @@ img { display: block; width: 100%; object-fit: cover; }
   font-size: 11.5px;
   line-height: 1.45;
   box-shadow: 0 4px 12px rgba(178, 32, 48, 0.18);
+  font-family: var(--sans);
 }
 
 .chat-service-card {
@@ -1193,10 +1200,19 @@ img { display: block; width: 100%; object-fit: cover; }
   cursor: pointer;
   width: 100%;
   transition: all var(--ease);
+  font-family: var(--sans);
 }
 .chat-service-card:hover {
   background: rgba(178, 32, 48, 0.08);
   border-color: rgba(178, 32, 48, 0.3);
+}
+
+.chat-service-card h5 {
+  font-family: var(--serif);
+}
+
+.chat-service-card p {
+  font-family: var(--sans);
 }
 
 .chat-input-bar {
@@ -1209,6 +1225,9 @@ img { display: block; width: 100%; object-fit: cover; }
   gap: 8px;
   transition: border-color var(--ease);
   width: 100%;
+}
+.chat-input-bar input {
+  font-family: var(--sans);
 }
 .chat-input-bar:focus-within {
   border-color: rgba(178, 32, 48, 0.4);

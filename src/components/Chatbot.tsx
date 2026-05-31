@@ -123,7 +123,6 @@ export default function Chatbot() {
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
-          <div className="absolute inset-0 rounded-full bg-bridge-red animate-ping opacity-25 pointer-events-none" />
           <AnimatePresence mode="wait">
             {isOpen ? (
               <motion.div
