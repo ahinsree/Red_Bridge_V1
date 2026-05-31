@@ -211,32 +211,79 @@ export default function Chatbot() {
 
               {/* Static Services Guide (Only shows when no active user conversations have happened yet) */}
               {messages.length === 1 && (
-                <div className="pt-1.5 space-y-2.5">
-                  <div className="text-[10px] font-mono tracking-widest text-bridge-red uppercase font-semibold">
-                    Core Services
+                <div className="pt-1.5 space-y-3">
+                  {/* Core Services Section */}
+                  <div className="space-y-1">
+                    <div className="text-[9.5px] font-mono tracking-widest text-bridge-red uppercase font-semibold">
+                      Core Services
+                    </div>
+                    <div className="grid grid-cols-1 gap-1.5">
+                      <button
+                        onClick={() => handleSend("Tell me about your Strategic Advisory services.")}
+                        className="chat-service-card"
+                        style={{ padding: "8px 10px" }}
+                      >
+                        <h5 className="text-[10px] font-serif font-semibold text-cream">Strategy &amp; Transformation</h5>
+                        <p className="text-[9px] text-cream/60 leading-normal mt-0.5">High-stakes corporate strategy &amp; capability design.</p>
+                      </button>
+                      <button
+                        onClick={() => handleSend("What is AI-driven Experience Intelligence?")}
+                        className="chat-service-card"
+                        style={{ padding: "8px 10px" }}
+                      >
+                        <h5 className="text-[10px] font-serif font-semibold text-cream">AI &amp; Digital</h5>
+                        <p className="text-[9px] text-cream/60 leading-normal mt-0.5">Custom predictive AI models &amp; robust data engineering.</p>
+                      </button>
+                      <button
+                        onClick={() => handleSend("How do you approach Customer Experience?")}
+                        className="chat-service-card"
+                        style={{ padding: "8px 10px" }}
+                      >
+                        <h5 className="text-[10px] font-serif font-semibold text-cream">Experience Advisory</h5>
+                        <p className="text-[9px] text-cream/60 leading-normal mt-0.5">Customer &amp; employee journeys linked to financial metrics.</p>
+                      </button>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-1 gap-2">
-                    <button
-                      onClick={() => handleSend("Tell me about your Strategic Advisory services.")}
-                      className="chat-service-card"
-                    >
-                      <h5 className="text-[11px] font-serif font-semibold text-cream">Strategy &amp; Transformation</h5>
-                      <p className="text-[10px] text-cream/60 leading-normal mt-0.5">High-stakes corporate strategy &amp; capability design.</p>
-                    </button>
-                    <button
-                      onClick={() => handleSend("What is AI-driven Experience Intelligence?")}
-                      className="chat-service-card"
-                    >
-                      <h5 className="text-[11px] font-serif font-semibold text-cream">AI &amp; Digital (Intelligence)</h5>
-                      <p className="text-[10px] text-cream/60 leading-normal mt-0.5">Custom predictive AI models &amp; robust data engineering.</p>
-                    </button>
-                    <button
-                      onClick={() => handleSend("How do you approach Customer Experience?")}
-                      className="chat-service-card"
-                    >
-                      <h5 className="text-[11px] font-serif font-semibold text-cream">Experience Advisory</h5>
-                      <p className="text-[10px] text-cream/60 leading-normal mt-0.5">Customer &amp; employee journeys linked to hard financial metrics.</p>
-                    </button>
+
+                  {/* Key Sectors Section */}
+                  <div className="space-y-1">
+                    <div className="text-[9.5px] font-mono tracking-widest text-bridge-red uppercase font-semibold">
+                      Key Sectors
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <button
+                        onClick={() => handleSend("What public sector government systems do you serve?")}
+                        className="chat-service-card"
+                        style={{ padding: "6px 8px" }}
+                      >
+                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Govt &amp; Public</h5>
+                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">Agile infrastructure.</p>
+                      </button>
+                      <button
+                        onClick={() => handleSend("What banking and financial services do you serve?")}
+                        className="chat-service-card"
+                        style={{ padding: "6px 8px" }}
+                      >
+                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Finance &amp; Banking</h5>
+                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">Secure transactions.</p>
+                      </button>
+                      <button
+                        onClick={() => handleSend("What retail and healthcare systems do you serve?")}
+                        className="chat-service-card"
+                        style={{ padding: "6px 8px" }}
+                      >
+                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Retail &amp; Health</h5>
+                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">Clinical data pipelines.</p>
+                      </button>
+                      <button
+                        onClick={() => handleSend("What travel tourism and MSME sectors do you serve?")}
+                        className="chat-service-card"
+                        style={{ padding: "6px 8px" }}
+                      >
+                        <h5 className="text-[9.5px] font-serif font-semibold text-cream leading-tight">Tourism &amp; MSME</h5>
+                        <p className="text-[8.5px] text-cream/50 leading-normal mt-0.5">National growth models.</p>
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
