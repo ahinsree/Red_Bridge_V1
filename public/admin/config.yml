@@ -1,0 +1,25 @@
+backend:
+  name: github
+  repo: ahinsree/Red_Bridge_V1
+  branch: main
+
+# Enable local file system writes when running locally
+local_backend: true
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "insights"
+    label: "Insights"
+    folder: "src/data/insights"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "string", default: "Leadership · Essay" }
+      - { label: "Featured Essay?", name: "featured", widget: "boolean", default: false }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
