@@ -1,6 +1,32 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 export default function Hero() {
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (parallaxRef.current) {
+            const scrolled = window.scrollY;
+            if (scrolled <= window.innerHeight) {
+              parallaxRef.current.style.transform = `translate3d(0, ${scrolled * 0.32}px, 0)`;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.querySelector(id);
     if (target) {
@@ -16,14 +42,16 @@ export default function Hero() {
   return (
     <section className="hero" id="hero">
       <div className="hero__bg">
-        <img
-          className="hero__bg-img"
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
-          alt="Red Bridge Advisory corporate operational background"
-          aria-hidden="true"
-          loading="eager"
-          decoding="async"
-        />
+        <div className="hero__parallax-wrapper" ref={parallaxRef}>
+          <img
+            className="hero__bg-img"
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
+            alt="Red Bridge Advisory corporate operational background"
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
       </div>
       <div className="hero__overlay"></div>
       <div className="hero__content">
