@@ -15,6 +15,7 @@ import WorkWithRBA from "@/components/WorkWithRBA";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
+import ScrollToggle from "@/components/ScrollToggle";
 
 export default function Home() {
   useEffect(() => {
@@ -104,6 +105,9 @@ export default function Home() {
 
       {/* Floating Strategic Chatbot */}
       <Chatbot />
+
+      {/* Floating Dynamic Scroll Toggle */}
+      <ScrollToggle />
     </div>
   );
 }
