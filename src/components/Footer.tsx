@@ -1,142 +1,137 @@
 "use client";
 
-import Image from "next/image";
-import { ArrowUp } from "lucide-react";
-
 export default function Footer() {
-  const handleScrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const target = document.querySelector(id);
+    if (target) {
+      e.preventDefault();
+      const topOffset = target.getBoundingClientRect().top + window.scrollY - 68;
+      window.scrollTo({
+        top: topOffset,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
-    <footer className="bg-background border-t border-white/5 pt-16 pb-8 px-6 md:px-8 relative overflow-hidden">
-      {/* Soft dark red glow background */}
-      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-bridge-red/5 rounded-full filter blur-[80px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto flex flex-col gap-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 items-start">
-          
-          {/* Logo Column */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <div className="relative w-[24px] h-[36px] flex items-center justify-center">
-                <Image
-                  src={`${process.env.NODE_ENV === "production" ? "/Red_Bridge_" : ""}/images/logo-flat.svg`}
-                  alt="Red Bridge Logo"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-base font-medium text-cream tracking-wider leading-none">
-                  Red Bridge
-                </span>
-                <span className="font-mono text-[9px] text-cream/40 uppercase tracking-widest mt-0.5 leading-none">
-                  Advisory
-                </span>
+    <footer className="footer">
+      <div className="container">
+        <div className="footer__grid">
+          <div className="footer__brand">
+            <div className="footer__logo">
+              <div className="nav__logo" style={{ gap: "12px" }} aria-label="Red Bridge Advisory">
+                <svg
+                  className="logo-mark"
+                  viewBox="0 0 100 92"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  overflow="visible"
+                >
+                  <defs>
+                    <mask id="footer-mk" maskUnits="userSpaceOnUse">
+                      <rect x="0" y="0" width="100" height="92" fill="white" />
+                      <rect x="-50" y="49" width="200" height="12" fill="black" transform="rotate(22.0000 50 55)" />
+                    </mask>
+                  </defs>
+                  <rect x="0" y="0" width="100" height="18" fill="#B22030" />
+                  <rect x="0" y="18" width="18" height="74" fill="#B22030" />
+                  <rect x="82" y="18" width="18" height="74" fill="#B22030" />
+                  <circle cx="50" cy="55" r="31" fill="#EDEAE2" mask="url(#footer-mk)" />
+                </svg>
+                <div className="logo-wordmark" aria-hidden="true">
+                  <span className="logo-wm-red logo-wm-red--lt">Red</span>
+                  <span className="logo-wm-bridge logo-wm-bridge--lt">Bridge</span>
+                  <span className="logo-wm-advisory logo-wm-adv--lt">Advisory</span>
+                </div>
               </div>
             </div>
-            
-            <p className="text-xs font-sans text-cream/50 leading-relaxed max-w-sm mt-2">
-              Bridging Insight to Impact. We partner with leading enterprises to build data-driven platforms, engineer experiences, and execute strategies that matter.
+            <p className="footer__brand-text">
+              A boutique advisory firm built for the work that follows the decision — strategy, transformation, and institutional
+              advisory for governments, enterprises, and public systems.
             </p>
-
-            <div className="font-serif text-sm italic text-bridge-red mt-2 tracking-wide">
-              &quot;Distinct by Design. Made to Matter.&quot;
+            <span className="footer__tagline">Different by purpose. Proven to deliver.</span>
+            <div className="footer__socials">
+              <a href="#" className="footer__social-btn" title="LinkedIn">
+                in
+              </a>
+              <a href="#" className="footer__social-btn" title="Twitter / X">
+                𝕏
+              </a>
+              <a href="mailto:hello@redbridgeadvisory.com" className="footer__social-btn" title="Email">
+                @
+              </a>
             </div>
           </div>
 
-          {/* Solutions Column */}
-          <div className="flex flex-col gap-4">
-            <span className="text-[10px] font-mono text-cream/30 uppercase tracking-widest">
-              Capabilities
-            </span>
-            <ul className="flex flex-col gap-2.5 text-xs text-cream/60 font-sans">
-              <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Strategy &amp; Transformation</a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Experience Advisory</a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">AI &amp; Digital Transformation</a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Public Sector &amp; Government</a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Tourism &amp; Destination Development</a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-bridge-red transition-colors">Entrepreneurship &amp; MSME</a>
-              </li>
-            </ul>
+          <div>
+            <p className="footer__col-title">Navigate</p>
+            <div className="footer__links">
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                Advisory Areas
+              </a>
+              <a href="#sectors" className="footer__link" onClick={(e) => handleScrollTo(e, "#sectors")}>
+                Sectors
+              </a>
+              <a href="#engagements" className="footer__link" onClick={(e) => handleScrollTo(e, "#engagements")}>
+                Engagements
+              </a>
+              <a href="#insights" className="footer__link" onClick={(e) => handleScrollTo(e, "#insights")}>
+                Insights
+              </a>
+              <a href="#work-with" className="footer__link" onClick={(e) => handleScrollTo(e, "#work-with")}>
+                Work With Us
+              </a>
+              <a href="#why-rba" className="footer__link" onClick={(e) => handleScrollTo(e, "#why-rba")}>
+                About
+              </a>
+              <a href="#contact" className="footer__link" onClick={(e) => handleScrollTo(e, "#contact")}>
+                Enquire
+              </a>
+            </div>
           </div>
 
-          {/* Company Column */}
-          <div className="flex flex-col gap-4">
-            <span className="text-[10px] font-mono text-cream/30 uppercase tracking-widest">
-              Company
-            </span>
-            <ul className="flex flex-col gap-2.5 text-xs text-cream/60 font-sans">
-              <li>
-                <a href="#case-studies" className="hover:text-bridge-red transition-colors">Case Studies</a>
-              </li>
-              <li>
-                <a href="#insights" className="hover:text-bridge-red transition-colors">Insights Ledger</a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-bridge-red transition-colors">Philosophy</a>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <span className="hover:text-bridge-red transition-colors cursor-pointer">Careers</span>
-                <span className="text-[9px] font-mono bg-bridge-red/25 text-bridge-red px-1 rounded uppercase tracking-wider scale-90">
-                  Hiring
-                </span>
-              </li>
-            </ul>
+          <div>
+            <p className="footer__col-title">Practice Areas</p>
+            <div className="footer__links">
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                Strategy &amp; Transformation
+              </a>
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                AI &amp; Digital
+              </a>
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                Experience Advisory
+              </a>
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                Institutional Transformation
+              </a>
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                Investment &amp; Economic
+              </a>
+            </div>
           </div>
 
-          {/* Connect Column */}
-          <div className="flex flex-col gap-4">
-            <span className="text-[10px] font-mono text-cream/30 uppercase tracking-widest">
-              Contact Desk
-            </span>
-            <ul className="flex flex-col gap-2.5 text-xs text-cream/60 font-sans">
-              <li>
-                <span className="text-cream/40 block">Global HQ</span>
-                <span className="text-cream/90">San Francisco, CA</span>
-              </li>
-              <li>
-                <span className="text-cream/40 block">Direct Inquiries</span>
-                <a href="mailto:briefing@redbridgeadvisory.com" className="hover:text-bridge-red text-cream/90 transition-colors">
-                  briefing@redbridgeadvisory.com
-                </a>
-              </li>
-            </ul>
+          <div>
+            <p className="footer__col-title">Connect</p>
+            <div className="footer__links">
+              <a href="mailto:hello@redbridgeadvisory.com" className="footer__link">
+                hello@redbridgeadvisory.com
+              </a>
+              <a href="#" className="footer__link">
+                LinkedIn
+              </a>
+              <a href="#" className="footer__link">
+                New Delhi, India
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Fine Line separator */}
-        <div className="w-full h-px bg-white/5 mt-6" />
-
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-mono text-cream/40 uppercase tracking-widest">
-          <div>
-            &copy; {new Date().getFullYear()} Red Bridge Advisory. All rights reserved.
-          </div>
-          
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-bridge-red transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-bridge-red transition-colors">Terms of Briefing</a>
-            
-            <button
-              onClick={handleScrollTop}
-              className="flex items-center gap-1.5 hover:text-bridge-red transition-colors cursor-pointer"
-            >
-              Back to Top
-              <ArrowUp className="w-3.5 h-3.5" />
-            </button>
+        <div className="footer__bottom">
+          <span className="footer__copy">&copy; 2026 Red Bridge Advisory. All rights reserved.</span>
+          <div className="footer__legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
           </div>
         </div>
       </div>

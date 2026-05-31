@@ -1,97 +1,104 @@
 "use client";
 
+import { useEffect } from "react";
 import Header from "@/components/Header";
-import HeroSlider from "@/components/HeroSlider";
-import StatsBar from "@/components/StatsBar";
-import Services from "@/components/Services";
-import Industries from "@/components/Industries";
-import WhatWeDo from "@/components/WhatWeDo";
-import CaseStudies from "@/components/CaseStudies";
+import Hero from "@/components/Hero";
+import WhyRBA from "@/components/WhyRBA";
+import Advisory from "@/components/Advisory";
+import Sectors from "@/components/Sectors";
+import VisualPause from "@/components/VisualPause";
+import Engagements from "@/components/Engagements";
+import HowWeWork from "@/components/HowWeWork";
+import Insights from "@/components/Insights";
+import WorkWithRBA from "@/components/WorkWithRBA";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
-import About from "@/components/About";
-import Insights from "@/components/Insights";
 
 export default function Home() {
-  return (
-    <div className="relative min-h-screen bg-background text-foreground selection:bg-bridge-red/30 selection:text-cream">
-      {/* Global Background Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none z-0" />
+  useEffect(() => {
+    // Scroll reveal activation
+    document.documentElement.classList.add("js-ready");
 
-      {/* Header */}
+    // Immediately reveal elements already in the viewport
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    revealEls.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh - 16) {
+        el.classList.add("in");
+      }
+    });
+
+    // Observe elements for reveal on scroll
+    const revealObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            revealObs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.06, rootMargin: "0px 0px -16px 0px" }
+    );
+
+    revealEls.forEach((el) => {
+      if (!el.classList.contains("in")) {
+        revealObs.observe(el);
+      }
+    });
+
+    // Safety net reveal all hidden elements after 2.5s
+    const timer = setTimeout(() => {
+      document.querySelectorAll(".reveal:not(.in)").forEach((el) => el.classList.add("in"));
+    }, 2500);
+
+    return () => {
+      clearTimeout(timer);
+      revealObs.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="relative min-h-screen bg-[#FAFAF8] text-[#2E2E2E]">
+      {/* Navigation */}
       <Header />
 
-      {/* Hero Slider Carousel Section */}
-      <HeroSlider />
+      {/* Hero Banner */}
+      <Hero />
 
-      {/* Quantitative Stats Bar */}
-      <StatsBar />
+      {/* Why Red Bridge */}
+      <WhyRBA />
 
-      {/* Marquee Section */}
-      <section className="py-12 bg-black/20 border-y border-white/5 overflow-hidden w-full select-none relative z-10">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 mb-4">
-          <p className="text-[10px] font-mono text-cream/35 uppercase tracking-widest text-center">
-            Partnering across enterprise domains
-          </p>
-        </div>
-        <div className="w-full relative flex items-center overflow-x-hidden">
-          <div className="animate-marquee whitespace-nowrap flex gap-16 text-xs font-mono tracking-widest text-cream/45 uppercase items-center">
-            <span>FINANCIAL SERVICES TRANSFORMATION</span>
-            <span className="text-bridge-red">•</span>
-            <span>CLINICAL PROVIDER SYSTEMS</span>
-            <span className="text-bridge-red">•</span>
-            <span>OMNICHANNEL RETAIL NETWORKS</span>
-            <span className="text-bridge-red">•</span>
-            <span>PREDICTIVE EXPERIENCE INTELLIGENCE</span>
-            <span className="text-bridge-red">•</span>
-            <span>ENTERPRISE DATA FABRICS</span>
-            <span className="text-bridge-red">•</span>
-            
-            {/* Duplicate for infinite loop */}
-            <span>FINANCIAL SERVICES TRANSFORMATION</span>
-            <span className="text-bridge-red">•</span>
-            <span>CLINICAL PROVIDER SYSTEMS</span>
-            <span className="text-bridge-red">•</span>
-            <span>OMNICHANNEL RETAIL NETWORKS</span>
-            <span className="text-bridge-red">•</span>
-            <span>PREDICTIVE EXPERIENCE INTELLIGENCE</span>
-            <span className="text-bridge-red">•</span>
-            <span>ENTERPRISE DATA FABRICS</span>
-            <span className="text-bridge-red">•</span>
-          </div>
-        </div>
-      </section>
+      {/* Advisory Practice Areas */}
+      <Advisory />
 
+      {/* Sectors We Serve */}
+      <Sectors />
 
+      {/* Parallax Visual Pause */}
+      <VisualPause />
 
-      {/* Services Section */}
-      <Services />
+      {/* Selected Engagements */}
+      <Engagements />
 
-      {/* Industries We Serve Section */}
-      <Industries />
+      {/* Our Approach (Principles) */}
+      <HowWeWork />
 
-      {/* What We Do Section */}
-      <section id="what-we-do" className="py-24 px-6 md:px-8 max-w-7xl mx-auto relative z-10 border-t border-white/5">
-        <WhatWeDo />
-      </section>
-
-      {/* Case Studies Section */}
-      <CaseStudies />
-
-      {/* Insights Section */}
+      {/* Insights Publications */}
       <Insights />
 
-      {/* About Section */}
-      <About />
+      {/* Partner / Collaboration Columns */}
+      <WorkWithRBA />
 
-      {/* Contact Form Section */}
+      {/* Enquiry Contact Desk */}
       <ContactForm />
 
-      {/* Footer */}
+      {/* Footer Navigation */}
       <Footer />
 
-      {/* Floating Chatbot */}
+      {/* Floating Strategic Chatbot */}
       <Chatbot />
     </div>
   );
