@@ -161,7 +161,7 @@ export default function Chatbot() {
             className="fixed bottom-24 right-6 w-[310px] sm:w-[350px] h-[460px] glass-panel-glow rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-2xl"
           >
             {/* Header */}
-            <div className="p-4 border-b border-black/10 flex items-center justify-between bg-[#EDEAE2]">
+            <div className="p-4 border-b border-black/10 flex items-center justify-between bg-[#EDEAE2]/60 backdrop-blur-md">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-bridge-red/10 border border-bridge-red/25 flex items-center justify-center text-bridge-red">
                   <Sparkles className="w-4 h-4" />
@@ -219,36 +219,51 @@ export default function Chatbot() {
                       onClick={() => handleSend("Tell me about your Strategy & Transformation services.")}
                       className="chat-service-card"
                     >
-                      <h5 className="text-[11px] font-serif font-semibold leading-snug">01 Strategy &amp; Transformation</h5>
-                      <p className="text-[9px] leading-normal mt-0.5">Directional clarity, operating model design, and delivery.</p>
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug flex items-center gap-2">
+                        <span className="text-[13.5px] font-serif italic font-normal text-[#B22030]">01</span>
+                        Strategy &amp; Transformation
+                      </h5>
+                      <p className="text-[9px] leading-normal mt-0.5 ml-5">Directional clarity, operating model design, and delivery.</p>
                     </button>
                     <button
                       onClick={() => handleSend("What AI & Digital services do you provide?")}
                       className="chat-service-card"
                     >
-                      <h5 className="text-[11px] font-serif font-semibold leading-snug">02 AI &amp; Digital</h5>
-                      <p className="text-[9px] leading-normal mt-0.5">Genuine readiness, capability assessment, and governance design.</p>
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug flex items-center gap-2">
+                        <span className="text-[13.5px] font-serif italic font-normal text-[#B22030]">02</span>
+                        AI &amp; Digital
+                      </h5>
+                      <p className="text-[9px] leading-normal mt-0.5 ml-5">Genuine readiness, capability assessment, and governance design.</p>
                     </button>
                     <button
                       onClick={() => handleSend("Tell me about your Experience Advisory practice.")}
                       className="chat-service-card"
                     >
-                      <h5 className="text-[11px] font-serif font-semibold leading-snug">03 Experience Advisory</h5>
-                      <p className="text-[9px] leading-normal mt-0.5">Human-centred customer and employee journey mapping.</p>
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug flex items-center gap-2">
+                        <span className="text-[13.5px] font-serif italic font-normal text-[#B22030]">03</span>
+                        Experience Advisory
+                      </h5>
+                      <p className="text-[9px] leading-normal mt-0.5 ml-5">Human-centred customer and employee journey mapping.</p>
                     </button>
                     <button
                       onClick={() => handleSend("Tell me about your Institutional Transformation practice.")}
                       className="chat-service-card"
                     >
-                      <h5 className="text-[11px] font-serif font-semibold leading-snug">04 Institutional Transformation</h5>
-                      <p className="text-[9px] leading-normal mt-0.5">Structural change, reform, and capacity building for government.</p>
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug flex items-center gap-2">
+                        <span className="text-[13.5px] font-serif italic font-normal text-[#B22030]">04</span>
+                        Institutional Transformation
+                      </h5>
+                      <p className="text-[9px] leading-normal mt-0.5 ml-5">Structural change, reform, and capacity building for government.</p>
                     </button>
                     <button
                       onClick={() => handleSend("Tell me about your Investment & Economic Advisory practice.")}
                       className="chat-service-card"
                     >
-                      <h5 className="text-[11px] font-serif font-semibold leading-snug">05 Investment &amp; Economic Advisory</h5>
-                      <p className="text-[9px] leading-normal mt-0.5">Investment feasibility, economic growth, and policy design.</p>
+                      <h5 className="text-[11px] font-serif font-semibold leading-snug flex items-center gap-2">
+                        <span className="text-[13.5px] font-serif italic font-normal text-[#B22030]">05</span>
+                        Investment &amp; Economic Advisory
+                      </h5>
+                      <p className="text-[9px] leading-normal mt-0.5 ml-5">Investment feasibility, economic growth, and policy design.</p>
                     </button>
                   </div>
                 </div>
@@ -267,7 +282,7 @@ export default function Chatbot() {
             </div>
 
             {/* Quick replies & Input Panel */}
-            <div className="p-3 border-t border-black/10 bg-[#EDEAE2]/45 flex flex-col gap-3">
+            <div className="p-3 border-t border-black/10 bg-[#EDEAE2]/35 flex flex-col gap-3 backdrop-blur-md">
               {/* Quick Replies */}
               <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-none">
                 {quickReplies.map((reply, i) => (
