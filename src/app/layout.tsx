@@ -15,7 +15,7 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
-const basePath = process.env.NODE_ENV === "production" ? "/Red_Bridge_" : "";
+const basePath = process.env.NODE_ENV === "production" ? "/Red_Bridge_V1" : "";
 
 export const metadata: Metadata = {
   title: "Red Bridge Advisory | Bridging Insight to Impact",
