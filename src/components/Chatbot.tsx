@@ -155,7 +155,8 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="fixed bottom-6 right-6 w-[310px] sm:w-[350px] h-[460px] bg-[#0c101b]/95 backdrop-blur-2xl border border-white/10 rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6),0_0_40px_rgba(178,32,48,0.18)]"
+            className="fixed bottom-6 right-6 w-[310px] sm:w-[350px] h-[460px] bg-[#0c101b]/70 border border-white/10 rounded-xl z-50 flex flex-col justify-between overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6),0_0_40px_rgba(178,32,48,0.18)]"
+            style={{ backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)" }}
           >
             {/* Header */}
             <div className="p-4 border-b border-white/5 flex items-center justify-between bg-black/40">
@@ -225,7 +226,7 @@ export default function Chatbot() {
                   <button
                     key={i}
                     onClick={() => handleSend(reply.query)}
-                    className="chat-quick-reply snap-center"
+                    className="chat-quick-reply shrink-0 snap-center"
                   >
                     {reply.label}
                   </button>
