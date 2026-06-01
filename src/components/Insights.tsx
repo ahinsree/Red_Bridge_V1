@@ -222,7 +222,7 @@ export default function Insights() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-[#0c101b] border-l border-white/10 z-50 p-8 md:p-12 overflow-y-auto flex flex-col justify-between shadow-2xl text-cream"
+              className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-[#0c101b] border-l border-white/10 z-50 insight-drawer overflow-y-auto flex flex-col justify-between shadow-2xl text-cream"
             >
               {/* Dynamic Scroll Progress Bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-50">

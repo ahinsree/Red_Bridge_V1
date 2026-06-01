@@ -1238,3 +1238,12 @@ img { display: block; width: 100%; object-fit: cover; }
   border-color: rgba(178, 32, 48, 0.4);
 }
 
+.insight-drawer {
+  padding: 48px 36px !important;
+}
+@media (min-width: 768px) {
+  .insight-drawer {
+    padding: 56px 48px !important;
+  }
+}
+
