@@ -6,7 +6,7 @@
     "predev": "node compile-insights.js",
     "prebuild": "node compile-insights.js",
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
