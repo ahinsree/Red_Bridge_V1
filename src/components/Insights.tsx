@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, BookOpen } from "lucide-react";
 import insightsData from "@/data/insights.json";
@@ -18,6 +18,8 @@ interface InsightPost {
 
 export default function Insights() {
   const [activePost, setActivePost] = useState<InsightPost | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   const typedInsights = insightsData as InsightPost[];
 
@@ -35,10 +37,86 @@ export default function Insights() {
     return `${minutes} min read`;
   };
 
-  // Split markdown body by double newlines to render proper spacing paragraphs
-  const paragraphs = activePost?.body
-    ? activePost.body.split(/\r?\n\r?\n/).map((p: string) => p.trim()).filter(Boolean)
-    : [];
+  // Reset scroll progress when active post changes
+  useEffect(() => {
+    setScrollProgress(0);
+  }, [activePost]);
+
+  const handleScroll = () => {
+    const el = drawerRef.current;
+    if (!el) return;
+    const totalHeight = el.scrollHeight - el.clientHeight;
+    if (totalHeight > 0) {
+      setScrollProgress((el.scrollTop / totalHeight) * 100);
+    }
+  };
+
+  // Parse custom markdown elements for rich semantic rendering
+  const renderParagraphs = (bodyText: string) => {
+    if (!bodyText) return null;
+    const items = bodyText.split(/\r?\n\r?\n/).map((p) => p.trim()).filter(Boolean);
+
+    return items.map((p, idx) => {
+      // 1. Level 3 Subheading
+      if (p.startsWith("### ")) {
+        return (
+          <h4 key={idx} className="text-base font-serif font-semibold text-cream mt-8 mb-4 border-l-2 border-[#B22030] pl-3">
+            {p.replace(/^###\s+/, "")}
+          </h4>
+        );
+      }
+      // 2. Level 2 Subheading
+      if (p.startsWith("## ")) {
+        return (
+          <h3 key={idx} className="text-lg font-serif font-semibold text-cream mt-10 mb-4 border-l-2 border-[#B22030] pl-3">
+            {p.replace(/^##\s+/, "")}
+          </h3>
+        );
+      }
+      // 3. Blockquotes
+      if (p.startsWith("> ")) {
+        return (
+          <blockquote key={idx} className="border-l-4 border-[#B22030] bg-white/5 pl-4 py-3 pr-2 italic my-6 text-cream/90 rounded-r text-xs md:text-sm">
+            {p.replace(/^>\s+/, "").replace(/"/g, "")}
+          </blockquote>
+        );
+      }
+      // 4. Bullet lists
+      if (p.includes("\n- ") || p.startsWith("- ")) {
+        const listLines = p.split(/\n?- /).map(item => item.trim()).filter(Boolean);
+        return (
+          <ul key={idx} className="list-none space-y-2.5 my-4">
+            {listLines.map((item, i) => {
+              const boldMatch = item.match(/^\*\*(.*?)\*\*:(.*)$/);
+              if (boldMatch) {
+                return (
+                  <li key={i} className="text-sm text-cream/80 flex items-start gap-2.5">
+                    <span className="text-[#B22030] font-bold mt-0.5">•</span>
+                    <span>
+                      <strong className="text-cream font-medium">{boldMatch[1]}:</strong>
+                      {boldMatch[2]}
+                    </span>
+                  </li>
+                );
+              }
+              return (
+                <li key={i} className="text-sm text-cream/80 flex items-start gap-2.5">
+                  <span className="text-[#B22030] font-bold mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              );
+            })}
+          </ul>
+        );
+      }
+      // 5. Standard paragraph
+      return (
+        <p key={idx} className="text-sm text-cream/85 leading-relaxed">
+          {p}
+        </p>
+      );
+    });
+  };
 
   return (
     <section className="section section--cream" id="insights">
@@ -62,7 +140,16 @@ export default function Insights() {
               />
             </div>
             <div className="insight-featured__body">
-              <span className="insight-featured__cat">{featuredPost.category}</span>
+              <div className="flex items-center gap-3 text-[9.5px] font-mono text-muted/60 uppercase mb-3.5 tracking-wider">
+                <span className="text-[#B22030] font-semibold">{featuredPost.category}</span>
+                <span>•</span>
+                <span>{featuredPost.date}</span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <BookOpen className="w-3 h-3" />
+                  {calculateReadTime(featuredPost.body)}
+                </span>
+              </div>
               <h2 className="insight-featured__title">
                 {featuredPost.title}
               </h2>
@@ -99,6 +186,14 @@ export default function Insights() {
                   <span className="insight-link__cat">{post.category}</span>
                   <span className="insight-link__title">{post.title}</span>
                 </div>
+                <div className="flex items-center gap-4 text-[10px] font-mono text-muted/50 uppercase md:mr-6 shrink-0">
+                  <span>{post.date}</span>
+                  <span className="hidden sm:inline">•</span>
+                  <span className="hidden sm:flex items-center gap-1">
+                    <BookOpen className="w-3 h-3" />
+                    {calculateReadTime(post.body)}
+                  </span>
+                </div>
                 <span className="insight-link__cta">Read &rarr;</span>
               </a>
             ))}
@@ -121,12 +216,22 @@ export default function Insights() {
 
             {/* Sliding Panel */}
             <motion.div
+              ref={drawerRef}
+              onScroll={handleScroll}
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 220 }}
               className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-[#1B263B] border-l border-white/10 z-50 p-8 md:p-12 overflow-y-auto flex flex-col justify-between shadow-2xl text-cream"
             >
+              {/* Dynamic Scroll Progress Bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-50">
+                <div 
+                  className="h-full bg-[#B22030] transition-all duration-75"
+                  style={{ width: `${scrollProgress}%` }}
+                />
+              </div>
+
               <div>
                 {/* Header Actions */}
                 <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
@@ -169,9 +274,7 @@ export default function Insights() {
 
                 {/* Essay Paragraph Content */}
                 <div className="space-y-6 text-sm text-cream/80 leading-relaxed font-sans">
-                  {paragraphs.map((p: string, idx: number) => (
-                    <p key={idx}>{p}</p>
-                  ))}
+                  {renderParagraphs(activePost.body)}
                 </div>
               </div>
 
