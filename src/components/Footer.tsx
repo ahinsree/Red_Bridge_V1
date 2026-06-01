@@ -29,14 +29,14 @@ export default function Footer() {
                 >
                   <defs>
                     <mask id="footer-logo-cut-mask">
-                      <circle cx="37" cy="62.5" r="24" fill="white" />
-                      <rect x="-13" y="56" width="100" height="13" fill="black" transform="rotate(30 37 62.5)" />
+                      <circle cx="37" cy="66.5" r="24" fill="white" />
+                      <rect x="-13" y="60" width="100" height="13" fill="black" transform="rotate(30 37 66.5)" />
                     </mask>
                   </defs>
                   <rect x="0" y="13" width="13" height="99" fill="#B22030" />
                   <rect x="61" y="13" width="13" height="99" fill="#B22030" />
                   <rect x="0" y="0" width="74" height="13" fill="#B22030" />
-                  <circle cx="37" cy="62.5" r="24" fill="#B22030" mask="url(#footer-logo-cut-mask)" />
+                  <circle cx="37" cy="66.5" r="24" fill="#B22030" mask="url(#footer-logo-cut-mask)" />
                 </svg>
                 <div className="logo-wordmark" aria-hidden="true">
                   <span className="logo-wm-red logo-wm-red--lt">Red</span>
