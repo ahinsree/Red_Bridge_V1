@@ -25,6 +25,27 @@ export default function Chatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Helper to split text by first sentence for distinct premium typography (Serif heading + Sans-serif body)
+  const renderBotMessage = (text: string) => {
+    // Split by the first period, question mark, or exclamation mark followed by space
+    const parts = text.split(/(?<=[.?!])\s+/);
+    if (parts.length > 1) {
+      const heading = parts[0];
+      const rest = parts.slice(1).join(" ");
+      return (
+        <>
+          <span className="block font-serif font-medium text-[13.5px] sm:text-[14px] text-cream leading-snug mb-1.5">
+            {heading}
+          </span>
+          <span className="block font-sans text-[11px] sm:text-[11.5px] text-cream/70 leading-relaxed font-light">
+            {rest}
+          </span>
+        </>
+      );
+    }
+    return <span className="block font-sans text-[11.5px] text-cream/80 leading-relaxed">{text}</span>;
+  };
+
   const quickReplies = [
     { label: "Book Consultation", query: "I would like to book a consultation." },
     { label: "Strategy & Transformation", query: "Tell me about your Strategy & Transformation services." },
@@ -194,11 +215,15 @@ export default function Chatbot() {
                   <div
                     className={
                       msg.sender === "user"
-                        ? "chat-bubble-user"
+                        ? "chat-bubble-user font-sans"
                         : "chat-bubble-bot"
                     }
                   >
-                    <p className="whitespace-pre-line">{msg.text}</p>
+                    {msg.sender === "bot" ? (
+                      renderBotMessage(msg.text)
+                    ) : (
+                      <p className="whitespace-pre-line text-[11px] sm:text-[11.5px] leading-relaxed">{msg.text}</p>
+                    )}
                     <span className="block text-[9px] text-cream/40 mt-1.5 font-mono text-right">
                       {msg.timestamp}
                     </span>
