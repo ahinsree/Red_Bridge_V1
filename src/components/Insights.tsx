@@ -60,7 +60,7 @@ export default function Insights() {
       // 1. Level 3 Subheading
       if (p.startsWith("### ")) {
         return (
-          <h4 key={idx} className="text-base font-serif font-semibold text-cream mt-8 mb-4 border-l-2 border-[#B22030] pl-3">
+          <h4 key={idx} className="text-[17px] md:text-[19px] font-serif font-medium text-cream mt-10 mb-5 border-l-2 border-[#B22030] pl-4 leading-snug">
             {p.replace(/^###\s+/, "")}
           </h4>
         );
@@ -68,7 +68,7 @@ export default function Insights() {
       // 2. Level 2 Subheading
       if (p.startsWith("## ")) {
         return (
-          <h3 key={idx} className="text-lg font-serif font-semibold text-cream mt-10 mb-4 border-l-2 border-[#B22030] pl-3">
+          <h3 key={idx} className="text-[20px] md:text-[22px] font-serif font-medium text-cream mt-12 mb-5 border-l-2 border-[#B22030] pl-4 leading-snug">
             {p.replace(/^##\s+/, "")}
           </h3>
         );
@@ -76,8 +76,8 @@ export default function Insights() {
       // 3. Blockquotes
       if (p.startsWith("> ")) {
         return (
-          <blockquote key={idx} className="border-l-4 border-[#B22030] bg-white/5 pl-4 py-3 pr-2 italic my-6 text-cream/90 rounded-r text-xs md:text-sm">
-            {p.replace(/^>\s+/, "").replace(/"/g, "")}
+          <blockquote key={idx} className="border-l-2 border-[#B22030] bg-white/[0.03] pl-6 py-4 pr-4 italic my-8 text-cream/90 rounded-r text-[13.5px] md:text-[14.5px] leading-relaxed shadow-sm">
+            “{p.replace(/^>\s+/, "").replace(/"/g, "")}”
           </blockquote>
         );
       }
@@ -85,24 +85,24 @@ export default function Insights() {
       if (p.includes("\n- ") || p.startsWith("- ")) {
         const listLines = p.split(/\n?- /).map(item => item.trim()).filter(Boolean);
         return (
-          <ul key={idx} className="list-none space-y-2.5 my-4">
+          <ul key={idx} className="list-none space-y-4 my-6 pl-1">
             {listLines.map((item, i) => {
               const boldMatch = item.match(/^\*\*(.*?)\*\*:(.*)$/);
               if (boldMatch) {
                 return (
-                  <li key={i} className="text-sm text-cream/80 flex items-start gap-2.5">
+                  <li key={i} className="text-[13.5px] md:text-[14px] leading-relaxed text-cream/80 flex items-start gap-3">
                     <span className="text-[#B22030] font-bold mt-0.5">•</span>
                     <span>
-                      <strong className="text-cream font-medium">{boldMatch[1]}:</strong>
-                      {boldMatch[2]}
+                      <strong className="text-cream font-medium">{boldMatch[1]}:</strong>{" "}
+                      <span className="text-cream/70">{boldMatch[2].trim()}</span>
                     </span>
                   </li>
                 );
               }
               return (
-                <li key={i} className="text-sm text-cream/80 flex items-start gap-2.5">
+                <li key={i} className="text-[13.5px] md:text-[14px] leading-relaxed text-cream/80 flex items-start gap-3">
                   <span className="text-[#B22030] font-bold mt-0.5">•</span>
-                  <span>{item}</span>
+                  <span className="text-cream/70">{item}</span>
                 </li>
               );
             })}
@@ -111,7 +111,7 @@ export default function Insights() {
       }
       // 5. Standard paragraph
       return (
-        <p key={idx} className="text-sm text-cream/85 leading-relaxed">
+        <p key={idx} className="text-[14px] md:text-[14.5px] text-cream/75 leading-[1.85] mb-6 tracking-wide font-sans">
           {p}
         </p>
       );
@@ -222,7 +222,7 @@ export default function Insights() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-[#1B263B] border-l border-white/10 z-50 p-8 md:p-12 overflow-y-auto flex flex-col justify-between shadow-2xl text-cream"
+              className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-[#0c101b] border-l border-white/10 z-50 p-8 md:p-12 overflow-y-auto flex flex-col justify-between shadow-2xl text-cream"
             >
               {/* Dynamic Scroll Progress Bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-50">
@@ -258,17 +258,17 @@ export default function Insights() {
                 )}
 
                 {/* Metadata Row */}
-                <div className="flex items-center gap-6 text-[10px] font-mono text-cream/45 uppercase mb-4">
+                <div className="inline-flex items-center gap-3 text-[10.5px] font-mono text-cream/70 mb-5 bg-white/5 py-1.5 px-3.5 rounded-full border border-white/5">
                   <span>{activePost.date}</span>
-                  <span>•</span>
-                  <span className="flex items-center gap-1">
-                    <BookOpen className="w-3.5 h-3.5" />
+                  <span className="text-white/20">•</span>
+                  <span className="flex items-center gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 text-[#B22030]" />
                     {calculateReadTime(activePost.body)}
                   </span>
                 </div>
 
                 {/* Essay Title */}
-                <h3 className="text-2xl md:text-3xl font-serif text-cream leading-tight mb-8">
+                <h3 className="text-2xl md:text-3.5xl font-serif text-cream font-medium leading-tight mb-8">
                   {activePost.title}
                 </h3>
 
