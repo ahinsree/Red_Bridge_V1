@@ -2,6 +2,8 @@ backend:
   name: github
   repo: ahinsree/Red_Bridge_V1
   branch: main
+  base_url: https://www.redbridgeadvisory.com
+  auth_endpoint: api/auth
 
 # Enable local file system writes when running locally
 local_backend: true
