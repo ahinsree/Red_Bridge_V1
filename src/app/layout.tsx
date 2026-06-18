@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -36,6 +37,7 @@ export default function RootLayout({
         className={`${inter.variable} ${cormorant.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
