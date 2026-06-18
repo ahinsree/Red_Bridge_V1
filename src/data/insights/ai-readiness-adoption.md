@@ -1,10 +1,12 @@
 ---
-title: "When AI readiness matters more than AI adoption"
-date: "2026-05-25"
-category: "AI & Digital"
-featured: false
-excerpt: "The market is rushing to deploy AI models. But without foundational data readiness, security frameworks, and capability models, these tools become expensive toys rather than strategic differentiators."
-image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80"
+title: When AI readiness matters more than AI adoption
+date: 2026-05-25
+category: AI & Digital
+featured: true
+excerpt: The market is rushing to deploy AI models. But without foundational
+  data readiness, security frameworks, and capability models, these tools become
+  expensive toys rather than strategic differentiators.
+image: https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80
 ---
 ### Beyond the AI Hype Cycle
 
