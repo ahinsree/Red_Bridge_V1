@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Red Bridge Advisory | Bridging Insight to Impact",
   description: "World-class advisory and transformation partner. Specializing in Strategic Advisory, CX, EX, Data Engineering, Experience Transformation, and AI-driven insights. Distinct by Design. Made to Matter.",
   icons: {
-    icon: "/images/logo-flat.png",
+    icon: "/images/logo-flat.svg",
   },
 };
 
