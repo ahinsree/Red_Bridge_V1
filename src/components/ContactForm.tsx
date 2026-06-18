@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function ContactForm() {
   const [success, setSuccess] = useState(false);
@@ -68,13 +69,13 @@ export default function ContactForm() {
     <section ref={sectionRef} className="section contact-section" id="contact">
       <div className="contact__bg">
         <div className="contact__parallax-wrapper" ref={parallaxRef}>
-          <img
+          <Image
             className="contact__bg-img"
             src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=1920&q=80"
             alt="Red Bridge Advisory architectural lines"
             aria-hidden="true"
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="100vw"
           />
         </div>
       </div>

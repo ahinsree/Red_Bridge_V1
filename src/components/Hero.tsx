@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const parallaxRef = useRef<HTMLDivElement>(null);
@@ -43,13 +44,14 @@ export default function Hero() {
     <section className="hero" id="hero">
       <div className="hero__bg">
         <div className="hero__parallax-wrapper" ref={parallaxRef}>
-          <img
+          <Image
             className="hero__bg-img"
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
             alt="Red Bridge Advisory corporate operational background"
             aria-hidden="true"
-            loading="eager"
-            decoding="async"
+            fill
+            sizes="100vw"
+            priority
           />
         </div>
       </div>

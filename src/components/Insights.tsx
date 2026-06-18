@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, BookOpen } from "lucide-react";
+import Image from "next/image";
 import insightsData from "@/data/insights.json";
 
 interface InsightPost {
@@ -134,9 +135,12 @@ export default function Insights() {
         {featuredPost && (
           <div className="insight-featured reveal d1">
             <div className="insight-featured__img">
-              <img
+              <Image
                 src={featuredPost.image || "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"}
                 alt={featuredPost.title}
+                fill
+                sizes="(max-width: 760px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
             <div className="insight-featured__body">
@@ -249,10 +253,12 @@ export default function Insights() {
                 {/* Article Cover Image inside drawer */}
                 {activePost.image && (
                   <div className="relative w-full h-64 mb-8 overflow-hidden rounded border border-white/10 bg-black/45">
-                    <img
+                    <Image
                       src={activePost.image}
                       alt={activePost.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="(max-width: 600px) 100vw, 600px"
+                      className="object-cover"
                     />
                   </div>
                 )}

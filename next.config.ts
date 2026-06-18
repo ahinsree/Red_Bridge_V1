@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === "production" ? "/Red_Bridge_V1" : "",
+  basePath: "",
 };
 
 export default nextConfig;

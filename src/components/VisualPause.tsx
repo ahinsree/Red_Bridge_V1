@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function VisualPause() {
   const [isVisible, setIsVisible] = useState(false);
@@ -57,13 +58,13 @@ export default function VisualPause() {
     <section ref={sectionRef} className={`visual-pause ${isVisible ? "is-visible" : ""}`} id="visual-pause">
       <div className="visual-pause__bg">
         <div className="visual-pause__parallax-wrapper" ref={parallaxRef}>
-          <img
+          <Image
             className="visual-pause__bg-img"
             src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80"
             alt="Red Bridge Advisory system network cinematic interlude"
             aria-hidden="true"
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="100vw"
           />
         </div>
       </div>
