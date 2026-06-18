@@ -1,10 +1,12 @@
 ---
-title: "The execution gap in public policy — why strategy documents gather dust"
-date: "2026-05-28"
-category: "Strategy"
-featured: false
-excerpt: "Every year, governments release hundreds of ambitious strategy documents. Few achieve their stated goals. To fix this, we must examine the hidden chasm between policy design and service delivery."
-image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80"
+title: The execution gap in public policy — why strategy documents gather dust
+date: 2026-05-28
+category: Strategy
+featured: true
+excerpt: Every year, governments release hundreds of ambitious strategy
+  documents. Few achieve their stated goals. To fix this, we must examine the
+  hidden chasm between policy design and service delivery.
+image: https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80
 ---
 ### The Chasm Between Intent and Reality
 
