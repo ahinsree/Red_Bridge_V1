@@ -15,13 +15,11 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
-const basePath = process.env.NODE_ENV === "production" ? "/Red_Bridge_V1" : "";
-
 export const metadata: Metadata = {
   title: "Red Bridge Advisory | Bridging Insight to Impact",
   description: "World-class advisory and transformation partner. Specializing in Strategic Advisory, CX, EX, Data Engineering, Experience Transformation, and AI-driven insights. Distinct by Design. Made to Matter.",
   icons: {
-    icon: `${basePath}/images/logo-flat.png`,
+    icon: "/images/logo-flat.png",
   },
 };
 
