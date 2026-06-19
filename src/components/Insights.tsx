@@ -293,6 +293,19 @@ export default function Insights() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Visually hidden section for Search Engine and AI indexing */}
+      <div className="sr-only" aria-hidden="true" style={{ display: "none" }}>
+        {typedInsights.map((post) => (
+          <article key={post.slug}>
+            <h2>{post.title}</h2>
+            <p>Category: {post.category}</p>
+            <p>Published: {post.date}</p>
+            <div>{post.excerpt}</div>
+            <div>{post.body}</div>
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
