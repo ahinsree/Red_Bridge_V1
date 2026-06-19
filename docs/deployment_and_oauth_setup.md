@@ -59,3 +59,13 @@ If you ever need to recreate the GitHub OAuth Application:
 4. Register the app, generate a Client Secret, and set these as Environment Variables on your Vercel project dashboard:
    - `GITHUB_CLIENT_ID`
    - `GITHUB_CLIENT_SECRET`
+
+---
+
+## 5. Search Engine & AI Model Optimization (AISO / GEO)
+We have optimized the site for standard search engines (Google, Bing) and AI search crawlers (ChatGPT, Claude, Gemini, Perplexity) to improve visibility and ensure correct information retrieval:
+
+* **Sitemap and Crawl Settings (`src/app/sitemap.ts`):** Defines root routes for indexers to scan the site.
+* **AI Bot Permissive `robots.txt` (`src/app/robots.ts`):** Explicitly lists major AI user-agents (`GPTBot`, `ClaudeBot`, `Google-Extended`, `PerplexityBot`, `Applebot-Extended`) and authorizes them to crawl the domain while securing `/admin` and `/api/`.
+* **JSON-LD Schema Markup (`src/app/layout.tsx`):** Injects a structured `ProfessionalService` Schema.org JSON block to describe Red Bridge Advisory, its address, logo, and core service categories. AI engines rely heavily on this metadata to build their knowledge bases.
+* **Visually Hidden AISO Crawl Container (`src/components/Insights.tsx`):** Because your full insight essay bodies are normally hidden inside a conditional React drawer (making them invisible to non-interactive bots), we created a visually hidden SEO/AISO `sr-only` container. This renders all text essays statically in the DOM, allowing search engine and AI crawlers to fully index the entire content of every publication.
