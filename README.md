@@ -102,6 +102,40 @@ const navLinks = [
 ];
 ```
 
+### 4. Creating and Managing Digital Business Cards
+Digital business/visiting cards (like `/sarath-v-raj` and `/jishnu-g-anand`) are constructed with a profile route page, a direct contact vCard file, and an offline-scannable QR code.
+
+To add a new team member's digital visiting card, follow these steps:
+
+#### A. Create the vCard Contact File
+Create a new file under `public/<member-slug>.vcf` using standard vCard 3.0 syntax. Example:
+```text
+BEGIN:VCARD
+VERSION:3.0
+FN:Full Name
+ORG:Red Bridge Advisory
+TITLE:Job Title
+TEL:+91XXXXXXXXXX
+EMAIL:contact@redbridgeadvisory.com
+URL:https://www.redbridgeadvisory.com
+ADR:;;Dotspace Business Center, TC 24/3088/2, Ushasandya Building, Devasom Board Road, Kowdiar, Thiruvananthapuram;Kerala;;695003;India
+END:VCARD
+```
+
+#### B. Generate and Save the QR Code Image
+1. Generate a high-resolution QR code containing the raw text content of the vCard (scanning this QR code prompts devices to add the contact offline without internet access).
+2. Save the QR code image under `public/images/<member-slug>-qr.png`.
+
+#### C. Create the Next.js Page Route
+Create a new page route at `src/app/<member-slug>/page.tsx` using one of the existing pages as a blueprint:
+1. Update the **Metadata** export block with the correct page title, descriptions, URL, and OpenGraph QR image source.
+2. In the `page.tsx` component, update:
+   * **Name** and **Designation** headings.
+   * **Contact detail elements** (Phone number/tel link, Email, and Website).
+   * **QR code image tag source** pointing to `/images/<member-slug>-qr.png`.
+   * **Direct save contact button** pointing to `/<member-slug>.vcf`.
+   * **WhatsApp share button** with a URL-encoded string pre-filled with the member's profile page URL.
+
 ---
 
 ## 🛠️ Verification & Deployment
