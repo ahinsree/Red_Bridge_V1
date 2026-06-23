@@ -1436,36 +1436,20 @@ img { display: block; width: 100%; object-fit: cover; }
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   pointer-events: none;
-  overflow: hidden;
-}
-
-.vcard-stripes::before,
-.vcard-stripes::after {
-  content: "";
-  position: absolute;
-  bottom: -30px;
-  right: -30px;
-  transform: rotate(-45deg);
-  transform-origin: bottom right;
-}
-
-/* Red stripe */
-.vcard-stripes::before {
-  width: 8px;
-  height: 150px;
-  background: var(--red);
-  right: 12px;
-}
-
-/* Blue stripe */
-.vcard-stripes::after {
-  width: 8px;
-  height: 150px;
-  background: var(--navy);
-  right: -2px;
+  background: linear-gradient(135deg,
+    transparent 45%,
+    var(--red) 45%,
+    var(--red) 58%,
+    transparent 58%,
+    transparent 66%,
+    var(--navy) 66%,
+    var(--navy) 80%,
+    transparent 80%
+  );
+  z-index: 2;
 }
 
 .vcard-actions {
