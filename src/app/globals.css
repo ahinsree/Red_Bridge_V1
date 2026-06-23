@@ -1444,10 +1444,10 @@ img { display: block; width: 100%; object-fit: cover; }
     var(--red) 58%,
     var(--red) 65%,
     transparent 65%,
-    transparent 71%,
-    rgba(178, 32, 48, 0.4) 71%,
-    rgba(178, 32, 48, 0.4) 75%,
-    transparent 75%
+    transparent 68%,
+    rgba(178, 32, 48, 0.4) 68%,
+    rgba(178, 32, 48, 0.4) 72%,
+    transparent 72%
   );
   z-index: 2;
 }
