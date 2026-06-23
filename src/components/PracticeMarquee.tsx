@@ -15,10 +15,11 @@ export default function PracticeMarquee() {
 
   const items = [
     "Strategy & Transformation",
-    "AI & Digital",
-    "Experience Advisory",
-    "Institutional Transformation",
-    "Investment & Economic Advisory",
+    "AI, Digital & Data",
+    "Experience & Service Design",
+    "Investment & Infrastructure",
+    "Startups & Innovation",
+    "Programme Delivery & M&E",
   ];
 
   return (

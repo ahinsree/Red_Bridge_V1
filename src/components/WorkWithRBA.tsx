@@ -13,54 +13,58 @@ export default function WorkWithRBA() {
     }
   };
 
+  const segments = [
+    {
+      label: "Governments & Public Institutions",
+      body: "Central and state departments, missions, authorities and public sector undertakings, where the work is policy, reform and delivery at scale.",
+      delayClass: "",
+    },
+    {
+      label: "Enterprises & Corporates",
+      body: "Boards and leadership teams in established companies, on strategy, transformation, technology, and the experience their customers and employees receive.",
+      delayClass: "d1",
+    },
+    {
+      label: "Startups, Founders & Innovators",
+      body: "Early and growth-stage ventures, and the incubators and universities, on building, funding and scaling what they have started.",
+      delayClass: "d2",
+    },
+    {
+      label: "Investors, Agencies & Foundations",
+      body: "Investors, development agencies, foundations and CSR funds, on where to commit capital and how to know it is working.",
+      delayClass: "d3",
+    },
+  ];
+
   return (
     <section className="work-with" id="work-with">
       <div className="container">
-        <div className="work-with__header reveal">
-          <span className="sec-label sec-label--muted">Work With Red Bridge</span>
-          <h2>
-            The quality of the people determines
-            <br />
-            the quality of the work.
+        <div className="work-with__header reveal" style={{ maxWidth: "800px", margin: "0 auto 52px", textAlign: "center" }}>
+          <span className="sec-label sec-label--muted">Who We Work With</span>
+          <h2 style={{ fontSize: "clamp(20px, 2.4vw, 28px)", lineHeight: "1.35", color: "var(--cream)", marginTop: "12px", fontStyle: "normal" }}>
+            We are built to work on both sides of the table: with the public institutions that set the rules, and with the enterprises and founders who operate within them.
           </h2>
+          <p style={{ fontSize: "14px", lineHeight: "1.8", color: "rgba(237, 234, 226, 0.48)", marginTop: "18px", maxWidth: "680px", marginLeft: "auto", marginRight: "auto" }}>
+            It is also what lets us bring private-sector discipline to public assignments, and public-sector context to private decisions.
+          </p>
         </div>
 
         <div className="work-with__layout">
-          <div className="work-with__col reveal">
-            <span className="work-with__icon"></span>
-            <span className="work-with__col-label">For Practitioners &amp; Specialists</span>
-            <h3 className="work-with__col-title">
-              Advisors, domain experts,
-              <br />
-              and independent practitioners.
-            </h3>
-            <p className="work-with__col-body">
-              We work with a selective network of advisors, researchers, specialists, and independent operators who bring deep
-              knowledge to specific mandates. We are not organised as a large firm. We are organised around capability — and we are
-              always open to a conversation with people who understand how complex institutional work actually gets done.
-            </p>
-            <a href="#contact" className="work-with__col-cta" onClick={(e) => handleScrollTo(e, "#contact")}>
-              Introduce yourself &rarr;
-            </a>
-          </div>
-
-          <div className="work-with__col reveal d1">
-            <span className="work-with__icon"></span>
-            <span className="work-with__col-label">For Institutions &amp; Collaborators</span>
-            <h3 className="work-with__col-title">
-              Aligned institutions, firms,
-              <br />
-              and implementation partners.
-            </h3>
-            <p className="work-with__col-body">
-              There are mandates where the right outcome depends on the right partnership. We work selectively with institutions,
-              research bodies, and advisory firms where complementary capability creates a materially better result for the client.
-              If your work is aligned with ours in quality and intent, we would value the conversation.
-            </p>
-            <a href="#contact" className="work-with__col-cta" onClick={(e) => handleScrollTo(e, "#contact")}>
-              Start a conversation &rarr;
-            </a>
-          </div>
+          {segments.map((seg, index) => (
+            <div key={index} className={`work-with__col reveal ${seg.delayClass}`}>
+              <span className="work-with__icon"></span>
+              <span className="work-with__col-label">Client Type</span>
+              <h3 className="work-with__col-title" style={{ fontSize: "18px", fontStyle: "normal", marginBottom: "14px", minHeight: "50px" }}>
+                {seg.label}
+              </h3>
+              <p className="work-with__col-body" style={{ minHeight: "100px", marginBottom: "24px" }}>
+                {seg.body}
+              </p>
+              <a href="#contact" className="work-with__col-cta" onClick={(e) => handleScrollTo(e, "#contact")}>
+                Start a conversation &rarr;
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </section>

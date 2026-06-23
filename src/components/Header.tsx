@@ -98,15 +98,20 @@ export default function Header() {
             <div className={`nav__dropdown ${mobileDropdownOpen ? "mobile-open" : ""}`}>
               <span className="nav__dropdown__label">Practice Areas</span>
               <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Strategy &amp; Transformation</a>
-              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>AI &amp; Digital</a>
-              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Experience Advisory</a>
-              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Institutional Transformation</a>
-              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Investment &amp; Economic Advisory</a>
+              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>AI, Digital &amp; Data</a>
+              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Experience &amp; Service Design</a>
+              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Investment &amp; Infrastructure</a>
+              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Startups &amp; Innovation</a>
+              <a href="#advisory" onClick={(e) => handleLinkClick(e, "#advisory")}>Programme Management &amp; M&amp;E</a>
               <hr />
               <span className="nav__dropdown__label">Sectors</span>
-              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Government &amp; Public Systems</a>
-              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Tourism &amp; Destinations</a>
-              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>MSME &amp; Entrepreneurship</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Infrastructure &amp; Economic</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Tourism &amp; Hospitality</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Government &amp; Public</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>MSME &amp; Startups</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Sustainability &amp; Climate</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Education &amp; Skilling</a>
+              <a href="#sectors" onClick={(e) => handleLinkClick(e, "#sectors")}>Maritime &amp; Blue Economy</a>
             </div>
           </div>
 

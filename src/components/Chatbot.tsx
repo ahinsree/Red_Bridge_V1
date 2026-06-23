@@ -48,11 +48,11 @@ export default function Chatbot() {
 
   const quickReplies = [
     { label: "Book Consultation", query: "I would like to book a consultation." },
-    { label: "Strategy & Transformation", query: "Tell me about your Strategy & Transformation services." },
-    { label: "AI & Digital", query: "What AI & Digital services do you provide?" },
-    { label: "Experience Advisory", query: "Tell me about your Experience Advisory practice." },
-    { label: "Institutional Transformation", query: "Tell me about your Institutional Transformation practice." },
-    { label: "Investment & Economic Advisory", query: "Tell me about your Investment & Economic Advisory practice." }
+    { label: "Strategy & Transformation", query: "Tell me about your Strategy, Transformation & Institution Building services." },
+    { label: "AI, Digital & Data", query: "What AI, Digital & Data services do you provide?" },
+    { label: "Experience & Service Design", query: "Tell me about your Experience & Service Design practice." },
+    { label: "Investment & Economic", query: "Tell me about your Investment, Economic & Infrastructure Advisory practice." },
+    { label: "Startups & Ecosystems", query: "Tell me about your Entrepreneurship, Innovation & Startup Ecosystems practice." }
   ];
 
   useEffect(() => {
@@ -76,53 +76,57 @@ export default function Chatbot() {
     // Simulate bot response
     setTimeout(() => {
       const normalizedQuery = text.trim().toLowerCase();
-      let responseText = "Thank you for your inquiry. A senior advisory coordinator has been alerted to review your message. You can also contact us directly at briefing@redbridgeadvisory.com.";
+      let responseText = "Thank you for your inquiry. A senior advisory coordinator has been alerted to review your message. You can also contact us directly at contact@redbridgeadvisory.com.";
 
       // Rule-based keyword matching for common client inquiries
       const responseRules = [
         {
-          keywords: ["strategic advisory", "strategy & transformation", "strategy", "business model", "organizational design", "capabilities", "what do you do", "services"],
-          response: "Our Strategy & Transformation practice aligns executive vision with actionable execution. We focus on business model innovation, organizational design, operating model development, and scaling digital capability models. No hype, just clear outcomes."
+          keywords: ["strategic advisory", "strategy & transformation", "strategy", "business model", "organizational design", "capabilities", "what do you do", "services", "institution building"],
+          response: "Our Strategy, Transformation & Institution Building practice aligns executive vision with operating model structures, governance, and reform design to ensure organizational change holds after we leave."
         },
         {
-          keywords: ["customer experience", "cx", "ex", "employee experience", "satisfaction", "retention", "journey", "culture", "workforce", "experience advisory", "experience"],
-          response: "Our Experience Advisory practice designs Customer Experiences (CX) and Employee Experiences (EX) that drive bottom-line retention. By linking journey touchpoints to hard financial metrics (like customer lifetime value and cost-to-serve), we turn experience design into a strategic asset."
+          keywords: ["customer experience", "cx", "ex", "employee experience", "satisfaction", "retention", "journey", "culture", "workforce", "experience & service design", "experience", "service design"],
+          response: "Our Experience & Service Design practice works in the gap between what an organization designs and what a person actually gets, shaping customer and citizen experiences on purpose."
         },
         {
-          keywords: ["ai", "ai & digital", "intelligence", "data engineering", "predictive", "machine learning", "ml", "data pipelines", "analytics"],
-          response: "Our AI & Digital practice bridges modern data engineering with predictive analytics. We design data pipelines, ingest real-time signals, and design custom AI models to forecast customer behaviors and operational bottlenecks."
+          keywords: ["ai", "ai, digital & data", "intelligence", "data engineering", "predictive", "machine learning", "ml", "data pipelines", "analytics", "digital & data"],
+          response: "Our AI, Digital & Data practice helps you adopt technology with judgement, not haste, designing data strategies, architectures, and digital roadmaps that show results incrementally."
         },
         {
-          keywords: ["institutional", "institutional transformation", "government", "public systems", "reform", "restructuring", "capacity building"],
-          response: "Our Institutional Transformation practice supports government bodies, public authorities, and complex organizations navigating structural reform. We deliver capacity building, operating model modernization, and program management tailored for high-stakes institutional mandates."
+          keywords: ["investment", "economic", "investment & economic", "feasibility", "growth", "policy design", "financial strategy", "infrastructure advisory"],
+          response: "Our Investment, Economic & Infrastructure Advisory practice prepares detailed project reports, feasibility studies, economic promotion strategies, and project structuring behind sound investment decisions."
         },
         {
-          keywords: ["investment", "economic", "investment & economic", "feasibility", "growth", "policy design", "financial strategy"],
-          response: "Our Investment & Economic Advisory practice supports sovereign agencies, investment funds, and corporate clients with feasibility studies, economic policy design, and sector development strategies to unlock long-term regional and organizational value."
+          keywords: ["entrepreneurship", "innovation", "startups", "ecosystems", "msme", "incubators"],
+          response: "Our Entrepreneurship, Innovation & Startup Ecosystems practice designs support architectures, incubation programs, and startup mission advisory to build the conditions for enterprise to grow."
         },
         {
-          keywords: ["industries", "sectors", "healthcare", "finance", "retail", "telecom", "banking", "public sector", "manufactur"],
-          response: "We serve key enterprise domains including Financial Services (banking, capital markets), Healthcare (clinical systems, digital health), Omnichannel Retail, Telecommunications, and the Public Sector/Smart Infrastructure."
+          keywords: ["programme management", "monitoring", "evaluation", "pmu", "delivery", "baseline", "outcome studies"],
+          response: "Our Programme Management, Monitoring & Evaluation practice handles execution and verifies outcomes, ensuring that large-scale programs are delivered with strict independent assurance."
+        },
+        {
+          keywords: ["industries", "sectors", "tourism", "climate", "education", "maritime", "coastal", "public sector"],
+          response: "We have deep experience across seven key sectors: Infrastructure & Economic Development; Tourism, Hospitality & Destinations; Government & Public Systems; MSME, Startups & Livelihoods; Sustainability, Climate & Green Growth; Education & Workforce Skilling; and Maritime & Coastal Coastal Development."
         },
         {
           keywords: ["case studies", "projects", "work", "examples", "clients", "track record"],
-          response: "We have executed major transformations, including routing critical clinical records for national providers, engineering analytics engines processing billions of retail events, and deploying strategic models for banking networks. Check the 'Case Studies' section above for detailed metrics."
+          response: "We have executed major public-sector and enterprise transformations across strategy, digitisation, tourism, skilling, and infrastructure. Details of our case studies and assignments are listed in our portfolio section above."
         },
         {
           keywords: ["pricing", "cost", "rates", "fees", "how much", "budget"],
-          response: "Our advisory engagements are custom-scoped based on target enterprise outcomes and complexity. We typically operate on retainer or fixed-fee milestone structures. Contact our client desk at briefing@redbridgeadvisory.com to arrange a scoped proposal briefing."
+          response: "Our engagements are custom-scoped. We operate on fixed-fee milestones or retainer structures, depending on the complexity. Contact us at contact@redbridgeadvisory.com to arrange a scoping meeting."
         },
         {
           keywords: ["careers", "jobs", "join", "recruiting", "position", "work at"],
-          response: "We are always looking for elite strategic designers, principal data engineers, and transformation architects. Visit our Careers section or send your details directly to talent@redbridgeadvisory.com."
+          response: "We are always looking for outstanding independent advisors and specialists. Send your CV and portfolio details to contact@redbridgeadvisory.com."
         },
         {
           keywords: ["consultation", "book", "meeting", "briefing", "schedule", "contact", "talk", "email", "call"],
-          response: "Excellent choice. You can scroll down to our booking form at the bottom of this page, or write directly to our executive client desk at briefing@redbridgeadvisory.com. We typically respond within 4 hours."
+          response: "Excellent. You can use the enquiry form on our page or write to our team directly at contact@redbridgeadvisory.com. We typically respond within 24-48 hours."
         },
         {
           keywords: ["about", "philosophy", "who are you", "who is", "red bridge", "agency", "firm"],
-          response: "Red Bridge Advisory is a premier strategic and experience transformation partner. Distinct by Design, Made to Matter. We combine deep business consulting with modern systems engineering to solve high-stakes enterprise challenges."
+          response: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, digital, economic advisory, entrepreneurship, and programme delivery."
         }
       ];
 

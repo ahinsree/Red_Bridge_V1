@@ -17,14 +17,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Red Bridge Advisory | Bridging Insight to Impact",
-  description: "World-class advisory and transformation partner. Specializing in Strategic Advisory, CX, EX, Data Engineering, Experience Transformation, and AI-driven insights. Distinct by Design. Made to Matter.",
+  description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
   metadataBase: new URL("https://www.redbridgeadvisory.com"),
   icons: {
     icon: "/images/logo-flat.svg",
   },
   openGraph: {
     title: "Red Bridge Advisory | Bridging Insight to Impact",
-    description: "World-class advisory and transformation partner. Specializing in Strategic Advisory, CX, EX, Data Engineering, Experience Transformation, and AI-driven insights.",
+    description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
     url: "https://www.redbridgeadvisory.com",
     siteName: "Red Bridge Advisory",
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Red Bridge Advisory | Bridging Insight to Impact",
-    description: "World-class advisory and transformation partner. Specializing in Strategic Advisory, CX, EX, Data Engineering, Experience Transformation, and AI-driven insights.",
+    description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
     images: ["/images/logo-flat.png"],
     creator: "@redbridgeadv",
   },
@@ -60,7 +60,7 @@ export default function RootLayout({
     "url": "https://www.redbridgeadvisory.com",
     "logo": "https://www.redbridgeadvisory.com/images/logo-flat.png",
     "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
-    "description": "World-class advisory and transformation partner. Specializing in Strategic Advisory, CX, EX, Data Engineering, Experience Transformation, and AI-driven insights.",
+    "description": "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Dotspace Business Center, TC 24/3088/2, Ushasandya Building, Devasom Board Road, Kowdiar",
@@ -70,7 +70,7 @@ export default function RootLayout({
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "hello@redbridgeadvisory.com",
+      "email": "contact@redbridgeadvisory.com",
       "contactType": "customer service"
     },
     "sameAs": [

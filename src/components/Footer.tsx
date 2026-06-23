@@ -63,7 +63,7 @@ export default function Footer() {
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
               </a>
-              <a href="mailto:hello@redbridgeadvisory.com" className="footer__social-btn" title="Email">
+              <a href="mailto:contact@redbridgeadvisory.com" className="footer__social-btn" title="Email">
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
                   <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
@@ -106,16 +106,19 @@ export default function Footer() {
                 Strategy &amp; Transformation
               </a>
               <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
-                AI &amp; Digital
+                AI, Digital &amp; Data
               </a>
               <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
-                Experience Advisory
+                Experience &amp; Service Design
               </a>
               <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
-                Institutional Transformation
+                Investment &amp; Infrastructure
               </a>
               <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
-                Investment &amp; Economic
+                Startups &amp; Innovation
+              </a>
+              <a href="#advisory" className="footer__link" onClick={(e) => handleScrollTo(e, "#advisory")}>
+                Programme Management &amp; M&amp;E
               </a>
             </div>
           </div>
@@ -123,8 +126,8 @@ export default function Footer() {
           <div>
             <p className="footer__col-title">Connect</p>
             <div className="footer__links">
-              <a href="mailto:hello@redbridgeadvisory.com" className="footer__link">
-                hello@redbridgeadvisory.com
+              <a href="mailto:contact@redbridgeadvisory.com" className="footer__link">
+                contact@redbridgeadvisory.com
               </a>
               <a href="#" className="footer__link">
                 LinkedIn
