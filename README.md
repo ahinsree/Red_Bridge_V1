@@ -179,3 +179,5 @@ Here are the latest portal enhancements:
 19. **Shared Visiting Card Styles**: Added responsive `.vcard-*` styling rules in `src/app/globals.css`, introducing halftone dot side panels, centered layouts, action buttons, and custom diagonal corner stripes.
 20. **Visual Accent Refinement**: Tuned the diagonal corner stripes for the digital business card: unified the bottom stripe color to red, narrowed it to a 4% span, made it semi-transparent (`rgba(178, 32, 48, 0.4)`) to reduce contrast, and reduced the gap between the stripes to 3% for a sleek, premium appearance.
 21. **Digital Visiting Card for Ahinsree B**: Designed and created a matching digital business card page at `/ahinsree-b` (with redirect at `/ahinsree`) and direct-download vCard file at `public/ahinsree-b.vcf` with offline-scannable contact QR code.
+22. **ESLint and Script Quality Checks**: Cleaned up project-wide static analysis by configuring ESLint ignores for local development utility scripts, fixing all 11 existing linter errors and ensuring a fully green build.
+
