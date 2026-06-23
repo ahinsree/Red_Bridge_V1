@@ -140,8 +140,7 @@ Here are the latest portal enhancements:
 14. **Solutions Drawer 3D Centering & Parallax**: Centered the 3D WebGL canvas within the Solutions slide-drawer and enabled complete cursor hover-to-rotate tilt interactions inside the drawer by wrapping it in the dynamic 3D card layout context.
 15. **Live Google Sheets API Integration**: Connected the corporate briefing request form to your Google Sheets macro API endpoint, enabling secure asynchronous submissions directly to your live spreadsheet.
 16. **Secure API Routing & Environment Variables**: Secured sensitive spreadsheet Web App credentials by migrating them to a server-side environment file (`.env.local`) ignored by Git, and proxying submission calls through a dedicated, local Next.js server API endpoint (`/api/contact`).
-
-
-
-
-
+17. **Digital Visiting Card for Sarath V Raj**: Designed and created a premium digital business card page at `/sarath-v-raj` and direct-download vCard file at `public/sarath-v-raj.vcf` with responsive quick-links and a custom contact QR code.
+18. **Digital Visiting Card for Jishnu G Anand**: Designed and created a matching digital business card page at `/jishnu-g-anand` and direct-download vCard file at `public/jishnu-g-anand.vcf` with integrated QR code scan-to-save capability.
+19. **Shared Visiting Card Styles**: Added responsive `.vcard-*` styling rules in `src/app/globals.css`, introducing halftone dot side panels, centered layouts, action buttons, and custom diagonal corner stripes.
+20. **Visual Accent Refinement**: Tuned the diagonal corner stripes for the digital business card: unified the bottom stripe color to red, narrowed it to a 4% span, made it semi-transparent (`rgba(178, 32, 48, 0.4)`) to reduce contrast, and reduced the gap between the stripes to 3% for a sleek, premium appearance.
