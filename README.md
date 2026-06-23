@@ -103,7 +103,7 @@ const navLinks = [
 ```
 
 ### 4. Creating and Managing Digital Business Cards
-Digital business/visiting cards (like `/sarath-v-raj` and `/jishnu-g-anand`) are constructed with a profile route page, a direct contact vCard file, and an offline-scannable QR code.
+Digital business/visiting cards (like `/sarath-v-raj`, `/jishnu-g-anand`, and `/ahinsree-b`) are constructed with a profile route page, a direct contact vCard file, and an offline-scannable QR code.
 
 To add a new team member's digital visiting card, follow these steps:
 
@@ -178,3 +178,4 @@ Here are the latest portal enhancements:
 18. **Digital Visiting Card for Jishnu G Anand**: Designed and created a matching digital business card page at `/jishnu-g-anand` and direct-download vCard file at `public/jishnu-g-anand.vcf` with integrated QR code scan-to-save capability.
 19. **Shared Visiting Card Styles**: Added responsive `.vcard-*` styling rules in `src/app/globals.css`, introducing halftone dot side panels, centered layouts, action buttons, and custom diagonal corner stripes.
 20. **Visual Accent Refinement**: Tuned the diagonal corner stripes for the digital business card: unified the bottom stripe color to red, narrowed it to a 4% span, made it semi-transparent (`rgba(178, 32, 48, 0.4)`) to reduce contrast, and reduced the gap between the stripes to 3% for a sleek, premium appearance.
+21. **Digital Visiting Card for Ahinsree B**: Designed and created a matching digital business card page at `/ahinsree-b` (with redirect at `/ahinsree`) and direct-download vCard file at `public/ahinsree-b.vcf` with offline-scannable contact QR code.
