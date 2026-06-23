@@ -1442,12 +1442,12 @@ img { display: block; width: 100%; object-fit: cover; }
   background: linear-gradient(135deg,
     transparent 45%,
     var(--red) 45%,
-    var(--red) 58%,
-    transparent 58%,
-    transparent 66%,
-    var(--navy) 66%,
-    var(--navy) 80%,
-    transparent 80%
+    var(--red) 65%,
+    transparent 65%,
+    transparent 71%,
+    var(--navy) 71%,
+    var(--navy) 91%,
+    transparent 91%
   );
   z-index: 2;
 }
