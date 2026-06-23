@@ -1440,14 +1440,14 @@ img { display: block; width: 100%; object-fit: cover; }
   height: 120px;
   pointer-events: none;
   background: linear-gradient(135deg,
-    transparent 45%,
-    var(--red) 45%,
+    transparent 58%,
+    var(--red) 58%,
     var(--red) 65%,
     transparent 65%,
-    transparent 71%,
-    var(--navy) 71%,
-    var(--navy) 91%,
-    transparent 91%
+    transparent 70%,
+    var(--navy) 70%,
+    var(--navy) 77%,
+    transparent 77%
   );
   z-index: 2;
 }
