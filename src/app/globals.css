@@ -1277,12 +1277,12 @@ img { display: block; width: 100%; object-fit: cover; }
 
 .vcard-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 400px;
   background: var(--white);
   border: 1px solid var(--divider-soft);
-  border-radius: 12px;
-  padding: 44px 32px;
-  box-shadow: 0 16px 48px rgba(27, 38, 59, 0.08);
+  border-radius: 4px;
+  padding: 44px 30px;
+  box-shadow: 0 20px 50px rgba(27, 38, 59, 0.08);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -1291,60 +1291,76 @@ img { display: block; width: 100%; object-fit: cover; }
   text-align: center;
 }
 
-/* Background dots texture matching the card layout */
-.vcard-card::before {
-  content: "";
+/* Halftone dotted side panels */
+.vcard-halftone-left {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(rgba(27, 38, 59, 0.05) 1px, transparent 1px);
-  background-size: 16px 16px;
-  opacity: 0.8;
+  top: 100px;
+  left: 0;
+  width: 80px;
+  height: 480px;
+  background-image: radial-gradient(rgba(27, 38, 59, 0.08) 1.2px, transparent 1.2px);
+  background-size: 8px 8px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
   pointer-events: none;
+  z-index: 1;
+}
+
+.vcard-halftone-right {
+  position: absolute;
+  top: 100px;
+  right: 0;
+  width: 80px;
+  height: 480px;
+  background-image: radial-gradient(rgba(27, 38, 59, 0.08) 1.2px, transparent 1.2px);
+  background-size: 8px 8px;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .vcard-logo {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   z-index: 2;
 }
 
 .vcard-name {
   font-family: var(--font-serif), var(--serif);
-  font-size: clamp(28px, 4vw, 32px);
+  font-size: clamp(26px, 3.5vw, 29px);
   font-weight: 500;
   color: var(--navy);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   z-index: 2;
+  letter-spacing: -0.01em;
 }
 
 .vcard-title {
   font-family: var(--font-sans), var(--sans);
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--navy);
   margin-bottom: 28px;
   z-index: 2;
 }
 
 .vcard-details {
-  width: 100%;
-  margin-bottom: 32px;
+  margin: 0 auto 28px;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   align-items: flex-start;
-  max-width: 320px;
+  width: fit-content;
 }
 
 .vcard-detail-item {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   font-family: var(--font-sans), var(--sans);
-  font-size: 13.5px;
-  color: var(--charcoal);
+  font-size: 13px;
+  color: var(--navy);
   text-decoration: none;
   transition: color var(--ease-hover);
 }
@@ -1354,8 +1370,8 @@ img { display: block; width: 100%; object-fit: cover; }
 }
 
 .vcard-icon {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--red);
   color: var(--white);
@@ -1366,53 +1382,52 @@ img { display: block; width: 100%; object-fit: cover; }
 }
 
 .vcard-icon svg {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
 }
 
 .vcard-qr-label {
   font-family: var(--font-sans), var(--sans);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--charcoal);
+  color: var(--navy);
   margin-bottom: 12px;
   z-index: 2;
 }
 
 .vcard-qr-container {
-  border: 1px solid var(--divider-soft);
-  padding: 16px;
-  border-radius: 8px;
+  border: 1.5px solid var(--navy);
+  padding: 12px;
+  border-radius: 2px;
   background: var(--white);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   z-index: 2;
-  box-shadow: 0 4px 12px rgba(27, 38, 59, 0.02);
 }
 
 .vcard-qr-img {
-  width: 160px;
-  height: 160px;
+  width: 156px;
+  height: 156px;
   display: block;
 }
 
 .vcard-address {
   font-family: var(--font-sans), var(--sans);
-  font-size: 11.5px;
+  font-size: 11px;
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--charcoal);
   max-width: 320px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   z-index: 2;
 }
 
 .vcard-tagline {
   font-family: var(--font-serif), var(--serif);
   font-style: italic;
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--navy);
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   z-index: 2;
 }
 
@@ -1421,8 +1436,8 @@ img { display: block; width: 100%; object-fit: cover; }
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   pointer-events: none;
   overflow: hidden;
 }
@@ -1431,26 +1446,26 @@ img { display: block; width: 100%; object-fit: cover; }
 .vcard-stripes::after {
   content: "";
   position: absolute;
-  bottom: -40px;
-  right: -40px;
+  bottom: -30px;
+  right: -30px;
   transform: rotate(-45deg);
   transform-origin: bottom right;
 }
 
 /* Red stripe */
 .vcard-stripes::before {
-  width: 20px;
-  height: 200px;
+  width: 8px;
+  height: 150px;
   background: var(--red);
-  right: -20px;
+  right: 12px;
 }
 
 /* Blue stripe */
 .vcard-stripes::after {
-  width: 20px;
-  height: 200px;
+  width: 8px;
+  height: 150px;
   background: var(--navy);
-  right: -40px;
+  right: -2px;
 }
 
 .vcard-actions {
