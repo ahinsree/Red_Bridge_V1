@@ -35,14 +35,13 @@ export default function JishnuVCard() {
 
           {/* Logo Section */}
           <div className="vcard-logo">
-            <div className="nav__logo" style={{ gap: "8px", pointerEvents: "none" }}>
+            <div className="nav__logo" style={{ pointerEvents: "none" }}>
               <svg
                 className="logo-mark"
                 viewBox="0 0 74 112"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
                 overflow="visible"
-                style={{ width: "32px", height: "48px" }}
               >
                 <defs>
                   <mask id="vcard-logo-cut-mask">
@@ -56,9 +55,9 @@ export default function JishnuVCard() {
                 <circle cx="37" cy="70.5" r="24" fill="#B22030" mask="url(#vcard-logo-cut-mask)" />
               </svg>
               <div className="logo-wordmark" style={{ textAlign: "left" }}>
-                <span className="logo-wm-red" style={{ fontSize: "14px", letterSpacing: "0.08em" }}>Red</span>
-                <span className="logo-wm-bridge" style={{ fontSize: "14px", letterSpacing: "0.08em" }}>Bridge</span>
-                <span className="logo-wm-advisory" style={{ fontSize: "7px", letterSpacing: "0.22em" }}>Advisory</span>
+                <span className="logo-wm-red">Red</span>
+                <span className="logo-wm-bridge">Bridge</span>
+                <span className="logo-wm-advisory">Advisory</span>
               </div>
             </div>
           </div>
