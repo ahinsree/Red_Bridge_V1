@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function WhyRBA() {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.querySelector(id);
@@ -32,6 +34,47 @@ export default function WhyRBA() {
             <a href="#contact" className="btn btn--ghost" style={{ marginTop: "8px" }} onClick={(e) => handleScrollTo(e, "#contact")}>
               Start a Conversation &rarr;
             </a>
+
+            {/* Custom Interactive Graphic representing Built Different. By Design */}
+            <div className="why-rba__image-wrapper" style={{ 
+              marginTop: "40px", 
+              position: "relative", 
+              borderRadius: "6px", 
+              overflow: "hidden", 
+              boxShadow: "0 20px 48px rgba(0,0,0,0.06), 0 0 24px rgba(178,32,48,0.05)", 
+              border: "1px solid var(--divider-soft)" 
+            }}>
+              <Image 
+                src="/images/why-rba-concept.png" 
+                alt="Built different. By design. Structural connectivity model" 
+                width={600} 
+                height={600} 
+                style={{ width: "100%", height: "auto", display: "block", transition: "transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)" }}
+                className="hover-zoom"
+              />
+              <div style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: "linear-gradient(to bottom, transparent 50%, rgba(28,28,28,0.85))",
+                pointerEvents: "none"
+              }} />
+              <div style={{
+                position: "absolute",
+                bottom: "16px",
+                left: "20px",
+                color: "var(--cream)",
+                fontFamily: "var(--serif)",
+                fontStyle: "italic",
+                fontSize: "13.5px",
+                opacity: 0.9,
+                letterSpacing: "0.015em"
+              }}>
+                Red Bridge Connectivity Architecture
+              </div>
+            </div>
           </div>
 
           <div className="why-items">
