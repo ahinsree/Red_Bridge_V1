@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -175,6 +175,15 @@ const practicesData: Record<string, {
   }
 };
 
+const topicMap: Record<string, string> = {
+  "strategy-transformation": "strategy",
+  "ai-digital-data": "ai",
+  "experience-service-design": "design",
+  "investment-economic-infrastructure": "investment",
+  "entrepreneurship-innovation-startup": "startup",
+  "programme-management-monitoring": "pm"
+};
+
 export default function PracticeDetailPage() {
   const { slug } = useParams() as { slug: string };
   const practice = practicesData[slug];
@@ -186,9 +195,19 @@ export default function PracticeDetailPage() {
 
   const IconComponent = practice.icon;
 
+  // Parallax translation coordinates states
+  const [scrollVal, setScrollVal] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
     // Scroll reveal activation
     document.documentElement.classList.add("js-ready");
+
+    const handleScroll = () => {
+      setScrollVal(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
     const vh = window.innerHeight || document.documentElement.clientHeight;
@@ -227,8 +246,17 @@ export default function PracticeDetailPage() {
     return () => {
       clearTimeout(timer);
       revealObs.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [slug]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX / innerWidth - 0.5) * 30;
+    const y = (clientY / innerHeight - 0.5) * 30;
+    setMousePos({ x, y });
+  };
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.querySelector(id);
@@ -242,21 +270,64 @@ export default function PracticeDetailPage() {
     }
   };
 
+  // Prepopulate capability in contact form when clicked
+  const handleCapClick = (e: React.MouseEvent<HTMLAnchorElement>, cap: string) => {
+    e.preventDefault();
+
+    // Scroll to contact form
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      const topOffset = contactSection.getBoundingClientRect().top + window.scrollY - 64;
+      window.scrollTo({
+        top: topOffset,
+        behavior: "smooth"
+      });
+    }
+
+    // Set Area of Interest Select Dropdown
+    const topicSelect = document.getElementById("cf-topic") as HTMLSelectElement;
+    if (topicSelect) {
+      const nativeSelectSetter = Object.getOwnPropertyDescriptor(window.HTMLSelectElement.prototype, "value")?.set;
+      nativeSelectSetter?.call(topicSelect, topicMap[slug] || "general");
+      topicSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    // Set Message text area
+    const msgTextarea = document.getElementById("cf-msg") as HTMLTextAreaElement;
+    if (msgTextarea) {
+      const nativeTextareaSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value")?.set;
+      nativeTextareaSetter?.call(msgTextarea, `Hello, I would like to enquire about: "${cap}"`);
+      msgTextarea.dispatchEvent(new Event("input", { bubbles: true }));
+
+      // Focus input field with brief timeout to allow smooth scroll completion
+      setTimeout(() => {
+        msgTextarea.focus();
+      }, 750);
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[#FAFAF8] text-[#2E2E2E]">
       <Header />
 
-      {/* Practice Hero Banner with Vibrant mesh gradients */}
+      {/* Practice Hero Banner with Vibrant mesh gradients & real interactive parallax */}
       <section 
-        className="hero" 
+        className="hero relative overflow-hidden" 
         style={{ 
           height: "65vh", 
           minHeight: "520px",
           background: `radial-gradient(circle at 15% 30%, ${style.glow} 0%, transparent 65%), var(--navy)`
         }}
+        onMouseMove={handleMouseMove}
       >
         <div className="hero__bg">
-          <div className="hero__parallax-wrapper" style={{ transform: "scale(1.06)" }}>
+          {/* Scroll and mouse driven background translation layer */}
+          <div 
+            className="hero__parallax-wrapper" 
+            style={{ 
+              transform: `translate3d(${mousePos.x * -0.4}px, ${scrollVal * 0.32 + mousePos.y * -0.4}px, 0) scale(1.08)` 
+            }}
+          >
             <div 
               style={{
                 position: "absolute", top: 0, right: 0, bottom: 0, left: 0,
@@ -276,6 +347,25 @@ export default function PracticeDetailPage() {
             background: `linear-gradient(135deg, ${style.glow} 0%, transparent 60%)`
           }}
         />
+
+        {/* Floating geometric parallax vector nodes */}
+        <div 
+          className="hero__floating-geometry hidden md:block"
+          style={{
+            transform: `translate3d(${mousePos.x * 0.5}px, ${scrollVal * -0.15 + mousePos.y * 0.5}px, 0) rotate(${scrollVal * 0.06}deg)`,
+            transition: "transform 0.1s ease-out"
+          }}
+        >
+          <div className="hero__floating-geometry-inner">
+            <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 110 L110 10 L210 110 L110 210 Z" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" />
+              <path d="M40 110 L110 40 L180 110 L110 180 Z" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+              <line x1="10" y1="110" x2="210" y2="110" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+              <line x1="110" y1="10" x2="110" y2="210" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+              <circle cx="110" cy="110" r="5" fill="var(--red)" />
+            </svg>
+          </div>
+        </div>
 
         <div className="hero__content" style={{ marginTop: "40px" }}>
           <Link href="/#advisory" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--red)] mb-8 transition-colors hover:text-white">
@@ -327,22 +417,24 @@ export default function PracticeDetailPage() {
                 <p>{practice.fullDesc}</p>
               </div>
 
-              {/* Capabilities checklist styled as Webandcrafts links list */}
+              {/* Capabilities list acting as active anchor links back to inquiry form */}
               <div className="mt-8">
                 <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-5">Specific Capabilities</h4>
                 <div className="flex flex-col">
                   {practice.caps.map((cap, i) => (
-                    <div 
+                    <a 
                       key={i} 
-                      className="group flex items-center justify-between py-5 border-t border-[var(--divider-soft)] transition-colors duration-300 hover:text-[var(--charcoal)]"
+                      href="#contact"
+                      onClick={(e) => handleCapClick(e, cap)}
+                      className="group flex items-center justify-between py-5 border-t border-[var(--divider-soft)] transition-colors duration-300 hover:text-[var(--red)]"
                       style={{ borderBottom: i === practice.caps.length - 1 ? "1px solid var(--divider-soft)" : "" }}
                     >
-                      <span className="text-base font-medium text-[var(--body-c)] transition-colors duration-300 group-hover:text-[var(--charcoal)]">{cap}</span>
+                      <span className="text-base font-medium text-[var(--body-c)] transition-colors duration-300 group-hover:text-[var(--red)]">{cap}</span>
                       <ChevronRight 
                         size={16} 
                         className="text-[var(--muted)] transform transition-transform duration-300 group-hover:translate-x-2 group-hover:text-[var(--red)]"
                       />
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
