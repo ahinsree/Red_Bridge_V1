@@ -3,14 +3,68 @@
 import { useEffect } from "react";
 import { useParams, notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
 import ScrollToggle from "@/components/ScrollToggle";
-import { ArrowLeft, Target, Database, Users, TrendingUp, Compass, Layers, CheckCircle2, LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, LucideIcon, Target, Database, Users, TrendingUp, Compass, Layers, ChevronRight } from "lucide-react";
 
-// Practices Data dictionary
+// Practices Visual and Color system dictionary
+interface StyleSystem {
+  gradient: string;
+  glow: string;
+  darkGlow: string;
+  accent: string;
+  image: string;
+}
+
+const styleSystemData: Record<string, StyleSystem> = {
+  "strategy-transformation": {
+    gradient: "from-[#B22030] to-[#E31E24]",
+    glow: "rgba(178, 32, 48, 0.45)",
+    darkGlow: "rgba(178, 32, 48, 0.08)",
+    accent: "#B22030",
+    image: "/images/hero-bridge-bg-desktop.webp"
+  },
+  "ai-digital-data": {
+    gradient: "from-[#00F2FE] to-[#4FACFE]",
+    glow: "rgba(79, 172, 254, 0.45)",
+    darkGlow: "rgba(0, 242, 254, 0.08)",
+    accent: "#00F2FE",
+    image: "/images/hero-ai-bg-desktop.webp"
+  },
+  "experience-service-design": {
+    gradient: "from-[#FF3366] to-[#FF8008]",
+    glow: "rgba(255, 51, 102, 0.45)",
+    darkGlow: "rgba(255, 51, 102, 0.08)",
+    accent: "#FF3366",
+    image: "/images/hero-experience-bg-desktop.webp"
+  },
+  "investment-economic-infrastructure": {
+    gradient: "from-[#11998e] to-[#38ef7d]",
+    glow: "rgba(56, 239, 125, 0.45)",
+    darkGlow: "rgba(17, 153, 142, 0.08)",
+    accent: "#38ef7d",
+    image: "/images/hero-velocity-bg-desktop.webp"
+  },
+  "entrepreneurship-innovation-startup": {
+    gradient: "from-[#F39C12] to-[#F1C40F]",
+    glow: "rgba(243, 156, 18, 0.45)",
+    darkGlow: "rgba(243, 156, 18, 0.08)",
+    accent: "#F39C12",
+    image: "/images/hero-mockup-desktop.webp"
+  },
+  "programme-management-monitoring": {
+    gradient: "from-[#7B1FA2] to-[#E040FB]",
+    glow: "rgba(123, 31, 162, 0.45)",
+    darkGlow: "rgba(123, 31, 162, 0.08)",
+    accent: "#E040FB",
+    image: "/images/insight_agentic-desktop.webp"
+  }
+};
+
 const practicesData: Record<string, {
   num: string;
   title: string;
@@ -124,8 +178,9 @@ const practicesData: Record<string, {
 export default function PracticeDetailPage() {
   const { slug } = useParams() as { slug: string };
   const practice = practicesData[slug];
+  const style = styleSystemData[slug];
 
-  if (!practice) {
+  if (!practice || !style) {
     notFound();
   }
 
@@ -175,27 +230,52 @@ export default function PracticeDetailPage() {
     };
   }, [slug]);
 
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const target = document.querySelector(id);
+    if (target) {
+      e.preventDefault();
+      const topOffset = target.getBoundingClientRect().top + window.scrollY - 64;
+      window.scrollTo({
+        top: topOffset,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[#FAFAF8] text-[#2E2E2E]">
       <Header />
 
-      {/* Practice Hero Banner */}
-      <section className="hero" style={{ height: "65vh", minHeight: "480px" }}>
+      {/* Practice Hero Banner with Vibrant mesh gradients */}
+      <section 
+        className="hero" 
+        style={{ 
+          height: "65vh", 
+          minHeight: "520px",
+          background: `radial-gradient(circle at 15% 30%, ${style.glow} 0%, transparent 65%), var(--navy)`
+        }}
+      >
         <div className="hero__bg">
           <div className="hero__parallax-wrapper" style={{ transform: "scale(1.06)" }}>
             <div 
               style={{
                 position: "absolute", top: 0, right: 0, bottom: 0, left: 0,
-                background: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80') center/cover no-repeat",
-                opacity: 0.14,
+                background: `url('${style.image}') center/cover no-repeat`,
+                opacity: 0.16,
                 filter: "grayscale(100%) contrast(1.1)",
                 animation: "heroKenBurns 45s ease-in-out infinite alternate"
               }}
             />
           </div>
         </div>
-        <div className="hero__overlay" style={{ background: "linear-gradient(112deg, rgba(27, 38, 59, 0.97) 0%, rgba(27, 38, 59, 0.88) 50%, rgba(27, 38, 59, 0.5) 100%)" }} />
-        <div className="hero__lightbeam" />
+        
+        {/* Animated breathing light beam utilizing dynamic color overlay */}
+        <div 
+          className="hero__lightbeam" 
+          style={{
+            background: `linear-gradient(135deg, ${style.glow} 0%, transparent 60%)`
+          }}
+        />
 
         <div className="hero__content" style={{ marginTop: "40px" }}>
           <Link href="/#advisory" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--red)] mb-8 transition-colors hover:text-white">
@@ -203,7 +283,9 @@ export default function PracticeDetailPage() {
           </Link>
           
           <div className="flex items-center gap-4 mb-4">
-            <span className="text-[var(--red)] text-xs font-bold tracking-widest uppercase">{practice.num} / Practice Area</span>
+            <span className={`bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent text-xs font-bold tracking-widest uppercase`}>
+              {practice.num} / Practice Area
+            </span>
             <div className="w-12 h-[1px] bg-[var(--red)]" />
           </div>
           
@@ -216,56 +298,113 @@ export default function PracticeDetailPage() {
         </div>
       </section>
 
-      {/* Main Details Body */}
-      <section className="section section--cream">
-        <div className="container">
+      {/* Split Row Content Layout in Webandcrafts Style */}
+      <section className="section section--cream py-24">
+        <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
-            {/* Left: Summary & Case Details */}
-            <div className="lg:col-span-7 reveal">
+            {/* Left: Heading, Description & Link List */}
+            <div className="lg:col-span-6 reveal">
               <div className="flex items-center gap-4 mb-6">
-                <span className="p-3 bg-[rgba(178,32,48,0.06)] rounded-full text-[var(--red)]">
-                  <IconComponent size={24} />
+                <span 
+                  className="p-3 rounded-full text-white bg-gradient-to-r"
+                  style={{
+                    backgroundImage: `linear-gradient(135deg, ${style.accent}, rgba(0,0,0,0.3))`
+                  }}
+                >
+                  <IconComponent size={22} />
                 </span>
-                <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--red)]">Scope & Overview</h4>
+                <h4 className={`text-xs font-bold uppercase tracking-widest bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent`}>
+                  Scope &amp; Operations
+                </h4>
               </div>
-              <p className="font-serif italic text-xl md:text-2xl text-[var(--charcoal)] leading-relaxed mb-8">
+
+              <p className="font-serif italic text-2xl text-[var(--charcoal)] leading-relaxed mb-8">
                 {practice.desc}
               </p>
-              <div className="text-[var(--body-c)] text-base leading-relaxed mb-10 space-y-4">
+
+              <div className="text-[var(--body-c)] text-base leading-relaxed mb-12 space-y-4">
                 <p>{practice.fullDesc}</p>
               </div>
 
-              {/* Highlight Box */}
-              <div className="p-6 md:p-8 bg-white border border-[var(--divider-soft)] rounded-lg shadow-sm">
-                <span className="text-[var(--red)] font-semibold text-xs uppercase tracking-widest block mb-3">Proven Track Record</span>
-                <p className="font-serif italic text-lg text-[var(--charcoal)] leading-relaxed mb-0">
-                  &ldquo;{practice.impact}&rdquo;
-                </p>
+              {/* Capabilities checklist styled as Webandcrafts links list */}
+              <div className="mt-8">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-5">Specific Capabilities</h4>
+                <div className="flex flex-col">
+                  {practice.caps.map((cap, i) => (
+                    <div 
+                      key={i} 
+                      className="group flex items-center justify-between py-5 border-t border-[var(--divider-soft)] transition-colors duration-300 hover:text-[var(--charcoal)]"
+                      style={{ borderBottom: i === practice.caps.length - 1 ? "1px solid var(--divider-soft)" : "" }}
+                    >
+                      <span className="text-base font-medium text-[var(--body-c)] transition-colors duration-300 group-hover:text-[var(--charcoal)]">{cap}</span>
+                      <ChevronRight 
+                        size={16} 
+                        className="text-[var(--muted)] transform transition-transform duration-300 group-hover:translate-x-2 group-hover:text-[var(--red)]"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Right: Capabilities Checklist */}
-            <div className="lg:col-span-5 reveal d1">
-              <div className="bg-white border border-[var(--divider-soft)] rounded-xl p-6 md:p-8 shadow-sm">
-                <h3 className="font-serif text-2xl text-[var(--charcoal)] mb-6">Core Capabilities</h3>
-                <ul className="space-y-4">
-                  {practice.caps.map((cap, i) => (
-                    <li key={i} className="flex items-start gap-3 py-1">
-                      <span className="text-[var(--red)] mt-1 flex-shrink-0">
-                        <CheckCircle2 size={16} />
-                      </span>
-                      <span className="text-sm font-medium text-[var(--body-c)] leading-tight">{cap}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8 pt-6 border-t border-[var(--divider-soft)]">
-                  <p className="text-xs text-[var(--muted)] mb-4">Have an operational directive or specific mandate in this space?</p>
-                  <a href="#contact" className="btn btn--primary w-full text-center py-3 flex justify-center items-center">
-                    Engage Our Partners
+            {/* Right: Premium glowing image container & Case Track record box */}
+            <div className="lg:col-span-6 reveal d1 lg:sticky lg:top-28">
+              
+              {/* Media image container with floating accent borders and pulsating neon glow */}
+              <div className="relative rounded-xl overflow-hidden mb-10 group" style={{ minHeight: "360px", boxShadow: `0 24px 80px -15px ${style.darkGlow}` }}>
+                {/* Dynamic vibrant gradient backglow rings */}
+                <div 
+                  className="absolute inset-0 opacity-15 rounded-xl filter blur-xl scale-105 pointer-events-none transition-transform duration-700 group-hover:scale-110"
+                  style={{
+                    background: `linear-gradient(135deg, ${style.accent}, transparent)`
+                  }}
+                />
+                
+                <div className="relative w-full h-[400px] rounded-xl overflow-hidden border border-[var(--divider-soft)]">
+                  <Image
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    src={style.image}
+                    alt={practice.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(27,38,59,0.85)] via-[rgba(27,38,59,0.3)] to-transparent" />
+                  
+                  {/* Floating caption overlay */}
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-80 block mb-1">Mandate Profile</span>
+                    <h5 className="font-serif text-white text-xl font-medium leading-snug">{practice.tagline}</h5>
+                  </div>
+                </div>
+              </div>
+
+              {/* Case Track highlight box with vibrant neon top border */}
+              <div 
+                className="p-8 bg-white border border-[var(--divider-soft)] rounded-xl shadow-sm relative overflow-hidden"
+                style={{
+                  borderTop: `4px solid ${style.accent}`
+                }}
+              >
+                <span className={`font-semibold text-xs uppercase tracking-widest block mb-4 bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent`}>
+                  Strategic Mandate Track Record
+                </span>
+                <p className="font-serif italic text-lg text-[var(--charcoal)] leading-relaxed mb-6">
+                  &ldquo;{practice.impact}&rdquo;
+                </p>
+                <div className="pt-5 border-t border-[var(--divider-soft)] flex items-center justify-between">
+                  <span className="text-xs text-[var(--muted)] font-medium">Discuss structuring plans for this practice area</span>
+                  <a 
+                    href="#contact" 
+                    className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-colors hover:text-[var(--red)]`}
+                    onClick={(e) => handleScrollTo(e, "#contact")}
+                  >
+                    Enquire <ArrowUpRight size={14} />
                   </a>
                 </div>
               </div>
+
             </div>
 
           </div>
