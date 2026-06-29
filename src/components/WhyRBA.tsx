@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function WhyRBA() {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.querySelector(id);
@@ -29,9 +31,32 @@ export default function WhyRBA() {
               We are not a full-service consultancy competing on headcount. We are a boutique advisory firm built on a specific
               conviction: that strategy which does not reach implementation has not been completed.
             </p>
-            <a href="#contact" className="btn btn--ghost" style={{ marginTop: "8px" }} onClick={(e) => handleScrollTo(e, "#contact")}>
+            <a href="#contact" className="btn btn--ghost" onClick={(e) => handleScrollTo(e, "#contact")}>
               Start a Conversation &rarr;
             </a>
+
+            {/* Premium architectural concept illustration */}
+            <div className="why-rba__image-container">
+              <Image 
+                className="why-rba__image"
+                src="/images/why_rba_illustration.png"
+                alt="Strategic advisory bridging strategy to implementation"
+                width={500}
+                height={500}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+              <div 
+                style={{
+                  position: "absolute", bottom: 0, left: 0, right: 0,
+                  background: "linear-gradient(to top, rgba(28,28,28,0.7) 0%, transparent 100%)",
+                  padding: "16px 20px", pointerEvents: "none"
+                }}
+              >
+                <span style={{ color: "#FAFAF8", fontSize: "10px", fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                  Bridging Insight to Impact
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="why-items">
