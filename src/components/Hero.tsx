@@ -79,14 +79,16 @@ export default function Hero() {
           transition: "transform 0.1s ease-out"
         }}
       >
-        <svg viewBox="0 0 100 100" fill="none" stroke="var(--red)" strokeWidth="0.5" className="animate-pulse">
-          <line x1="5" y1="90" x2="95" y2="90" />
-          <line x1="20" y1="90" x2="35" y2="35" />
-          <line x1="80" y1="90" x2="65" y2="35" />
-          <line x1="35" y1="35" x2="65" y2="35" />
-          <path d="M10,90 Q50,15 90,90" />
-          <circle cx="50" cy="35" r="8" />
-        </svg>
+        <div className="hero__floating-geometry-inner">
+          <svg viewBox="0 0 100 100" fill="none" stroke="var(--red)" strokeWidth="0.5" className="animate-pulse">
+            <line x1="5" y1="90" x2="95" y2="90" />
+            <line x1="20" y1="90" x2="35" y2="35" />
+            <line x1="80" y1="90" x2="65" y2="35" />
+            <line x1="35" y1="35" x2="65" y2="35" />
+            <path d="M10,90 Q50,15 90,90" />
+            <circle cx="50" cy="35" r="8" />
+          </svg>
+        </div>
       </div>
 
       <div className="hero__overlay"></div>
