@@ -38,6 +38,7 @@ export default function Hero() {
 
   // Combine scroll parallax and mouse movement parallax
   const bgTransform = `translate3d(${mousePos.x * -0.5}px, ${scrollVal * 0.35 + mousePos.y * -0.5}px, 0) scale(1.06)`;
+  const patternTransform = `translate3d(${mousePos.x * 0.4}px, ${scrollVal * -0.22 + mousePos.y * 0.4}px, 0)`;
 
   return (
     <section className="hero" id="hero" onMouseMove={handleMouseMove}>
@@ -59,6 +60,15 @@ export default function Hero() {
             priority
           />
         </div>
+
+        {/* Floating layered pattern overlay */}
+        <div 
+          className="hero__pattern"
+          style={{
+            transform: patternTransform,
+            transition: "transform 0.1s ease-out"
+          }}
+        />
       </div>
       
       {/* Cinematic light beam */}
