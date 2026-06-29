@@ -18,6 +18,9 @@ interface StyleSystem {
   darkGlow: string;
   accent: string;
   image: string;
+  bgX: number; // Mouse movement parallax multiplier
+  bgY: number; // Scroll movement parallax multiplier
+  shapeTransform: (mousePos: { x: number; y: number }, scrollVal: number) => string;
 }
 
 const styleSystemData: Record<string, StyleSystem> = {
@@ -26,42 +29,66 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(178, 32, 48, 0.45)",
     darkGlow: "rgba(178, 32, 48, 0.08)",
     accent: "#B22030",
-    image: "/images/hero-bridge-bg-desktop.webp"
+    image: "/images/hero-bridge-bg-desktop.webp",
+    bgX: -0.3,
+    bgY: 0.28,
+    shapeTransform: (mousePos, scrollVal) => 
+      `translate3d(${mousePos.x * 0.5}px, ${scrollVal * -0.15 + mousePos.y * 0.5}px, 0) rotate(${scrollVal * 0.06}deg)`
   },
   "ai-digital-data": {
     gradient: "from-[#00F2FE] to-[#4FACFE]",
     glow: "rgba(79, 172, 254, 0.45)",
     darkGlow: "rgba(0, 242, 254, 0.08)",
     accent: "#00F2FE",
-    image: "/images/hero-ai-bg-desktop.webp"
+    image: "/images/hero-ai-bg-desktop.webp",
+    bgX: -0.5,
+    bgY: 0.18,
+    shapeTransform: (mousePos, scrollVal) => 
+      `translate3d(${mousePos.x * -0.6}px, ${scrollVal * 0.22 + mousePos.y * -0.6}px, 0) scale(${1 + scrollVal * 0.0003})`
   },
   "experience-service-design": {
     gradient: "from-[#FF3366] to-[#FF8008]",
     glow: "rgba(255, 51, 102, 0.45)",
     darkGlow: "rgba(255, 51, 102, 0.08)",
     accent: "#FF3366",
-    image: "/images/hero-experience-bg-desktop.webp"
+    image: "/images/hero-experience-bg-desktop.webp",
+    bgX: 0.4,
+    bgY: 0.36,
+    shapeTransform: (mousePos, scrollVal) => 
+      `translate3d(${mousePos.x * 0.8}px, ${scrollVal * -0.08 + mousePos.y * 0.2}px, 0) skewX(${mousePos.x * 0.5}deg)`
   },
   "investment-economic-infrastructure": {
     gradient: "from-[#11998e] to-[#38ef7d]",
     glow: "rgba(56, 239, 125, 0.45)",
     darkGlow: "rgba(17, 153, 142, 0.08)",
     accent: "#38ef7d",
-    image: "/images/hero-velocity-bg-desktop.webp"
+    image: "/images/hero-velocity-bg-desktop.webp",
+    bgX: -0.2,
+    bgY: 0.42,
+    shapeTransform: (mousePos, scrollVal) => 
+      `translate3d(${mousePos.x * 0.3}px, ${scrollVal * -0.28 + mousePos.y * 0.3}px, 0)`
   },
   "entrepreneurship-innovation-startup": {
     gradient: "from-[#F39C12] to-[#F1C40F]",
     glow: "rgba(243, 156, 18, 0.45)",
     darkGlow: "rgba(243, 156, 18, 0.08)",
     accent: "#F39C12",
-    image: "/images/hero-mockup-desktop.webp"
+    image: "/images/hero-mockup-desktop.webp",
+    bgX: -0.4,
+    bgY: 0.24,
+    shapeTransform: (mousePos, scrollVal) => 
+      `translate3d(${mousePos.x * 0.6}px, ${scrollVal * -0.1 + mousePos.y * 0.6}px, 0) rotate(${scrollVal * 0.18}deg)`
   },
   "programme-management-monitoring": {
     gradient: "from-[#7B1FA2] to-[#E040FB]",
     glow: "rgba(123, 31, 162, 0.45)",
     darkGlow: "rgba(123, 31, 162, 0.08)",
     accent: "#E040FB",
-    image: "/images/insight_agentic-desktop.webp"
+    image: "/images/insight_agentic-desktop.webp",
+    bgX: 0.3,
+    bgY: 0.33,
+    shapeTransform: (mousePos, scrollVal) => 
+      `translate3d(${mousePos.x * 0.4}px, ${scrollVal * 0.16 + mousePos.y * 0.4}px, 0) scale(${1 + Math.sin(scrollVal * 0.002) * 0.05})`
   }
 };
 
@@ -306,6 +333,73 @@ export default function PracticeDetailPage() {
     }
   };
 
+  // Custom vector layout geometry render by slug
+  const renderFloatingShape = () => {
+    switch (slug) {
+      case "strategy-transformation":
+        return (
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 110 L110 10 L210 110 L110 210 Z" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" />
+            <path d="M40 110 L110 40 L180 110 L110 180 Z" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
+            <circle cx="110" cy="110" r="5" fill="#B22030" />
+          </svg>
+        );
+      case "ai-digital-data":
+        return (
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="110" cy="110" r="90" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" strokeDasharray="5,5" />
+            <circle cx="110" cy="110" r="60" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+            <circle cx="110" cy="110" r="30" stroke="rgba(0, 242, 254, 0.3)" strokeWidth="1.5" />
+            <circle cx="110" cy="110" r="4" fill="#00F2FE" />
+            <circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.15)" />
+            <circle cx="170" cy="170" r="2" fill="rgba(255,255,255,0.15)" />
+          </svg>
+        );
+      case "experience-service-design":
+        return (
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 80 Q 60 180, 110 80 T 210 80" stroke="rgba(255,255,255,0.06)" strokeWidth="2" />
+            <path d="M10 110 Q 60 210, 110 110 T 210 110" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+            <path d="M10 140 Q 60 240, 110 140 T 210 140" stroke="rgba(255, 51, 102, 0.25)" strokeWidth="1" />
+            <circle cx="110" cy="110" r="5" fill="#FF3366" />
+          </svg>
+        );
+      case "investment-economic-infrastructure":
+        return (
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="200" x2="200" y2="200" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
+            <rect x="40" y="140" width="24" height="60" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <rect x="80" y="100" width="24" height="100" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+            <rect x="120" y="60" width="24" height="140" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
+            <path d="M40 140 L80 100 L120 60 L160 20" stroke="#38ef7d" strokeWidth="2" strokeDasharray="3,3" />
+            <circle cx="160" cy="20" r="5" fill="#38ef7d" />
+          </svg>
+        );
+      case "entrepreneurship-innovation-startup":
+        return (
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="110" y1="10" x2="110" y2="210" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+            <line x1="10" y1="110" x2="210" y2="110" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+            <line x1="39.29" y1="39.29" x2="180.71" y2="180.71" stroke="rgba(255,255,255,0.04)" strokeWidth="1" strokeDasharray="4,4" />
+            <line x1="180.71" y1="39.29" x2="39.29" y2="180.71" stroke="rgba(255,255,255,0.04)" strokeWidth="1" strokeDasharray="4,4" />
+            <circle cx="110" cy="110" r="45" stroke="rgba(243, 156, 18, 0.25)" strokeWidth="1.5" />
+            <circle cx="110" cy="110" r="5" fill="#F39C12" />
+          </svg>
+        );
+      case "programme-management-monitoring":
+        return (
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="110,20 190,65 190,155 110,200 30,155 30,65" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" />
+            <polygon points="110,50 162,80 162,140 110,170 58,140 58,80" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+            <polygon points="110,80 136,95 136,125 110,140 84,125 84,95" stroke="rgba(224, 64, 251, 0.25)" strokeWidth="1.5" />
+            <circle cx="110" cy="110" r="4" fill="#E040FB" />
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[#FAFAF8] text-[#2E2E2E]">
       <Header />
@@ -321,11 +415,11 @@ export default function PracticeDetailPage() {
         onMouseMove={handleMouseMove}
       >
         <div className="hero__bg">
-          {/* Scroll and mouse driven background translation layer */}
+          {/* Scroll and mouse driven background translation layer - custom speeds per area */}
           <div 
             className="hero__parallax-wrapper" 
             style={{ 
-              transform: `translate3d(${mousePos.x * -0.4}px, ${scrollVal * 0.32 + mousePos.y * -0.4}px, 0) scale(1.08)` 
+              transform: `translate3d(${mousePos.x * style.bgX}px, ${scrollVal * style.bgY + mousePos.y * style.bgX}px, 0) scale(1.08)` 
             }}
           >
             <div 
@@ -348,22 +442,16 @@ export default function PracticeDetailPage() {
           }}
         />
 
-        {/* Floating geometric parallax vector nodes */}
+        {/* Custom Parallax floating geometry - custom shapes and movements per area */}
         <div 
           className="hero__floating-geometry hidden md:block"
           style={{
-            transform: `translate3d(${mousePos.x * 0.5}px, ${scrollVal * -0.15 + mousePos.y * 0.5}px, 0) rotate(${scrollVal * 0.06}deg)`,
+            transform: style.shapeTransform(mousePos, scrollVal),
             transition: "transform 0.1s ease-out"
           }}
         >
           <div className="hero__floating-geometry-inner">
-            <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 110 L110 10 L210 110 L110 210 Z" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" />
-              <path d="M40 110 L110 40 L180 110 L110 180 Z" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-              <line x1="10" y1="110" x2="210" y2="110" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-              <line x1="110" y1="10" x2="110" y2="210" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-              <circle cx="110" cy="110" r="5" fill="var(--red)" />
-            </svg>
+            {renderFloatingShape()}
           </div>
         </div>
 
