@@ -1,54 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Award, Globe, Briefcase } from "lucide-react";
-
-interface CounterProps {
-  end: number;
-  duration?: number;
-  suffix?: string;
-}
-
-function Counter({ end, duration = 1500, suffix = "" }: CounterProps) {
-  const [count, setCount] = useState(0);
-  const elementRef = useRef<HTMLSpanElement>(null);
-  const [hasStarted, setHasStarted] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      setCount(Math.floor(progress * end));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [hasStarted, end, duration]);
-
-  return <span ref={elementRef}>{count}{suffix}</span>;
-}
 
 export default function HowWeWork() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -128,33 +80,6 @@ export default function HowWeWork() {
               <p className="approach-item__desc">{principle.desc}</p>
             </div>
           ))}
-        </div>
-
-        {/* Statistics Counters Row */}
-        <div className="approach__stats-row">
-          <div className="approach__stat-card">
-            <div className="approach__stat-icon"><Briefcase size={22} /></div>
-            <div className="approach__stat-val">
-              <Counter end={120} suffix="+" />
-            </div>
-            <span className="approach__stat-label">Strategic Mandates Delivered</span>
-          </div>
-
-          <div className="approach__stat-card">
-            <div className="approach__stat-icon"><Award size={22} /></div>
-            <div className="approach__stat-val">
-              <Counter end={15} suffix="+" />
-            </div>
-            <span className="approach__stat-label">Years Partner Advisory Experience</span>
-          </div>
-
-          <div className="approach__stat-card">
-            <div className="approach__stat-icon"><Globe size={22} /></div>
-            <div className="approach__stat-val">
-              <Counter end={40} suffix="B+" />
-            </div>
-            <span className="approach__stat-label">Capital Value of Projects Advised</span>
-          </div>
         </div>
       </div>
     </section>
