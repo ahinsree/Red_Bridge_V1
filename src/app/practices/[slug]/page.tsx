@@ -73,7 +73,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(243, 156, 18, 0.45)",
     darkGlow: "rgba(243, 156, 18, 0.08)",
     accent: "#F39C12",
-    image: "/images/hero-mockup-desktop.webp",
+    image: "/images/startup-ecosystem.png",
     bgX: -0.4,
     bgY: 0.24,
     shapeTransform: (mousePos, scrollVal) => 
