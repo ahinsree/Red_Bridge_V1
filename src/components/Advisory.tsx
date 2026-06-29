@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Advisory() {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.querySelector(id);
@@ -16,6 +18,7 @@ export default function Advisory() {
   const practices = [
     {
       num: "01",
+      slug: "strategy-transformation",
       title: "Strategy, Transformation & Institution Building",
       tagline: "Deciding what to change, and making it hold.",
       desc: "Most organisations have a rough sense of where they want to go. The harder questions are what to change, in what order, and who will own the result once the advisers have left. We work with company boards, management teams and public institutions on exactly that.",
@@ -30,6 +33,7 @@ export default function Advisory() {
     },
     {
       num: "02",
+      slug: "ai-digital-data",
       title: "AI, Digital & Data",
       tagline: "Technology adopted with judgement, not haste.",
       desc: "There is a great deal of pressure to adopt AI and very little patience for the groundwork that makes it pay off. We help organisations tell the two apart, whether it is a company putting data to work across its operations or a department modernising a public service.",
@@ -44,6 +48,7 @@ export default function Advisory() {
     },
     {
       num: "03",
+      slug: "experience-service-design",
       title: "Experience & Service Design",
       tagline: "Designing what people actually receive.",
       desc: "A service rarely fails because someone meant it to. It fails in the gap between what an organisation designs and what a person actually gets at the counter, on the call, or in the app. We work in that gap, for companies shaping what their customers and employees receive.",
@@ -59,6 +64,7 @@ export default function Advisory() {
     },
     {
       num: "04",
+      slug: "investment-economic-infrastructure",
       title: "Investment, Economic & Infrastructure Advisory",
       tagline: "The analysis behind sound investment decisions.",
       desc: "Before capital moves, someone has to answer hard questions about whether a project actually stands up. That is our work. We prepare the feasibility studies, business cases and project structures behind investment decisions for companies, promoters and investors.",
@@ -73,6 +79,7 @@ export default function Advisory() {
     },
     {
       num: "05",
+      slug: "entrepreneurship-innovation-startup",
       title: "Entrepreneurship, Innovation & Startup Ecosystems",
       tagline: "Building the conditions for enterprise to grow.",
       desc: "Enterprise does not grow on its own. It needs incubation, mentoring, routes to funding, and a policy environment that does not quietly work against it. We design and strengthen that support system for governments, universities, corporates and development agencies.",
@@ -88,6 +95,7 @@ export default function Advisory() {
     },
     {
       num: "06",
+      slug: "programme-management-monitoring",
       title: "Programme Management, Monitoring & Evaluation",
       tagline: "Delivery that is managed and verified.",
       desc: "A sound strategy that is poorly delivered is just an expensive document. We handle the delivery, and we check the results. This covers programme and project management for large initiatives, and independent monitoring and evaluation that tells the sponsor.",
@@ -142,9 +150,9 @@ export default function Advisory() {
                   ))}
                 </ul>
               </div>
-              <a href="#contact" className="advisory-card__cta" style={{ marginTop: "auto" }} onClick={(e) => handleScrollTo(e, "#contact")}>
-                Discuss this practice &rarr;
-              </a>
+              <Link href={`/practices/${practice.slug}`} className="advisory-card__cta" style={{ marginTop: "auto" }}>
+                Explore Practice Area &rarr;
+              </Link>
             </div>
           ))}
         </div>
