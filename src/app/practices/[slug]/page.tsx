@@ -237,7 +237,7 @@ export default function PracticeDetailPage() {
               </div>
 
               {/* Highlight Box */}
-              <div className="p-8 bg-white border border-[var(--divider-soft)] rounded-lg shadow-sm">
+              <div className="p-6 md:p-8 bg-white border border-[var(--divider-soft)] rounded-lg shadow-sm">
                 <span className="text-[var(--red)] font-semibold text-xs uppercase tracking-widest block mb-3">Proven Track Record</span>
                 <p className="font-serif italic text-lg text-[var(--charcoal)] leading-relaxed mb-0">
                   &ldquo;{practice.impact}&rdquo;
@@ -247,7 +247,7 @@ export default function PracticeDetailPage() {
 
             {/* Right: Capabilities Checklist */}
             <div className="lg:col-span-5 reveal d1">
-              <div className="bg-white border border-[var(--divider-soft)] rounded-xl p-8 shadow-sm">
+              <div className="bg-white border border-[var(--divider-soft)] rounded-xl p-6 md:p-8 shadow-sm">
                 <h3 className="font-serif text-2xl text-[var(--charcoal)] mb-6">Core Capabilities</h3>
                 <ul className="space-y-4">
                   {practice.caps.map((cap, i) => (
