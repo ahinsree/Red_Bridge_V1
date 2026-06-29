@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Spline from "@splinetool/react-spline/next";
 
 export default function WhyRBA() {
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -35,25 +35,20 @@ export default function WhyRBA() {
               Start a Conversation &rarr;
             </a>
 
-            {/* Premium architectural concept illustration */}
-            <div className="why-rba__image-container">
-              <Image 
-                className="why-rba__image"
-                src="/images/why_rba_illustration.png"
-                alt="Strategic advisory bridging strategy to implementation"
-                width={500}
-                height={500}
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
+            {/* Premium 3D interactive concept design */}
+            <div className="why-rba__image-container" style={{ position: "relative", width: "100%", height: "350px", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "auto" }}>
+                <Spline scene="https://prod.spline.design/0CCQxFTtYWP4rXsq/scene.splinecode" />
+              </div>
               <div 
                 style={{
                   position: "absolute", bottom: 0, left: 0, right: 0,
                   background: "linear-gradient(to top, rgba(28,28,28,0.7) 0%, transparent 100%)",
-                  padding: "16px 20px", pointerEvents: "none"
+                  padding: "16px 20px", pointerEvents: "none", zIndex: 2
                 }}
               >
                 <span style={{ color: "#FAFAF8", fontSize: "10px", fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase" }}>
-                  Bridging Insight to Impact
+                  Interactive 3D Structure Model
                 </span>
               </div>
             </div>
