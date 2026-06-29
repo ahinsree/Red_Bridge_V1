@@ -1,18 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Advisory() {
-  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    const target = document.querySelector(id);
-    if (target) {
-      e.preventDefault();
-      const topOffset = target.getBoundingClientRect().top + window.scrollY - 68;
-      window.scrollTo({
-        top: topOffset,
-        behavior: "smooth",
-      });
-    }
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    // Map coordinates to delta shift [-15px, 15px]
+    const x = (clientX / innerWidth - 0.5) * 30;
+    const y = (clientY / innerHeight - 0.5) * 30;
+    setMousePos({ x, y });
   };
 
   const practices = [
@@ -111,8 +111,38 @@ export default function Advisory() {
   ];
 
   return (
-    <section className="section section--offwhite" id="advisory">
-      <div className="container">
+    <section 
+      className="section section--offwhite advisory-section relative overflow-hidden" 
+      id="advisory"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Parallax background floating glass nodes */}
+      <div 
+        className="absolute rounded-full border border-[rgba(255,255,255,0.7)] pointer-events-none hidden md:block"
+        style={{
+          width: "350px", height: "350px",
+          left: "2%", top: "18%",
+          background: "radial-gradient(circle, rgba(178,32,48,0.035) 0%, transparent 70%)",
+          transform: `translate3d(${mousePos.x * -0.4}px, ${mousePos.y * -0.4}px, 0)`,
+          transition: "transform 0.15s ease-out",
+          filter: "blur(40px)",
+          zIndex: 0
+        }}
+      />
+      <div 
+        className="absolute rounded-full border border-[rgba(255,255,255,0.8)] pointer-events-none hidden md:block"
+        style={{
+          width: "480px", height: "480px",
+          right: "4%", bottom: "12%",
+          background: "radial-gradient(circle, rgba(27,38,59,0.02) 0%, transparent 85%)",
+          transform: `translate3d(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px, 0)`,
+          transition: "transform 0.15s ease-out",
+          filter: "blur(30px)",
+          zIndex: 0
+        }}
+      />
+
+      <div className="container relative z-10">
         <div className="advisory-header reveal">
           <div className="advisory-header__left">
             <span className="sec-label">Advisory Areas</span>
@@ -126,14 +156,13 @@ export default function Advisory() {
               These are the kind of problems we are brought in to solve, whether the client is a company, a government or a founder.
             </p>
           </div>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="btn btn--ghost"
             style={{ flexShrink: 0, alignSelf: "flex-end" }}
-            onClick={(e) => handleScrollTo(e, "#contact")}
           >
             Start a conversation &rarr;
-          </a>
+          </Link>
         </div>
 
         <div className="advisory-grid">
@@ -159,9 +188,9 @@ export default function Advisory() {
 
         {/* Subtle scalable CTA */}
         <div className="section-footer-cta reveal">
-          <a href="#contact" onClick={(e) => handleScrollTo(e, "#contact")}>
+          <Link href="/#contact">
             Discuss a specific mandate &rarr;
-          </a>
+          </Link>
         </div>
       </div>
     </section>
