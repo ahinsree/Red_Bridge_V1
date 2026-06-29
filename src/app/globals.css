@@ -376,8 +376,8 @@ img { display: block; width: 100%; object-fit: cover; }
   width: 100%; height: 100%;
   object-fit: cover; object-position: center;
   display: block;
-  opacity: 0.16;
-  filter: saturate(0.4) contrast(1.0) brightness(0.7);
+  opacity: 0.48;
+  filter: saturate(0.85) contrast(1.05) brightness(0.9);
   animation: heroKenBurns 45s ease-in-out infinite alternate;
 }
 @keyframes heroKenBurns {
