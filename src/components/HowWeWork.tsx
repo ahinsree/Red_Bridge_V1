@@ -1,35 +1,102 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
+import { Award, Globe, Briefcase } from "lucide-react";
+
+interface CounterProps {
+  end: number;
+  duration?: number;
+  suffix?: string;
+}
+
+function Counter({ end, duration = 1500, suffix = "" }: CounterProps) {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [hasStarted, end, duration]);
+
+  return <span ref={elementRef}>{count}{suffix}</span>;
+}
+
 export default function HowWeWork() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      const total = rect.height + windowHeight;
+      const current = windowHeight - rect.top;
+      const progress = Math.min(Math.max(current / total, 0), 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run once on load
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const principles = [
     {
       num: "01",
       title: "Context Before Recommendation",
-      desc: "Every engagement begins with the problem, not a methodology. We invest the time needed to understand what is genuinely at stake — the institutional context, the constraints, and what a failed outcome looks like — before recommending anything.",
-      delayClass: "",
+      desc: "Every engagement begins with the problem, not a methodology. We invest the time needed to understand what is genuinely at stake — the institutional context, the constraints, and what a failed outcome looks like.",
     },
     {
       num: "02",
       title: "Senior Judgement Throughout",
-      desc: "The advisors engaged at the start remain engaged throughout. There is no handoff to junior teams once the brief is set. The quality of thinking present at the outset is what you receive at every stage of the work.",
-      delayClass: "d1",
+      desc: "The advisors engaged at the start remain engaged throughout. There is no handoff to junior teams once the brief is set. The quality of thinking present at the outset is what you receive at every stage.",
     },
     {
       num: "03",
       title: "Built Around Implementation Reality",
-      desc: "A strategy designed without regard for how organisations actually move is incomplete. Our recommendations account for stakeholder dynamics, institutional constraints, and the conditions that determine whether change takes hold.",
-      delayClass: "d2",
+      desc: "A strategy designed without regard for how organisations actually move is incomplete. Our recommendations account for stakeholder dynamics, institutional constraints, and implementation conditions.",
     },
     {
       num: "04",
       title: "Measured by What Changes",
       desc: "We hold ourselves to what shifts — in structures, systems, decisions, or on the ground. Our engagement does not end with the report. We stay present until the objective is met.",
-      delayClass: "d3",
     },
   ];
 
   return (
-    <section className="section section--offwhite" id="how-we-work">
+    <section className="section section--offwhite approach-section" id="how-we-work" ref={sectionRef}>
       <div className="container">
         <div className="approach__header reveal">
           <span className="sec-label">Our Approach</span>
@@ -40,18 +107,54 @@ export default function HowWeWork() {
             consistently, regardless of the mandate.
           </p>
         </div>
-        <p className="approach__context reveal">
-          Not as a methodology — as a discipline. Four principles that hold across every engagement, every sector, and every
-          stage of the work.
-        </p>
+
+        {/* Scroll-driven growing timeline connector */}
+        <div className="approach__timeline-container">
+          <div 
+            className="approach__timeline-line-grow" 
+            style={{ transform: `scaleX(${scrollProgress})` }}
+          />
+          <div className="approach__timeline-line-bg" />
+        </div>
+
         <div className="approach__grid">
           {principles.map((principle, index) => (
-            <div key={index} className={`approach-item reveal ${principle.delayClass}`}>
-              <span className="approach-item__num">{principle.num}</span>
+            <div key={index} className="approach-item reveal">
+              <div className="approach-item__node">
+                <span className="approach-item__num">{principle.num}</span>
+                <div className="approach-item__dot" style={{ opacity: scrollProgress > (index + 0.5) / 4 ? 1 : 0.3 }} />
+              </div>
               <h3 className="approach-item__title">{principle.title}</h3>
               <p className="approach-item__desc">{principle.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* Statistics Counters Row */}
+        <div className="approach__stats-row">
+          <div className="approach__stat-card">
+            <div className="approach__stat-icon"><Briefcase size={22} /></div>
+            <div className="approach__stat-val">
+              <Counter end={120} suffix="+" />
+            </div>
+            <span className="approach__stat-label">Strategic Mandates Delivered</span>
+          </div>
+
+          <div className="approach__stat-card">
+            <div className="approach__stat-icon"><Award size={22} /></div>
+            <div className="approach__stat-val">
+              <Counter end={15} suffix="+" />
+            </div>
+            <span className="approach__stat-label">Years Partner Advisory Experience</span>
+          </div>
+
+          <div className="approach__stat-card">
+            <div className="approach__stat-icon"><Globe size={22} /></div>
+            <div className="approach__stat-val">
+              <Counter end={40} suffix="B+" />
+            </div>
+            <span className="approach__stat-label">Capital Value of Projects Advised</span>
+          </div>
         </div>
       </div>
     </section>

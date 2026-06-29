@@ -33,10 +33,10 @@ export default function Footer() {
                       <rect x="-13" y="64" width="100" height="13" fill="black" transform="rotate(30 37 70.5)" />
                     </mask>
                   </defs>
-                  <rect x="0" y="13" width="13" height="99" fill="#B22030" />
-                  <rect x="61" y="13" width="13" height="99" fill="#B22030" />
-                  <rect x="0" y="0" width="74" height="13" fill="#B22030" />
-                  <circle cx="37" cy="70.5" r="24" fill="#B22030" mask="url(#footer-logo-cut-mask)" />
+                  <rect x="0" y="13" width="13" height="99" fill="#C2192A" />
+                  <rect x="61" y="13" width="13" height="99" fill="#C2192A" />
+                  <rect x="0" y="0" width="74" height="13" fill="#C2192A" />
+                  <circle cx="37" cy="70.5" r="24" fill="#C2192A" mask="url(#footer-logo-cut-mask)" />
                 </svg>
                 <div className="logo-wordmark" aria-hidden="true">
                   <span className="logo-wm-red logo-wm-red--lt">Red</span>

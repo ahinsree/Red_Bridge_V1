@@ -9,6 +9,23 @@ export default function ContactForm() {
   const sectionRef = useRef<HTMLElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
 
+  // States to track input focuses and values for floating label classes
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [values, setValues] = useState<Record<string, string>>({
+    fname: "",
+    lname: "",
+    org: "",
+    email: "",
+    topic: "",
+    msg: "",
+  });
+
+  const handleFocus = (field: string) => setFocusedField(field);
+  const handleBlur = () => setFocusedField(null);
+  const handleChange = (field: string, value: string) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
+  };
+
   useEffect(() => {
     let ticking = false;
 
@@ -47,12 +64,12 @@ export default function ContactForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: (document.getElementById("cf-fname") as HTMLInputElement)?.value || "",
-          lastName: (document.getElementById("cf-lname") as HTMLInputElement)?.value || "",
-          organisation: (document.getElementById("cf-org") as HTMLInputElement)?.value || "",
-          email: (document.getElementById("cf-email") as HTMLInputElement)?.value || "",
-          topic: (document.getElementById("cf-topic") as HTMLSelectElement)?.value || "",
-          message: (document.getElementById("cf-msg") as HTMLTextAreaElement)?.value || "",
+          firstName: values.fname,
+          lastName: values.lname,
+          organisation: values.org,
+          email: values.email,
+          topic: values.topic,
+          message: values.msg,
         }),
       });
 
@@ -63,6 +80,11 @@ export default function ContactForm() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Helper to check if a field is active (focused or has content)
+  const isFieldActive = (field: string) => {
+    return focusedField === field || values[field].length > 0;
   };
 
   return (
@@ -143,46 +165,96 @@ export default function ContactForm() {
           <div className="reveal d2 contact__form-card">
             <form id="contact-form" onSubmit={handleSubmit}>
               <div className="form-row">
-                <div className="form-field">
+                <div className={`form-field floating-label-group ${isFieldActive("fname") ? "active" : ""}`}>
+                  <input 
+                    type="text" 
+                    id="cf-fname" 
+                    value={values.fname}
+                    onFocus={() => handleFocus("fname")}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange("fname", e.target.value)}
+                    required 
+                  />
                   <label htmlFor="cf-fname">First Name</label>
-                  <input type="text" id="cf-fname" placeholder="First name" required />
                 </div>
-                <div className="form-field">
+                <div className={`form-field floating-label-group ${isFieldActive("lname") ? "active" : ""}`}>
+                  <input 
+                    type="text" 
+                    id="cf-lname" 
+                    value={values.lname}
+                    onFocus={() => handleFocus("lname")}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange("lname", e.target.value)}
+                    required 
+                  />
                   <label htmlFor="cf-lname">Last Name</label>
-                  <input type="text" id="cf-lname" placeholder="Last name" required />
                 </div>
               </div>
-              <div className="form-field">
+              
+              <div className={`form-field floating-label-group ${isFieldActive("org") ? "active" : ""}`}>
+                <input 
+                  type="text" 
+                  id="cf-org" 
+                  value={values.org}
+                  onFocus={() => handleFocus("org")}
+                  onBlur={handleBlur}
+                  onChange={(e) => handleChange("org", e.target.value)}
+                />
                 <label htmlFor="cf-org">Organisation</label>
-                <input type="text" id="cf-org" placeholder="Your organisation or institution" />
               </div>
-              <div className="form-field">
+
+              <div className={`form-field floating-label-group ${isFieldActive("email") ? "active" : ""}`}>
+                <input 
+                  type="email" 
+                  id="cf-email" 
+                  value={values.email}
+                  onFocus={() => handleFocus("email")}
+                  onBlur={handleBlur}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  required 
+                />
                 <label htmlFor="cf-email">Email Address</label>
-                <input type="email" id="cf-email" placeholder="your@email.com" required />
               </div>
-              <div className="form-field">
-                <label htmlFor="cf-topic">Area of Interest</label>
-                <select id="cf-topic">
-                  <option value="">Select an area</option>
-                  <option>Strategy, Transformation &amp; Institution Building</option>
-                  <option>AI, Digital &amp; Data</option>
-                  <option>Experience &amp; Service Design</option>
-                  <option>Investment, Economic &amp; Infrastructure Advisory</option>
-                  <option>Entrepreneurship, Innovation &amp; Startup Ecosystems</option>
-                  <option>Programme Management, Monitoring &amp; Evaluation</option>
-                  <option>General Enquiry</option>
+
+              <div className={`form-field floating-label-group ${isFieldActive("topic") ? "active" : ""}`}>
+                <select 
+                  id="cf-topic"
+                  value={values.topic}
+                  onFocus={() => handleFocus("topic")}
+                  onBlur={handleBlur}
+                  onChange={(e) => handleChange("topic", e.target.value)}
+                >
+                  <option value=""></option>
+                  <option value="strategy">Strategy, Transformation &amp; Institution Building</option>
+                  <option value="ai">AI, Digital &amp; Data</option>
+                  <option value="design">Experience &amp; Service Design</option>
+                  <option value="investment">Investment, Economic &amp; Infrastructure Advisory</option>
+                  <option value="startup">Entrepreneurship, Innovation &amp; Startup Ecosystems</option>
+                  <option value="pm">Programme Management, Monitoring &amp; Evaluation</option>
+                  <option value="general">General Enquiry</option>
                 </select>
+                <label htmlFor="cf-topic">Area of Interest</label>
               </div>
-              <div className="form-field">
+
+              <div className={`form-field floating-label-group ${isFieldActive("msg") ? "active" : ""}`}>
+                <textarea 
+                  id="cf-msg" 
+                  value={values.msg}
+                  onFocus={() => handleFocus("msg")}
+                  onBlur={handleBlur}
+                  onChange={(e) => handleChange("msg", e.target.value)}
+                  required
+                ></textarea>
                 <label htmlFor="cf-msg">Your Message</label>
-                <textarea id="cf-msg" placeholder="Briefly describe your challenge or enquiry..." required></textarea>
               </div>
+
               <div className="form-submit">
                 <button type="submit" className="btn btn--primary" disabled={success || loading}>
                   {loading ? "Sending..." : success ? "Sent ✓" : "Send Message"}
                 </button>
                 <span className="form-note">We respond within 48 hours.</span>
               </div>
+              
               {success && (
                 <div
                   id="form-success"
@@ -190,10 +262,10 @@ export default function ContactForm() {
                     display: "block",
                     marginTop: "16px",
                     padding: "14px 18px",
-                    background: "rgba(27,38,59,0.06)",
-                    borderLeft: "3px solid var(--navy)",
+                    background: "rgba(194, 25, 42, 0.08)",
+                    borderLeft: "3px solid var(--red)",
                     fontSize: "13.5px",
-                    color: "var(--navy)",
+                    color: "var(--white)",
                   }}
                 >
                   Thank you. We will be in touch within 48 hours.
