@@ -29,7 +29,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(178, 32, 48, 0.45)",
     darkGlow: "rgba(178, 32, 48, 0.08)",
     accent: "#B22030",
-    image: "/images/hero-bridge-bg-desktop.webp",
+    image: "/images/strategy-transformation.png",
     bgX: -0.3,
     bgY: 0.28,
     shapeTransform: (mousePos, scrollVal) => 
@@ -482,7 +482,7 @@ export default function PracticeDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
             {/* Left: Heading, Description & Link List */}
-            <div className="lg:col-span-6 reveal">
+            <div className="lg:col-span-7 reveal">
               <div className="flex items-center gap-4 mb-6">
                 <span 
                   className="p-3 rounded-full text-white bg-gradient-to-r"
@@ -497,17 +497,17 @@ export default function PracticeDetailPage() {
                 </h4>
               </div>
 
-              <p className="font-serif italic text-2xl text-[var(--charcoal)] leading-relaxed mb-8">
+              <p className="font-serif italic text-2xl text-[var(--charcoal)] leading-relaxed" style={{ marginBottom: "32px" }}>
                 {practice.desc}
               </p>
 
-              <div className="text-[var(--body-c)] text-base leading-relaxed mb-12 space-y-4">
+              <div className="text-[var(--body-c)] text-base leading-relaxed space-y-4" style={{ marginBottom: "48px" }}>
                 <p>{practice.fullDesc}</p>
               </div>
 
               {/* Capabilities list acting as active anchor links back to inquiry form */}
               <div className="mt-8">
-                <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--muted)] mb-5">Specific Capabilities</h4>
+                <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]" style={{ marginBottom: "20px" }}>Specific Capabilities</h4>
                 <div className="flex flex-col">
                   {practice.caps.map((cap, i) => (
                     <a 
@@ -529,15 +529,16 @@ export default function PracticeDetailPage() {
             </div>
 
             {/* Right: Premium glowing image container & Case Track record box */}
-            <div className="lg:col-span-6 reveal d1 lg:sticky lg:top-28">
+            <div className="lg:col-span-5 reveal d1 lg:sticky lg:top-28">
               
               {/* Media image container with floating accent borders and pulsating neon glow */}
-              <div className="relative rounded-xl overflow-hidden mb-10 group" style={{ minHeight: "360px", boxShadow: `0 24px 80px -15px ${style.darkGlow}` }}>
+              <div className="relative group" style={{ minHeight: "360px", marginBottom: "40px" }}>
                 {/* Dynamic vibrant gradient backglow rings */}
                 <div 
-                  className="absolute inset-0 opacity-15 rounded-xl filter blur-xl scale-105 pointer-events-none transition-transform duration-700 group-hover:scale-110"
+                  className="absolute inset-0 opacity-15 rounded-xl filter blur-2xl scale-105 pointer-events-none transition-transform duration-700 group-hover:scale-110"
                   style={{
-                    background: `linear-gradient(135deg, ${style.accent}, transparent)`
+                    background: `linear-gradient(135deg, ${style.accent}, transparent)`,
+                    boxShadow: `0 24px 80px -15px ${style.darkGlow}`
                   }}
                 />
                 
