@@ -17,6 +17,30 @@ interface InsightPost {
   body: string;
 }
 
+const categoryImages: Record<string, string> = {
+  "leadership": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+  "strategy": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80",
+  "ai": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
+  "digital": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
+  "experience": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80",
+  "investment": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+  "infrastructure": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+  "startup": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80"
+};
+
+const getPostImage = (post: InsightPost): string => {
+  if (post.image && post.image.trim() !== "") return post.image;
+  
+  const catLower = post.category.toLowerCase();
+  for (const [key, url] of Object.entries(categoryImages)) {
+    if (catLower.includes(key)) {
+      return url;
+    }
+  }
+  // Standard abstract geometric fallback
+  return "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80";
+};
+
 export default function Insights() {
   const [activePost, setActivePost] = useState<InsightPost | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -136,7 +160,7 @@ export default function Insights() {
           <div className="insight-featured reveal d1">
             <div className="insight-featured__img">
               <Image
-                src={featuredPost.image || "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80"}
+                src={getPostImage(featuredPost)}
                 alt={featuredPost.title}
                 fill
                 sizes="(max-width: 760px) 100vw, 50vw"
@@ -250,18 +274,16 @@ export default function Insights() {
                   </button>
                 </div>
 
-                {/* Article Cover Image inside drawer */}
-                {activePost.image && (
-                  <div className="relative w-full h-64 mb-8 overflow-hidden rounded border border-white/10 bg-black/45">
-                    <Image
-                      src={activePost.image}
-                      alt={activePost.title}
-                      fill
-                      sizes="(max-width: 600px) 100vw, 600px"
-                      className="object-cover"
-                    />
-                  </div>
-                )}
+                {/* Article Cover Image inside drawer - always shown via category helper */}
+                <div className="relative w-full h-64 mb-8 overflow-hidden rounded border border-white/10 bg-black/45">
+                  <Image
+                    src={getPostImage(activePost)}
+                    alt={activePost.title}
+                    fill
+                    sizes="(max-width: 720px) 100vw, 720px"
+                    className="object-cover"
+                  />
+                </div>
 
                 {/* Metadata Row */}
                 <div className="inline-flex items-center gap-3 text-[10.5px] font-mono text-cream/70 mb-5 bg-white/5 py-1.5 px-3.5 rounded-full border border-white/5">
