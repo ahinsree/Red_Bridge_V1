@@ -88,7 +88,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(123, 31, 162, 0.45)",
     darkGlow: "rgba(123, 31, 162, 0.08)",
     accent: "#E040FB",
-    image: "/images/insight_agentic-desktop.webp",
+    image: "/images/programme-monitoring.png",
     bgX: 0.3,
     bgY: 0.33,
     shapeTransform: (mousePos, scrollVal) => 
