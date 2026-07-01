@@ -211,6 +211,52 @@ const topicMap: Record<string, string> = {
   "programme-management-monitoring": "pm"
 };
 
+const capContentData: Record<string, string> = {
+  // Strategy, Transformation & Institution Building
+  "Corporate, growth and sector strategy": "We help boards and leadership teams define clear, growth paths in complex market environments. Our strategy work is built on empirical market insights and operational mapping, ensuring recommendations align with financial limits and execution capacities. We address corporate diversification, market entry, and long-term sector positioning.",
+  "Operating model and organisation design": "An organization's design must follow its strategic mandate. We structure clear reporting lines, functional boundaries, and decision rights that eliminate operational friction and accelerate execution. We design operating models that optimize internal resources, integrate digital workflows, and align institutional capacity.",
+  "Institutional reform and restructuring": "We advise public sectors and enterprises undergoing structural transition. We manage functional overlap reviews, establish modern performance-linked governance systems, and guide organizations through change. Our restructuring frameworks balance institutional stability with operational agility.",
+  "Governance, systems and capacity building": "Building enduring institutions requires robust governance boards, transparent monitoring protocols, and targeted training. We design corporate governance frameworks, integrate automated decision-support systems, and build internal capabilities.",
+  "Transformation programme design and oversight": "Transformation programs fail in execution. We establish project management offices (PMOs) with strict timeline enforcement, risk matrices, and transparent reporting systems. We provide independent oversight to ensure strategic initiatives achieve target outcomes.",
+
+  // AI, Digital & Data
+  "AI readiness and adoption strategy": "We evaluate technical infrastructure, data quality, and team capabilities to define practical, high-impact artificial intelligence implementation paths. We help you cut through the hype to find clear use cases that generate real operational returns.",
+  "Data strategy, architecture and governance": "Data is only an asset if it is structured and trusted. We design enterprise data architectures, access protocols, and data quality standards to ensure business decisions are supported by clean, real-time analytics.",
+  "Digital and technology roadmaps": "We formulate step-by-step technological blueprints that align software purchases, cloud upgrades, and systems migration with your capital budgets and growth timelines.",
+  "Analytics and decision support": "We build business intelligence dashboards and statistical forecast models that translate raw operations streams into clear, actionable boardroom insights.",
+  "Technology governance and assurance": "We construct risk management frameworks, compliance audits, and security standards to protect your technology stack while ensuring transparency and regulatory alignment.",
+
+  // Experience & Service Design
+  "Customer and citizen experience strategy": "We research user patterns and friction points to define customer engagement strategies that increase satisfaction, retention, and service efficiency.",
+  "Service design and journey mapping": "We map front-end user actions and back-end staff workflows step-by-step to design services that are intuitive, cohesive, and easy to navigate.",
+  "Public service and delivery design": "We redesign public sector counters, portals, and service centers to shorten waiting times, simplify forms, and improve accessibility for all citizens.",
+  "Customer and Brand Experience": "We align your visual communication, message tone, and customer support channels to deliver a consistent, high-value brand representation across every touchpoint.",
+  "Employee experience and culture": "We analyze internal workspaces, software, and feedback systems to build productive organizational cultures that attract and retain top talent.",
+  "Experience measurement and improvement": "We establish continuous feedback loops, Net Promoter Score (NPS) tracking, and operational audits to locate service failures and drive continuous updates.",
+
+  // Investment, Economic & Infrastructure Advisory
+  "Feasibility studies and business cases": "We provide independent market analysis, cost-benefit calculations, and financial modeling to determine whether a project stands up to institutional scrutiny before capital moves.",
+  "Detailed project reports and project structuring": "We compile comprehensive technical and financial project reports, detailing execution phases, procurement strategies, and resource requirements.",
+  "Public-private partnership advisory": "We structure risk sharing, concessions, and joint ventures between public bodies and private consortia, ensuring legal compliance and financial viability.",
+  "Economic development and investment promotion": "We design policies, financial incentives, and marketing plans to attract domestic and foreign direct investments (FDI) into regional development zones.",
+  "Sector, cluster and regional development strategy": "We map industrial clusters, trade links, and local resources to formulate strategies that accelerate economic growth across regions.",
+
+  // Entrepreneurship, Innovation & Startup Ecosystems
+  "Incubation and startup support design": "We design business incubators, accelerators, and lab spaces for universities and governments, establishing mentor networks, training curriculums, and entry criteria.",
+  "Entrepreneurship and innovation programmes": "We structure innovation challenges, hackathons, and corporate venture programs that connect early-stage founders with funding and partnerships.",
+  "Startup mission and policy advisory": "We advise regional development agencies on formulating regulatory policies, grant systems, and tax credits that encourage startup creation.",
+  "MSME and enterprise development": "We help micro, small, and medium enterprises upgrade technology, access credit channels, and build marketing routes to scale their operations.",
+  "Social enterprise and inclusive finance": "We design business models and financing programs that support social impact startups, micro-lending, and community development.",
+  "Ecosystem and institutional partnerships": "We connect universities, corporate boards, investors, and startup networks to build collaborative, resource-rich innovation clusters.",
+
+  // Programme Management, Monitoring & Evaluation
+  "Programme and project management units (PMU)": "We operate dedicated project management units that track timelines, coordinate stakeholders, and resolve delivery bottlenecks for large initiatives.",
+  "Monitoring and evaluation frameworks": "We design custom key performance indicator (KPI) frameworks and data collection tools to track project progress transparently.",
+  "Baseline, outcome and impact studies": "We conduct systematic field surveys and quantitative evaluations to measure project success before, during, and after implementation.",
+  "Third-party and concurrent monitoring": "We provide independent field monitoring and audits to verify construction quality, budget allocations, and service delivery.",
+  "Implementation support and review": "We review running programs to find delivery issues, suggest corrective steps, and support project teams to get back on timeline."
+};
+
 export default function PracticeDetailPage() {
   const { slug } = useParams() as { slug: string };
   const practice = practicesData[slug];
@@ -225,6 +271,7 @@ export default function PracticeDetailPage() {
   // Parallax translation coordinates states
   const [scrollVal, setScrollVal] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     // Scroll reveal activation
@@ -283,6 +330,11 @@ export default function PracticeDetailPage() {
     const x = (clientX / innerWidth - 0.5) * 30;
     const y = (clientY / innerHeight - 0.5) * 30;
     setMousePos({ x, y });
+  };
+
+  const handleToggleCap = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    setExpandedIndex((prev) => (prev === index ? null : index));
   };
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -510,19 +562,48 @@ export default function PracticeDetailPage() {
                 <h4 className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]" style={{ marginBottom: "20px" }}>Specific Capabilities</h4>
                 <div className="flex flex-col">
                   {practice.caps.map((cap, i) => (
-                    <a 
+                    <div 
                       key={i} 
-                      href="#contact"
-                      onClick={(e) => handleCapClick(e, cap)}
-                      className="group flex items-center justify-between py-5 border-t border-[var(--divider-soft)] transition-colors duration-300 hover:text-[var(--red)]"
+                      className="border-t border-[var(--divider-soft)] transition-colors duration-300"
                       style={{ borderBottom: i === practice.caps.length - 1 ? "1px solid var(--divider-soft)" : "" }}
                     >
-                      <span className="text-base font-medium text-[var(--body-c)] transition-colors duration-300 group-hover:text-[var(--red)]">{cap}</span>
-                      <ChevronRight 
-                        size={16} 
-                        className="text-[var(--muted)] transform transition-transform duration-300 group-hover:translate-x-2 group-hover:text-[var(--red)]"
-                      />
-                    </a>
+                      <button 
+                        onClick={(e) => handleToggleCap(e, i)}
+                        className="w-full flex items-center justify-between py-5 text-left transition-colors duration-300 hover:text-[var(--red)] group"
+                      >
+                        <span className="text-base font-medium text-[var(--body-c)] group-hover:text-[var(--red)]">{cap}</span>
+                        <ChevronRight 
+                          size={16} 
+                          className="text-[var(--muted)] transform transition-transform duration-300"
+                          style={{ 
+                            transform: expandedIndex === i ? "rotate(90deg)" : "rotate(0deg)",
+                            color: expandedIndex === i ? "var(--red)" : "" 
+                          }}
+                        />
+                      </button>
+                      
+                      {/* Expanded Detailed Copy Reveal Panel */}
+                      <div 
+                        className="overflow-hidden transition-all duration-300 ease-in-out"
+                        style={{ 
+                          maxHeight: expandedIndex === i ? "240px" : "0px",
+                          opacity: expandedIndex === i ? 1 : 0
+                        }}
+                      >
+                        <div className="pb-6 pr-4">
+                          <p className="text-sm leading-relaxed text-[var(--muted)] mb-5">
+                            {capContentData[cap] || "We partner with board members, public institutions, and corporate leaders on structuring plans, risk governance, and functional design."}
+                          </p>
+                          <a 
+                            href="#contact"
+                            onClick={(e) => handleCapClick(e, cap)}
+                            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--red)] hover:opacity-85 transition-opacity"
+                          >
+                            Enquire About Capability <ArrowUpRight size={14} />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
