@@ -337,18 +337,6 @@ export default function PracticeDetailPage() {
     setExpandedIndex((prev) => (prev === index ? null : index));
   };
 
-  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    const target = document.querySelector(id);
-    if (target) {
-      e.preventDefault();
-      const topOffset = target.getBoundingClientRect().top + window.scrollY - 64;
-      window.scrollTo({
-        top: topOffset,
-        behavior: "smooth",
-      });
-    }
-  };
-
   // Prepopulate capability in contact form when clicked
   const handleCapClick = (e: React.MouseEvent<HTMLAnchorElement>, cap: string) => {
     e.preventDefault();
@@ -642,30 +630,6 @@ export default function PracticeDetailPage() {
                 </div>
               </div>
 
-              {/* Case Track highlight box with vibrant neon top border */}
-              <div 
-                className="p-8 bg-white border border-[var(--divider-soft)] rounded-xl shadow-sm relative overflow-hidden"
-                style={{
-                  borderTop: `4px solid ${style.accent}`
-                }}
-              >
-                <span className={`font-semibold text-xs uppercase tracking-widest block mb-4 bg-gradient-to-r ${style.gradient} bg-clip-text text-transparent`}>
-                  Strategic Mandate Track Record
-                </span>
-                <p className="font-serif italic text-lg text-[var(--charcoal)] leading-relaxed mb-6">
-                  &ldquo;{practice.impact}&rdquo;
-                </p>
-                <div className="pt-5 border-t border-[var(--divider-soft)] flex items-center justify-between">
-                  <span className="text-xs text-[var(--muted)] font-medium">Discuss structuring plans for this practice area</span>
-                  <a 
-                    href="#contact" 
-                    className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest transition-colors hover:text-[var(--red)]`}
-                    onClick={(e) => handleScrollTo(e, "#contact")}
-                  >
-                    Enquire <ArrowUpRight size={14} />
-                  </a>
-                </div>
-              </div>
 
             </div>
 
