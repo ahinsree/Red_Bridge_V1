@@ -35,11 +35,11 @@ export default function WhyRBA() {
               Start a Conversation &rarr;
             </a>
 
-            {/* Premium architectural concept illustration */}
+            {/* Premium branded strategy desk illustration */}
             <div className="why-rba__image-container">
               <Image 
                 className="why-rba__image"
-                src="/images/why_rba_illustration.png"
+                src="/images/built-different.jpg"
                 alt="Strategic advisory bridging strategy to implementation"
                 width={500}
                 height={500}
@@ -53,7 +53,7 @@ export default function WhyRBA() {
                 }}
               >
                 <span style={{ color: "#FAFAF8", fontSize: "10px", fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase" }}>
-                  Bridging Insight to Impact
+                  Corporate Strategy to Impact
                 </span>
               </div>
             </div>
