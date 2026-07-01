@@ -21,6 +21,8 @@ interface StyleSystem {
   bgX: number; // Mouse movement parallax multiplier
   bgY: number; // Scroll movement parallax multiplier
   shapeTransform: (mousePos: { x: number; y: number }, scrollVal: number) => string;
+  imageFit?: "cover" | "contain";
+  hideOverlay?: boolean;
 }
 
 const styleSystemData: Record<string, StyleSystem> = {
@@ -55,7 +57,9 @@ const styleSystemData: Record<string, StyleSystem> = {
     bgX: 0.4,
     bgY: 0.36,
     shapeTransform: (mousePos, scrollVal) => 
-      `translate3d(${mousePos.x * 0.8}px, ${scrollVal * -0.08 + mousePos.y * 0.2}px, 0) skewX(${mousePos.x * 0.5}deg)`
+      `translate3d(${mousePos.x * 0.8}px, ${scrollVal * -0.08 + mousePos.y * 0.2}px, 0) skewX(${mousePos.x * 0.5}deg)`,
+    imageFit: "contain",
+    hideOverlay: true
   },
   "investment-economic-infrastructure": {
     gradient: "from-[#11998e] to-[#38ef7d]",
@@ -601,7 +605,7 @@ export default function PracticeDetailPage() {
             <div className="lg:col-span-5 reveal d1 lg:sticky lg:top-28">
               
               {/* Media image container with floating accent borders and pulsating neon glow */}
-              <div className="relative group" style={{ minHeight: "360px", marginBottom: "40px" }}>
+              <div className="relative group" style={{ minHeight: style.imageFit === "contain" ? "auto" : "360px", marginBottom: "40px" }}>
                 {/* Dynamic vibrant gradient backglow rings */}
                 <div 
                   className="absolute inset-0 opacity-15 rounded-xl filter blur-2xl scale-105 pointer-events-none transition-transform duration-700 group-hover:scale-110"
@@ -611,22 +615,33 @@ export default function PracticeDetailPage() {
                   }}
                 />
                 
-                <div className="relative w-full h-[400px] rounded-xl overflow-hidden border border-[var(--divider-soft)]">
+                <div 
+                  className="relative w-full rounded-xl overflow-hidden border border-[var(--divider-soft)]"
+                  style={{
+                    height: style.imageFit === "contain" ? "auto" : "400px",
+                    aspectRatio: style.imageFit === "contain" ? "1.5" : "auto",
+                    backgroundColor: style.imageFit === "contain" ? "#141724" : "transparent"
+                  }}
+                >
                   <Image
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className={style.imageFit === "contain" ? "object-contain" : "object-cover transition-transform duration-700 group-hover:scale-105"}
                     src={style.image}
                     alt={practice.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(27,38,59,0.85)] via-[rgba(27,38,59,0.3)] to-transparent" />
+                  {style.hideOverlay ? null : (
+                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(27,38,59,0.85)] via-[rgba(27,38,59,0.3)] to-transparent" />
+                  )}
                   
                   {/* Floating caption overlay */}
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-80 block mb-1">Mandate Profile</span>
-                    <h5 className="font-serif text-white text-xl font-medium leading-snug">{practice.tagline}</h5>
-                  </div>
+                  {!style.hideOverlay && (
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <span className="text-white text-xs font-semibold uppercase tracking-widest opacity-80 block mb-1">Mandate Profile</span>
+                      <h5 className="font-serif text-white text-xl font-medium leading-snug">{practice.tagline}</h5>
+                    </div>
+                  )}
                 </div>
               </div>
 
