@@ -31,7 +31,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(178, 32, 48, 0.45)",
     darkGlow: "rgba(178, 32, 48, 0.08)",
     accent: "#B22030",
-    image: "/images/strategy-transformation.png",
+    image: "/images/strategy-transformation-desktop.webp",
     bgX: -0.3,
     bgY: 0.28,
     shapeTransform: (mousePos, scrollVal) => 
@@ -42,7 +42,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(79, 172, 254, 0.45)",
     darkGlow: "rgba(0, 242, 254, 0.08)",
     accent: "#00F2FE",
-    image: "/images/ai-digital-data.jpg",
+    image: "/images/ai-digital-data-desktop.webp",
     bgX: -0.5,
     bgY: 0.18,
     shapeTransform: (mousePos, scrollVal) => 
@@ -53,7 +53,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(255, 51, 102, 0.45)",
     darkGlow: "rgba(255, 51, 102, 0.08)",
     accent: "#FF3366",
-    image: "/images/experience-service-design.jpg",
+    image: "/images/experience-service-design-desktop.webp",
     bgX: 0.4,
     bgY: 0.36,
     shapeTransform: (mousePos, scrollVal) => 
@@ -77,7 +77,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(243, 156, 18, 0.45)",
     darkGlow: "rgba(243, 156, 18, 0.08)",
     accent: "#F39C12",
-    image: "/images/startup-ecosystem.png",
+    image: "/images/startup-ecosystem-desktop.webp",
     bgX: -0.4,
     bgY: 0.24,
     shapeTransform: (mousePos, scrollVal) => 
@@ -88,7 +88,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(123, 31, 162, 0.45)",
     darkGlow: "rgba(123, 31, 162, 0.08)",
     accent: "#E040FB",
-    image: "/images/programme-monitoring.png",
+    image: "/images/programme-monitoring-desktop.webp",
     bgX: 0.3,
     bgY: 0.33,
     shapeTransform: (mousePos, scrollVal) => 

@@ -39,7 +39,7 @@ export default function WhyRBA() {
             <div className="why-rba__image-container">
               <Image 
                 className="why-rba__image"
-                src="/images/built-different.jpg"
+                src="/images/built-different-desktop.webp"
                 alt="Strategic advisory bridging strategy to implementation"
                 width={500}
                 height={500}
