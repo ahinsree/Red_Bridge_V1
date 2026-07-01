@@ -40,7 +40,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     glow: "rgba(79, 172, 254, 0.45)",
     darkGlow: "rgba(0, 242, 254, 0.08)",
     accent: "#00F2FE",
-    image: "/images/hero-ai-bg-desktop.webp",
+    image: "/images/ai-digital-data.jpg",
     bgX: -0.5,
     bgY: 0.18,
     shapeTransform: (mousePos, scrollVal) => 
