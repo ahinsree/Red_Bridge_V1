@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
@@ -90,6 +91,7 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${cormorant.variable} antialiased`}
       >
+        <CustomCursor />
         {children}
       </body>
     </html>
