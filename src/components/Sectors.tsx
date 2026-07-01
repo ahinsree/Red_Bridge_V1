@@ -119,8 +119,7 @@ export default function Sectors() {
           </div>
           <a
             href="#contact"
-            className="btn btn--ghost"
-            style={{ flexShrink: 0, alignSelf: "flex-end" }}
+            className="btn btn--ghost sectors__header-btn"
             onClick={(e) => handleScrollTo(e, "#contact")}
           >
             Start a conversation &rarr;

@@ -499,7 +499,7 @@ export default function PracticeDetailPage() {
           </div>
         </div>
 
-        <div className="hero__content" style={{ marginTop: "40px" }}>
+        <div className="hero__content" style={{ paddingTop: "110px", paddingBottom: "40px" }}>
           <Link href="/#advisory" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--red)] mb-8 transition-colors hover:text-white">
             <ArrowLeft size={12} /> Back to Advisory
           </Link>

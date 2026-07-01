@@ -158,8 +158,7 @@ export default function Advisory() {
           </div>
           <Link
             href="/#contact"
-            className="btn btn--ghost"
-            style={{ flexShrink: 0, alignSelf: "flex-end" }}
+            className="btn btn--ghost advisory-header__btn"
           >
             Start a conversation &rarr;
           </Link>
