@@ -21,7 +21,11 @@ export const metadata: Metadata = {
   description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
   metadataBase: new URL("https://www.redbridgeadvisory.com"),
   icons: {
-    icon: "/images/logo-flat.svg",
+    icon: [
+      { url: "/images/logo-flat.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" }
+    ],
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "Red Bridge Advisory | Bridging Insight to Impact",
