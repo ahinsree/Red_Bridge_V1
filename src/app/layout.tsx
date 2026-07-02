@@ -18,7 +18,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "Red Bridge Advisory | Bridging Insight to Impact",
-  description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
+  description: "Red Bridge Advisory is a boutique management consulting firm. We bridge strategy and execution across AI, digital, investment, and public policy advisory.",
   metadataBase: new URL("https://www.redbridgeadvisory.com"),
   icons: {
     icon: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Red Bridge Advisory | Bridging Insight to Impact",
-    description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
+    description: "Red Bridge Advisory is a boutique management consulting firm. We bridge strategy and execution across AI, digital, investment, and public policy advisory.",
     url: "https://www.redbridgeadvisory.com",
     siteName: "Red Bridge Advisory",
     images: [
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Red Bridge Advisory | Bridging Insight to Impact",
-    description: "Red Bridge Advisory is a boutique management consulting firm working with governments, enterprises and investors across strategy, AI and digital, investment and economic advisory, entrepreneurship, skilling, sustainability and programme delivery.",
+    description: "Red Bridge Advisory is a boutique management consulting firm. We bridge strategy and execution across AI, digital, investment, and public policy advisory.",
     images: ["/images/logo-flat.png"],
     creator: "@redbridgeadv",
   },
