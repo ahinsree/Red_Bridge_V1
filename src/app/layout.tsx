@@ -50,6 +50,9 @@ export const metadata: Metadata = {
     images: ["/images/logo-flat.png"],
     creator: "@redbridgeadv",
   },
+  verification: {
+    google: "google7bb7daf0e708b41d",
+  },
 };
 
 export default function RootLayout({
