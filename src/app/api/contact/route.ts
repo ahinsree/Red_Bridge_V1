@@ -3,6 +3,22 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const { name, email, message } = body;
+
+    // Field-level validation checks
+    if (!name || typeof name !== "string" || name.trim().length === 0 || name.length > 100) {
+      return NextResponse.json({ error: "Invalid name format or length" }, { status: 400 });
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || typeof email !== "string" || !emailRegex.test(email) || email.length > 150) {
+      return NextResponse.json({ error: "Invalid email format or length" }, { status: 400 });
+    }
+    
+    if (!message || typeof message !== "string" || message.trim().length === 0 || message.length > 5000) {
+      return NextResponse.json({ error: "Invalid message format or length" }, { status: 400 });
+    }
+
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
     if (!googleScriptUrl) {
