@@ -168,9 +168,9 @@ export default function JishnuVCard() {
             </svg>
             Share on WhatsApp
           </a>
-          <a href="https://www.redbridgeadvisory.com" className="vcard-btn vcard-btn--secondary">
-            Visit Website
-          </a>
+          <Link href="/#advisory" className="vcard-btn vcard-btn--secondary">
+            Back to Advisory
+          </Link>
         </div>
       </div>
     </main>
