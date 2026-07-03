@@ -500,8 +500,11 @@ export default function PracticeDetailPage() {
         </div>
 
         <div className="hero__content" style={{ paddingTop: "110px", paddingBottom: "40px" }}>
-          <Link href="/#advisory" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[var(--red)] mb-8 transition-colors hover:text-white">
-            <ArrowLeft size={12} /> Back to Advisory
+          <Link 
+            href="/#advisory" 
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/80 hover:text-white bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full mb-8 transition-all hover:bg-white/10 hover:border-white/20"
+          >
+            <ArrowLeft size={12} className="text-[var(--red)]" /> Back to Advisory
           </Link>
           
           <div className="flex items-center gap-4 mb-4">
