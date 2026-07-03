@@ -596,23 +596,18 @@ img { display: block; width: 100%; object-fit: cover; }
   border: 1px solid var(--divider-soft);
   padding: 28px 30px;
   border-radius: 8px;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.6s ease;
+  transition: all 350ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex; gap: 24px; align-items: flex-start;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
 }
 .why-item:hover {
-  transform: translateY(-5px) translateX(2px);
-  background-color: var(--offwhite);
-  border-color: rgba(178, 32, 48, 0.22);
-  box-shadow: 0 16px 36px rgba(27, 22, 18, 0.05);
+  transform: translateX(6px);
+  border-color: rgba(178, 32, 48, 0.16);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 }
 .why-item__n {
   font-family: var(--sans); font-weight: 600; font-size: 18px;
   color: var(--red); flex-shrink: 0; line-height: 1.25;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .why-item__title {
   font-family: var(--serif); font-weight: 500; font-size: 18px;

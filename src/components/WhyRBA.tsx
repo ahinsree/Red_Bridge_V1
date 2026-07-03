@@ -1,26 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 export default function WhyRBA() {
-  const [scrollVal, setScrollVal] = useState(0);
-  const [offset, setOffset] = useState(800); // default fallback offset
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      // Find offset relative to document top
-      const rect = containerRef.current.getBoundingClientRect();
-      setOffset(rect.top + window.scrollY);
-    }
-    const handleScroll = () => {
-      setScrollVal(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     const target = document.querySelector(id);
     if (target) {
@@ -32,10 +14,6 @@ export default function WhyRBA() {
       });
     }
   };
-
-  // Parallax translation: moves slower than text scroll rate
-  const translationY = (scrollVal - (offset - 350)) * -0.06;
-  const boundedTranslationY = Math.max(-30, Math.min(30, translationY));
 
   return (
     <section className="section section--cream" id="why-rba">
@@ -58,20 +36,14 @@ export default function WhyRBA() {
             </a>
 
             {/* Premium branded strategy desk illustration */}
-            <div className="why-rba__image-container" ref={containerRef}>
+            <div className="why-rba__image-container">
               <Image 
                 className="why-rba__image"
                 src="/images/built-different-desktop.webp"
                 alt="Strategic advisory bridging strategy to implementation"
                 width={500}
                 height={500}
-                style={{ 
-                  width: "100%", 
-                  height: "auto", 
-                  display: "block",
-                  transform: `translate3d(0, ${boundedTranslationY}px, 0) scale(1.08)`,
-                  transition: "transform 0.1s ease-out"
-                }}
+                style={{ width: "100%", height: "auto", display: "block" }}
               />
               <div 
                 style={{
