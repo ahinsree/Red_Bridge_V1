@@ -648,6 +648,28 @@ export default function PracticeDetailPage() {
                 </div>
               </div>
 
+              {/* Track Record / Impact Box */}
+              <div 
+                className="rounded-xl border border-zinc-200/60 bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(9,9,11,0.02)] relative overflow-hidden"
+              >
+                {/* Accent indicator */}
+                <div 
+                  className="absolute top-0 left-0 w-1.5 h-full" 
+                  style={{
+                    background: `linear-gradient(135deg, ${style.accent}, transparent)`
+                  }}
+                />
+                
+                <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase font-bold mb-3 block">
+                  Track Record
+                </span>
+                <h4 className="text-sm font-serif font-bold text-zinc-900 mb-3">
+                  Practice Impact &amp; Delivery
+                </h4>
+                <p className="text-[13px] text-zinc-600 leading-relaxed font-sans mb-0">
+                  {practice.impact}
+                </p>
+              </div>
 
             </div>
 
