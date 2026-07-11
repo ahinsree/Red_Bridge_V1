@@ -161,34 +161,32 @@ export default function Advisory() {
 
       <div className="container mx-auto px-6 relative z-10">
         
-        {/* Section Header Block */}
-        <header className="mb-16">
+        {/* Section Header Block - Left Aligned Vertical Stack for Optimal Hierarchy */}
+        <header className="mb-16 max-w-3xl reveal">
           <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-4 block">
             ADVISORY AREAS
           </span>
-          <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-6 leading-tight">
+          <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-4 leading-tight">
             Our Capabilities.<br />Built for institutional complexity.
           </h2>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <p className="text-sm text-zinc-500 max-w-xl leading-relaxed font-sans">
-              These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
-            </p>
-            <Link
-              href="/#contact"
-              className="group inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#09090b] tracking-wider uppercase border-b border-[#09090b] pb-1 transition-colors hover:text-[#B22030] hover:border-[#B22030] shrink-0 self-start md:self-auto"
+          <p className="text-sm text-zinc-500 leading-relaxed font-sans mb-6">
+            These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
+          </p>
+          <Link
+            href="/#contact"
+            className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
+          >
+            Start a conversation
+            <motion.span
+              className="inline-block"
+              variants={{
+                initial: { x: 0 },
+                hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
+              }}
             >
-              Start a conversation
-              <motion.span
-                className="inline-block"
-                variants={{
-                  initial: { x: 0 },
-                  hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
-                }}
-              >
-                →
-              </motion.span>
-            </Link>
-          </div>
+              →
+            </motion.span>
+          </Link>
         </header>
 
         {/* Responsive Grid Layout */}
@@ -287,21 +285,19 @@ export default function Advisory() {
           ))}
         </div>
 
-        {/* Discuss specific mandate footer link */}
-        <div className="mt-16 text-center reveal">
+        {/* Structured Bottom Section Footer CTA */}
+        <div className="mt-20 border-t border-zinc-200/60 pt-10 flex justify-center reveal">
           <Link
             href="/#contact"
-            className="group inline-flex items-center gap-2 text-xs font-mono font-semibold text-zinc-500 hover:text-[#B22030] tracking-widest uppercase transition-colors"
+            className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-widest uppercase transition-colors hover:text-zinc-950"
           >
             Discuss a specific mandate
             <motion.span
-              className="inline-block text-[#B22030]"
+              className="inline-block"
               variants={{
                 initial: { x: 0 },
                 hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
               }}
-              initial="initial"
-              whileHover="hover"
             >
               →
             </motion.span>
