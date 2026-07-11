@@ -200,10 +200,10 @@ export default function Advisory() {
               <motion.article
                 whileHover="hover"
                 initial="initial"
-                className="relative h-[460px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
+                className="relative h-[480px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
               >
-                {/* The Image Layer (fills top 58%) */}
-                <div className="absolute top-0 left-0 w-full h-[58%] overflow-hidden bg-zinc-100">
+                {/* The Image Layer (fills top 55%) */}
+                <div className="absolute top-0 left-0 w-full h-[55%] overflow-hidden bg-zinc-100">
                   <motion.div
                     variants={{
                       initial: { scale: 1 },
@@ -228,23 +228,23 @@ export default function Advisory() {
                   variants={{
                     initial: { y: 0 },
                     hover: { 
-                      y: -100,
+                      y: -140,
                       boxShadow: "0 -15px 30px rgba(9, 9, 11, 0.05)"
                     }
                   }}
                   transition={springConfig}
-                  className="absolute bottom-[-100px] left-0 right-0 h-[68%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
+                  className="absolute bottom-[-140px] left-0 right-0 h-[75%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
                   style={{
-                    paddingLeft: "28px",
-                    paddingRight: "28px",
-                    paddingTop: "28px",
-                    paddingBottom: "128px",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    paddingTop: "24px",
+                    paddingBottom: "164px",
                     boxSizing: "border-box"
                   }}
                 >
                   <div>
                     {/* Category Tag */}
-                    <span className="text-[9px] font-mono tracking-widest text-[#B22030] uppercase mb-2.5 block font-bold">
+                    <span className="text-[9px] font-mono tracking-widest text-[#B22030] uppercase mb-2 block font-bold">
                       PRACTICE AREA {practice.num}
                     </span>
 
@@ -273,7 +273,7 @@ export default function Advisory() {
                   </div>
 
                   {/* Footer Link */}
-                  <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
+                  <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
                     <span>Explore Practice Area</span>
                     <motion.span
                       variants={{
