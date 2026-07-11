@@ -159,7 +159,7 @@ export default function Advisory() {
         }}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         
         {/* Section Header Block - Left Aligned Vertical Stack for Optimal Hierarchy */}
         <header className="mb-16 max-w-3xl reveal">
