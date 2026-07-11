@@ -121,7 +121,6 @@ export default function Advisory() {
     },
   ];
 
-  // spring physics config (stiffness 300, damping 25)
   const springConfig = { type: "spring" as const, stiffness: 300, damping: 25 };
 
   return (
@@ -232,7 +231,14 @@ export default function Advisory() {
                   }
                 }}
                 transition={springConfig}
-                className="absolute bottom-[-100px] left-0 right-0 h-[68%] bg-white rounded-t-[24px] p-6 md:p-8 pb-32 border-t border-zinc-100/80 flex flex-col justify-between z-10"
+                className="absolute bottom-[-100px] left-0 right-0 h-[68%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
+                style={{
+                  paddingLeft: "28px",
+                  paddingRight: "28px",
+                  paddingTop: "28px",
+                  paddingBottom: "128px",
+                  boxSizing: "border-box"
+                }}
               >
                 <div>
                   {/* Category Tag */}
