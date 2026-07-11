@@ -161,32 +161,37 @@ export default function Advisory() {
 
       <div className="container mx-auto px-6 max-w-5xl relative z-10">
         
-        {/* Section Header Block - Left Aligned Vertical Stack for Optimal Hierarchy */}
-        <header className="mb-14 max-w-3xl reveal">
-          <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
-            ADVISORY AREAS
-          </span>
-          <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-3.5 leading-tight">
-            Our Capabilities.<br />Built for institutional complexity.
-          </h2>
-          <p className="text-sm text-zinc-500 leading-relaxed font-sans mb-5">
-            These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
-          </p>
-          <Link
-            href="/#contact"
-            className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
-          >
-            Start a conversation
-            <motion.span
-              className="inline-block"
-              variants={{
-                initial: { x: 0 },
-                hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
-              }}
+        {/* Section Header Block - Left Text Stack & Right-aligned CTA Link */}
+        <header className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+          <div className="max-w-2xl">
+            <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
+              ADVISORY AREAS
+            </span>
+            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-3.5 leading-tight">
+              Our Capabilities.<br />Built for institutional complexity.
+            </h2>
+            <p className="text-sm text-zinc-500 leading-relaxed font-sans mb-0">
+              These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
+            </p>
+          </div>
+          
+          <div className="shrink-0 self-start md:self-end pb-1">
+            <Link
+              href="/#contact"
+              className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
             >
-              →
-            </motion.span>
-          </Link>
+              Start a conversation
+              <motion.span
+                className="inline-block"
+                variants={{
+                  initial: { x: 0 },
+                  hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
+                }}
+              >
+                →
+              </motion.span>
+            </Link>
+          </div>
         </header>
 
         {/* Responsive Grid Layout */}
