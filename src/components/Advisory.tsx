@@ -125,7 +125,7 @@ export default function Advisory() {
 
   return (
     <section
-      className="bg-[#fafafa] py-24 relative overflow-hidden transition-colors duration-300"
+      className="bg-[#fafafa] py-32 md:py-40 relative overflow-hidden transition-colors duration-300"
       id="advisory"
       onMouseMove={handleMouseMove}
     >

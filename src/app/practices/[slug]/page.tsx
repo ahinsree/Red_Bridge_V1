@@ -499,7 +499,7 @@ export default function PracticeDetailPage() {
           </div>
         </div>
 
-        <div className="hero__content" style={{ paddingTop: "110px", paddingBottom: "40px" }}>
+        <div className="hero__content" style={{ paddingTop: "140px", paddingBottom: "60px" }}>
           <Link 
             href="/#advisory" 
             className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/80 hover:text-white bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full mb-8 transition-all hover:bg-white/10 hover:border-white/20"
@@ -524,7 +524,7 @@ export default function PracticeDetailPage() {
       </section>
 
       {/* Split Row Content Layout in Webandcrafts Style */}
-      <section className="section section--cream py-24">
+      <section className="section section--cream py-32 md:py-40">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
