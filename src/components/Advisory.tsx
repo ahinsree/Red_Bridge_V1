@@ -194,8 +194,8 @@ export default function Advisory() {
           </div>
         </header>
 
-        {/* Responsive Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Responsive Grid Layout - items-stretch aligns card heights automatically */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {practices.map((practice) => (
             <Link
               key={practice.slug}
@@ -205,10 +205,10 @@ export default function Advisory() {
               <motion.article
                 whileHover="hover"
                 initial="initial"
-                className="relative h-[490px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
+                className="flex flex-col h-full rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full shadow-[0_8px_30px_rgba(9,9,11,0.02)] hover:shadow-[0_20px_50px_rgba(9,9,11,0.06)] hover:translate-y-[-6px] transition-all duration-300"
               >
-                {/* The Image Layer (fills top 56%) */}
-                <div className="absolute top-0 left-0 w-full h-[56%] overflow-hidden bg-zinc-100">
+                {/* The Image Layer (fixed height 200px at the top) */}
+                <div className="relative w-full h-[200px] overflow-hidden bg-zinc-100">
                   <motion.div
                     variants={{
                       initial: { scale: 1 },
@@ -228,22 +228,14 @@ export default function Advisory() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
                 </div>
 
-                {/* The Floating Content Card */}
-                <motion.div
-                  variants={{
-                    initial: { y: 0 },
-                    hover: { 
-                      y: -136,
-                      boxShadow: "0 -15px 30px rgba(9, 9, 11, 0.05)"
-                    }
-                  }}
-                  transition={springConfig}
-                  className="absolute bottom-[-136px] left-0 right-0 h-[74%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
+                {/* The Structured Content Block (fills the remaining card space) */}
+                <div 
+                  className="flex-1 flex flex-col justify-between bg-white"
                   style={{
                     paddingLeft: "24px",
                     paddingRight: "24px",
                     paddingTop: "24px",
-                    paddingBottom: "160px",
+                    paddingBottom: "24px",
                     boxSizing: "border-box"
                   }}
                 >
@@ -254,31 +246,23 @@ export default function Advisory() {
                     </span>
 
                     {/* Title */}
-                    <h3 className="text-base md:text-[17px] font-serif font-bold text-zinc-900 leading-snug mb-1 group-hover:text-[#B22030] transition-colors duration-300">
+                    <h3 className="text-base md:text-[17px] font-serif font-bold text-zinc-900 leading-snug mb-2 group-hover:text-[#B22030] transition-colors duration-300">
                       {practice.title}
                     </h3>
 
                     {/* Tagline */}
-                    <p className="text-[11px] font-serif italic text-zinc-400 mb-4">
+                    <p className="text-[11px] font-serif italic text-zinc-400 mb-4 leading-relaxed">
                       &ldquo;{practice.tagline}&rdquo;
                     </p>
 
-                    {/* Body snippet text that fades in on hover */}
-                    <motion.div
-                      variants={{
-                        initial: { opacity: 0 },
-                        hover: { opacity: 1, transition: { delay: 0.1 } }
-                      }}
-                      className="mt-4 border-t border-zinc-100 pt-4"
-                    >
-                      <p className="text-[10.5px] text-zinc-500 leading-relaxed font-sans line-clamp-3">
-                        {practice.desc}
-                      </p>
-                    </motion.div>
+                    {/* Body snippet description */}
+                    <p className="text-[11px] text-zinc-500 leading-relaxed font-sans mb-6">
+                      {practice.desc}
+                    </p>
                   </div>
 
                   {/* Footer Link */}
-                  <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
+                  <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
                     <span>Explore Practice Area</span>
                     <motion.span
                       variants={{
@@ -289,7 +273,7 @@ export default function Advisory() {
                       →
                     </motion.span>
                   </div>
-                </motion.div>
+                </div>
               </motion.article>
             </Link>
           ))}
