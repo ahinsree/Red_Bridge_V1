@@ -125,7 +125,7 @@ export default function Advisory() {
 
   return (
     <section
-      className="bg-[#fafafa] py-20 md:py-24 relative overflow-hidden transition-colors duration-300"
+      className="bg-[#fafafa] py-28 md:py-36 relative overflow-hidden transition-colors duration-300"
       id="advisory"
       onMouseMove={handleMouseMove}
     >
@@ -159,10 +159,10 @@ export default function Advisory() {
         }}
       />
 
-      <div className="container mx-auto px-6 max-w-5xl relative z-10">
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
         {/* Section Header Block - Left Text Stack & Right-aligned CTA Link */}
-        <header className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+        <header className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
           <div className="max-w-2xl">
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
@@ -205,10 +205,10 @@ export default function Advisory() {
               <motion.article
                 whileHover="hover"
                 initial="initial"
-                className="relative h-[440px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
+                className="relative h-[490px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
               >
-                {/* The Image Layer (fills top 55%) */}
-                <div className="absolute top-0 left-0 w-full h-[55%] overflow-hidden bg-zinc-100">
+                {/* The Image Layer (fills top 56%) */}
+                <div className="absolute top-0 left-0 w-full h-[56%] overflow-hidden bg-zinc-100">
                   <motion.div
                     variants={{
                       initial: { scale: 1 },
@@ -233,17 +233,17 @@ export default function Advisory() {
                   variants={{
                     initial: { y: 0 },
                     hover: { 
-                      y: -130,
+                      y: -136,
                       boxShadow: "0 -15px 30px rgba(9, 9, 11, 0.05)"
                     }
                   }}
                   transition={springConfig}
-                  className="absolute bottom-[-130px] left-0 right-0 h-[75%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
+                  className="absolute bottom-[-136px] left-0 right-0 h-[74%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
                   style={{
                     paddingLeft: "24px",
                     paddingRight: "24px",
                     paddingTop: "24px",
-                    paddingBottom: "154px",
+                    paddingBottom: "160px",
                     boxSizing: "border-box"
                   }}
                 >
@@ -254,7 +254,7 @@ export default function Advisory() {
                     </span>
 
                     {/* Title */}
-                    <h3 className="text-base md:text-[16px] font-serif font-bold text-zinc-900 leading-snug mb-1 group-hover:text-[#B22030] transition-colors duration-300">
+                    <h3 className="text-base md:text-[17px] font-serif font-bold text-zinc-900 leading-snug mb-1 group-hover:text-[#B22030] transition-colors duration-300">
                       {practice.title}
                     </h3>
 
@@ -296,7 +296,7 @@ export default function Advisory() {
         </div>
 
         {/* Structured Bottom Section Footer CTA */}
-        <div className="mt-16 border-t border-zinc-200/60 pt-8 flex justify-center reveal">
+        <div className="mt-20 border-t border-zinc-200/60 pt-10 flex justify-center reveal">
           <Link
             href="/#contact"
             className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-widest uppercase transition-colors hover:text-zinc-950"
