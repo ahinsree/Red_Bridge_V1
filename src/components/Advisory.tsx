@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface PracticeArea {
   num: string;
@@ -13,96 +13,6 @@ interface PracticeArea {
   desc: string;
   image: string;
   caps: string[];
-  delayClass: string;
-}
-
-function ParallaxCard({ practice }: { practice: PracticeArea }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // Smooth springs to lag and soften cursor updates
-  const springX = useSpring(x, { stiffness: 120, damping: 20 });
-  const springY = useSpring(y, { stiffness: 120, damping: 20 });
-
-  // Map coordinates to translate range [-10px, 10px] and subtle zoom scale
-  const imageX = useTransform(springX, [-100, 100], [-10, 10]);
-  const imageY = useTransform(springY, [-100, 100], [-10, 10]);
-  const imageScale = useTransform(springY, [-100, 100], [1.12, 1.06]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-
-    // Set motion values based on cursor relative offset percentage
-    x.set((mouseX / (width / 2)) * 100);
-    y.set((mouseY / (height / 2)) * 100);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <div
-      className="advisory-card reveal flex flex-col justify-between"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div>
-        {/* Parallax Image Container */}
-        <div className="relative w-full h-[180px] overflow-hidden rounded-lg mb-6 border border-zinc-200/50 bg-zinc-100/50">
-          <motion.div
-            style={{
-              x: imageX,
-              y: imageY,
-              scale: imageScale,
-              width: "112%",
-              height: "112%",
-              position: "absolute",
-              top: "-6%",
-              left: "-6%",
-            }}
-          >
-            <Image
-              src={practice.image}
-              alt={practice.title}
-              fill
-              sizes="(max-width: 760px) 100vw, 33vw"
-              className="object-cover pointer-events-none"
-              priority={practice.num === "01"}
-            />
-          </motion.div>
-          {/* Ambient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
-        </div>
-
-        <span className="advisory-card__num">{practice.num}</span>
-        <h3 className="advisory-card__title">{practice.title}</h3>
-        <p className="advisory-card__tagline">{practice.tagline}</p>
-        <p className="advisory-card__desc" style={{ minHeight: "100px" }}>
-          {practice.desc}
-        </p>
-
-        <ul className="advisory-card__caps" style={{ marginTop: "20px" }}>
-          {practice.caps.map((cap, i) => (
-            <li key={i}>{cap}</li>
-          ))}
-        </ul>
-      </div>
-
-      <Link
-        href={`/practices/${practice.slug}`}
-        className="advisory-card__cta"
-        style={{ marginTop: "auto" }}
-      >
-        Explore Practice Area &rarr;
-      </Link>
-    </div>
-  );
 }
 
 export default function Advisory() {
@@ -111,8 +21,8 @@ export default function Advisory() {
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-    const x = (clientX / innerWidth - 0.5) * 30;
-    const y = (clientY / innerHeight - 0.5) * 30;
+    const x = (clientX / innerWidth - 0.5) * 20;
+    const y = (clientY / innerHeight - 0.5) * 20;
     setMousePos({ x, y });
   };
 
@@ -131,7 +41,6 @@ export default function Advisory() {
         "Governance, systems and capacity building",
         "Transformation programme design and oversight",
       ],
-      delayClass: "",
     },
     {
       num: "02",
@@ -147,7 +56,6 @@ export default function Advisory() {
         "Analytics and decision support",
         "Technology governance and assurance",
       ],
-      delayClass: "d1",
     },
     {
       num: "03",
@@ -164,7 +72,6 @@ export default function Advisory() {
         "Employee experience and culture",
         "Experience measurement and improvement",
       ],
-      delayClass: "d2",
     },
     {
       num: "04",
@@ -180,7 +87,6 @@ export default function Advisory() {
         "Economic development and investment promotion",
         "Sector, cluster and regional development strategy",
       ],
-      delayClass: "",
     },
     {
       num: "05",
@@ -197,7 +103,6 @@ export default function Advisory() {
         "Social enterprise and inclusive finance",
         "Ecosystem and institutional partnerships",
       ],
-      delayClass: "d1",
     },
     {
       num: "06",
@@ -213,13 +118,15 @@ export default function Advisory() {
         "Third-party and concurrent monitoring",
         "Implementation support and review",
       ],
-      delayClass: "d2",
     },
   ];
 
+  // spring physics config (stiffness 300, damping 25)
+  const springConfig = { type: "spring" as const, stiffness: 300, damping: 25 };
+
   return (
     <section
-      className="section section--offwhite advisory-section relative overflow-hidden"
+      className="bg-[#fafafa] py-24 relative overflow-hidden transition-colors duration-300"
       id="advisory"
       onMouseMove={handleMouseMove}
     >
@@ -231,7 +138,7 @@ export default function Advisory() {
           height: "350px",
           left: "2%",
           top: "18%",
-          background: "radial-gradient(circle, rgba(178,32,48,0.035) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(178,32,48,0.03) 0%, transparent 70%)",
           transform: `translate3d(${mousePos.x * -0.4}px, ${mousePos.y * -0.4}px, 0)`,
           transition: "transform 0.15s ease-out",
           filter: "blur(40px)",
@@ -245,7 +152,7 @@ export default function Advisory() {
           height: "480px",
           right: "4%",
           bottom: "12%",
-          background: "radial-gradient(circle, rgba(27,38,59,0.02) 0%, transparent 85%)",
+          background: "radial-gradient(circle, rgba(27,38,59,0.01) 0%, transparent 85%)",
           transform: `translate3d(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px, 0)`,
           transition: "transform 0.15s ease-out",
           filter: "blur(30px)",
@@ -253,39 +160,148 @@ export default function Advisory() {
         }}
       />
 
-      <div className="container relative z-10">
-        <div className="advisory-header reveal">
-          <div className="advisory-header__left">
-            <span className="sec-label">Advisory Areas</span>
-            <h2 className="sec-title">
-              Our Capabilities.
-              <br />
-              Built for institutional complexity.
-            </h2>
-            <div className="divider"></div>
-            <p className="sec-sub">
-              These are the kind of problems we are brought in to solve, whether
-              the client is a company, a government or a founder.
+      <div className="container mx-auto px-6 relative z-10">
+        
+        {/* Section Header Block */}
+        <header className="mb-16">
+          <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-4 block">
+            ADVISORY AREAS
+          </span>
+          <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-6 leading-tight">
+            Our Capabilities.<br />Built for institutional complexity.
+          </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <p className="text-sm text-zinc-500 max-w-xl leading-relaxed font-sans">
+              These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
             </p>
+            <Link
+              href="/#contact"
+              className="group inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#09090b] tracking-wider uppercase border-b border-[#09090b] pb-1 transition-colors hover:text-[#B22030] hover:border-[#B22030] shrink-0 self-start md:self-auto"
+            >
+              Start a conversation
+              <motion.span
+                className="inline-block"
+                variants={{
+                  initial: { x: 0 },
+                  hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
+                }}
+              >
+                →
+              </motion.span>
+            </Link>
           </div>
-          <Link
-            href="/#contact"
-            className="btn btn--ghost advisory-header__btn"
-          >
-            Start a conversation &rarr;
-          </Link>
-        </div>
+        </header>
 
-        <div className="advisory-grid">
+        {/* Responsive Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {practices.map((practice) => (
-            <ParallaxCard key={practice.slug} practice={practice} />
+            <motion.article
+              key={practice.slug}
+              whileHover="hover"
+              initial="initial"
+              className="relative h-[460px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
+            >
+              {/* The Image Layer (fills top 58%) */}
+              <div className="absolute top-0 left-0 w-full h-[58%] overflow-hidden bg-zinc-100">
+                <motion.div
+                  variants={{
+                    initial: { scale: 1 },
+                    hover: { scale: 1.05 }
+                  }}
+                  transition={springConfig}
+                  className="w-full h-full relative"
+                >
+                  <Image
+                    src={practice.image}
+                    alt={practice.title}
+                    fill
+                    sizes="(max-width: 760px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+              </div>
+
+              {/* The Floating Content Card */}
+              <motion.div
+                variants={{
+                  initial: { y: 0 },
+                  hover: { 
+                    y: -100,
+                    boxShadow: "0 -15px 30px rgba(9, 9, 11, 0.05)"
+                  }
+                }}
+                transition={springConfig}
+                className="absolute bottom-[-100px] left-0 right-0 h-[68%] bg-white rounded-t-[24px] p-6 md:p-8 pb-32 border-t border-zinc-100/80 flex flex-col justify-between z-10"
+              >
+                <div>
+                  {/* Category Tag */}
+                  <span className="text-[9px] font-mono tracking-widest text-[#B22030] uppercase mb-2.5 block font-bold">
+                    PRACTICE AREA {practice.num}
+                  </span>
+
+                  {/* Title */}
+                  <h3 className="text-base md:text-[17px] font-serif font-bold text-zinc-900 leading-snug mb-1 group-hover:text-[#B22030] transition-colors duration-300">
+                    {practice.title}
+                  </h3>
+
+                  {/* Tagline */}
+                  <p className="text-[11px] font-serif italic text-zinc-400 mb-4">
+                    &ldquo;{practice.tagline}&rdquo;
+                  </p>
+
+                  {/* Body snippet text that fades in on hover */}
+                  <motion.div
+                    variants={{
+                      initial: { opacity: 0 },
+                      hover: { opacity: 1, transition: { delay: 0.1 } }
+                    }}
+                    className="mt-4 border-t border-zinc-100 pt-4"
+                  >
+                    <p className="text-[10.5px] text-zinc-500 leading-relaxed font-sans line-clamp-3">
+                      {practice.desc}
+                    </p>
+                  </motion.div>
+                </div>
+
+                {/* Footer Link */}
+                <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
+                  <span>Explore Practice Area</span>
+                  <motion.span
+                    variants={{
+                      initial: { x: 0 },
+                      hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
+                    }}
+                  >
+                    →
+                  </motion.span>
+                </div>
+              </motion.div>
+            </motion.article>
           ))}
         </div>
 
-        {/* Subtle scalable CTA */}
-        <div className="section-footer-cta reveal">
-          <Link href="/#contact">Discuss a specific mandate &rarr;</Link>
+        {/* Discuss specific mandate footer link */}
+        <div className="mt-16 text-center reveal">
+          <Link
+            href="/#contact"
+            className="group inline-flex items-center gap-2 text-xs font-mono font-semibold text-zinc-500 hover:text-[#B22030] tracking-widest uppercase transition-colors"
+          >
+            Discuss a specific mandate
+            <motion.span
+              className="inline-block text-[#B22030]"
+              variants={{
+                initial: { x: 0 },
+                hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
+              }}
+              initial="initial"
+              whileHover="hover"
+            >
+              →
+            </motion.span>
+          </Link>
         </div>
+
       </div>
     </section>
   );
