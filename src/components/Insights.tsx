@@ -162,106 +162,108 @@ export default function Insights() {
     <section className="bg-[#fafafa] py-24 relative overflow-hidden transition-colors duration-300" id="insights">
       <div className="container mx-auto px-6 relative z-10">
         
-        {/* Header Block */}
-        <header className="mb-12 max-w-xl">
-          <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3 block">
-            INSIGHTS
+        {/* Centered Editorial Header Block */}
+        <header className="mb-16 text-center max-w-2xl mx-auto reveal">
+          <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-4 block">
+            RED BRIDGE BRIEFINGS
           </span>
           <h2 className="text-3xl md:text-5xl font-serif text-zinc-900 font-medium tracking-tight mb-4 leading-tight">
             Explore our insights
           </h2>
-          <p className="text-sm text-zinc-500 leading-relaxed font-sans">
-            Read reports, case studies, articles & more from our strategic corporate advisory field findings.
+          <p className="text-sm text-zinc-500 leading-relaxed font-sans max-w-lg mx-auto">
+            Read reports, case studies, and corporate briefs detailing strategy, delivery, and technology execution.
           </p>
         </header>
 
-        {/* Horizontal Filter Navigation */}
-        <nav className="mb-12 border-b border-zinc-200/60 pb-4 relative z-20">
-          <div className="flex flex-wrap gap-2 md:gap-4 items-center">
+        {/* Center-aligned Interactive Filter Tabs Pill Bar */}
+        <div className="flex justify-center mb-16 reveal d1">
+          <div className="inline-flex flex-wrap justify-center gap-1 bg-zinc-100/80 p-1.5 rounded-2xl md:rounded-full border border-zinc-200/50 shadow-inner">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`relative px-4 py-2 text-xs font-semibold tracking-wider uppercase transition-colors duration-300 cursor-pointer ${
-                  activeTab === tab ? "text-[#B22030]" : "text-zinc-400 hover:text-zinc-900"
+                className={`relative px-4 py-2 rounded-xl md:rounded-full text-[10.5px] font-sans font-bold uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
+                  activeTab === tab ? "text-white" : "text-zinc-500 hover:text-zinc-900"
                 }`}
               >
                 <span className="relative z-10">{tab === "All" ? "All Content" : tab}</span>
                 {activeTab === tab && (
                   <motion.div
                     layoutId="activeTabIndicator"
-                    className="absolute inset-0 bg-[#B22030]/5 border border-[#B22030]/10 rounded-full z-0"
+                    className="absolute inset-0 bg-[#B22030] rounded-xl md:rounded-full z-0 shadow-md shadow-[#B22030]/20"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
               </button>
             ))}
           </div>
-        </nav>
+        </div>
 
-        {/* The Card Grid with layout stability min-height */}
-        <motion.div 
-          layout 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[500px] items-start"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredPosts.map((post) => (
-              <motion.article
-                layout
-                key={post.slug}
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                whileHover={{ y: -6 }}
-                className="bg-white border border-zinc-200/80 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-sm hover:shadow-md hover:border-[#B22030]/20 transition-all duration-300 ease-out h-full group"
-              >
-                <div>
-                  {/* Image Container with aspect ratio */}
-                  <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl mb-6 bg-zinc-50">
-                    <Image
-                      src={getPostImage(post)}
-                      alt={post.title}
-                      fill
-                      sizes="(max-width: 760px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    />
+        {/* Dynamic Centered Flex Card Layout with CLS stability */}
+        <div className="min-h-[500px]">
+          <motion.div 
+            layout 
+            className="flex flex-wrap justify-center gap-8 items-stretch"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredPosts.map((post) => (
+                <motion.article
+                  layout
+                  key={post.slug}
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  whileHover={{ y: -6 }}
+                  className="bg-white border border-zinc-200/60 rounded-3xl p-6 md:p-8 flex flex-col justify-between shadow-[0_8px_30px_rgba(9,9,11,0.02)] hover:shadow-[0_20px_50px_rgba(9,9,11,0.06)] hover:border-[#B22030]/20 transition-all duration-300 ease-out w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-sm group"
+                >
+                  <div>
+                    {/* Cover image wrap with fixed aspect ratio */}
+                    <div className="relative w-full aspect-[16/10] overflow-hidden rounded-2xl mb-6 bg-zinc-50 border border-zinc-100">
+                      <Image
+                        src={getPostImage(post)}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 760px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+
+                    {/* Category text */}
+                    <span className="text-[9.5px] font-mono tracking-widest text-[#B22030] uppercase mb-3 block font-bold">
+                      {post.category.split(" · ")[0]}
+                    </span>
+
+                    {/* Essay Title */}
+                    <h3 className="text-lg md:text-xl font-serif font-bold text-zinc-900 leading-snug mb-3 group-hover:text-[#B22030] transition-colors duration-300">
+                      <a href="#insights" onClick={(e) => { e.preventDefault(); setActivePost(post); }}>
+                        {post.title}
+                      </a>
+                    </h3>
+
+                    {/* Excerpt snippet */}
+                    <p className="text-xs text-zinc-500 leading-relaxed font-sans mb-6 line-clamp-3">
+                      {post.excerpt}
+                    </p>
                   </div>
 
-                  {/* Category Tag */}
-                  <span className="text-[9.5px] font-mono tracking-widest text-zinc-400 uppercase mb-3 block font-semibold">
-                    {post.category.split(" · ")[0]}
-                  </span>
-
-                  {/* Title Text */}
-                  <h3 className="text-lg md:text-xl font-serif font-bold text-zinc-900 leading-snug mb-3 group-hover:text-[#B22030] transition-colors duration-300">
-                    <a href="#insights" onClick={(e) => { e.preventDefault(); setActivePost(post); }}>
-                      {post.title}
-                    </a>
-                  </h3>
-
-                  {/* Snippet Body */}
-                  <p className="text-xs text-zinc-500 leading-relaxed font-sans mb-6 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                </div>
-
-                {/* Metadata Footer */}
-                <footer className="border-t border-zinc-100 pt-4 flex items-center justify-between text-[10px] font-mono text-zinc-400/85">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-[#B22030]/70" />
-                    {calculateReadTime(post.body)}
-                  </span>
-                  <span>|</span>
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {post.date}
-                  </span>
-                </footer>
-              </motion.article>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                  {/* Metadata footer */}
+                  <footer className="border-t border-zinc-100 pt-4 flex items-center justify-between text-[10px] font-mono text-zinc-400">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-zinc-400" />
+                      {calculateReadTime(post.body)}
+                    </span>
+                    <span className="text-zinc-300">|</span>
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {post.date}
+                    </span>
+                  </footer>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
 
       </div>
 
