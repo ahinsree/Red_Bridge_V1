@@ -192,96 +192,101 @@ export default function Advisory() {
         {/* Responsive Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {practices.map((practice) => (
-            <motion.article
+            <Link
               key={practice.slug}
-              whileHover="hover"
-              initial="initial"
-              className="relative h-[460px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
+              href={`/practices/${practice.slug}`}
+              className="block w-full h-full"
             >
-              {/* The Image Layer (fills top 58%) */}
-              <div className="absolute top-0 left-0 w-full h-[58%] overflow-hidden bg-zinc-100">
-                <motion.div
-                  variants={{
-                    initial: { scale: 1 },
-                    hover: { scale: 1.05 }
-                  }}
-                  transition={springConfig}
-                  className="w-full h-full relative"
-                >
-                  <Image
-                    src={practice.image}
-                    alt={practice.title}
-                    fill
-                    sizes="(max-width: 760px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                </motion.div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
-              </div>
-
-              {/* The Floating Content Card */}
-              <motion.div
-                variants={{
-                  initial: { y: 0 },
-                  hover: { 
-                    y: -100,
-                    boxShadow: "0 -15px 30px rgba(9, 9, 11, 0.05)"
-                  }
-                }}
-                transition={springConfig}
-                className="absolute bottom-[-100px] left-0 right-0 h-[68%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
-                style={{
-                  paddingLeft: "28px",
-                  paddingRight: "28px",
-                  paddingTop: "28px",
-                  paddingBottom: "128px",
-                  boxSizing: "border-box"
-                }}
+              <motion.article
+                whileHover="hover"
+                initial="initial"
+                className="relative h-[460px] rounded-[24px] overflow-hidden border border-zinc-200/60 bg-white group cursor-pointer w-full flex flex-col justify-end"
               >
-                <div>
-                  {/* Category Tag */}
-                  <span className="text-[9px] font-mono tracking-widest text-[#B22030] uppercase mb-2.5 block font-bold">
-                    PRACTICE AREA {practice.num}
-                  </span>
-
-                  {/* Title */}
-                  <h3 className="text-base md:text-[17px] font-serif font-bold text-zinc-900 leading-snug mb-1 group-hover:text-[#B22030] transition-colors duration-300">
-                    {practice.title}
-                  </h3>
-
-                  {/* Tagline */}
-                  <p className="text-[11px] font-serif italic text-zinc-400 mb-4">
-                    &ldquo;{practice.tagline}&rdquo;
-                  </p>
-
-                  {/* Body snippet text that fades in on hover */}
+                {/* The Image Layer (fills top 58%) */}
+                <div className="absolute top-0 left-0 w-full h-[58%] overflow-hidden bg-zinc-100">
                   <motion.div
                     variants={{
-                      initial: { opacity: 0 },
-                      hover: { opacity: 1, transition: { delay: 0.1 } }
+                      initial: { scale: 1 },
+                      hover: { scale: 1.05 }
                     }}
-                    className="mt-4 border-t border-zinc-100 pt-4"
+                    transition={springConfig}
+                    className="w-full h-full relative"
                   >
-                    <p className="text-[10.5px] text-zinc-500 leading-relaxed font-sans line-clamp-3">
-                      {practice.desc}
-                    </p>
+                    <Image
+                      src={practice.image}
+                      alt={practice.title}
+                      fill
+                      sizes="(max-width: 760px) 100vw, 33vw"
+                      className="object-cover"
+                    />
                   </motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
                 </div>
 
-                {/* Footer Link */}
-                <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
-                  <span>Explore Practice Area</span>
-                  <motion.span
-                    variants={{
-                      initial: { x: 0 },
-                      hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
-                    }}
-                  >
-                    →
-                  </motion.span>
-                </div>
-              </motion.div>
-            </motion.article>
+                {/* The Floating Content Card */}
+                <motion.div
+                  variants={{
+                    initial: { y: 0 },
+                    hover: { 
+                      y: -100,
+                      boxShadow: "0 -15px 30px rgba(9, 9, 11, 0.05)"
+                    }
+                  }}
+                  transition={springConfig}
+                  className="absolute bottom-[-100px] left-0 right-0 h-[68%] bg-white rounded-t-[24px] border-t border-zinc-100/80 flex flex-col justify-between z-10"
+                  style={{
+                    paddingLeft: "28px",
+                    paddingRight: "28px",
+                    paddingTop: "28px",
+                    paddingBottom: "128px",
+                    boxSizing: "border-box"
+                  }}
+                >
+                  <div>
+                    {/* Category Tag */}
+                    <span className="text-[9px] font-mono tracking-widest text-[#B22030] uppercase mb-2.5 block font-bold">
+                      PRACTICE AREA {practice.num}
+                    </span>
+
+                    {/* Title */}
+                    <h3 className="text-base md:text-[17px] font-serif font-bold text-zinc-900 leading-snug mb-1 group-hover:text-[#B22030] transition-colors duration-300">
+                      {practice.title}
+                    </h3>
+
+                    {/* Tagline */}
+                    <p className="text-[11px] font-serif italic text-zinc-400 mb-4">
+                      &ldquo;{practice.tagline}&rdquo;
+                    </p>
+
+                    {/* Body snippet text that fades in on hover */}
+                    <motion.div
+                      variants={{
+                        initial: { opacity: 0 },
+                        hover: { opacity: 1, transition: { delay: 0.1 } }
+                      }}
+                      className="mt-4 border-t border-zinc-100 pt-4"
+                    >
+                      <p className="text-[10.5px] text-zinc-500 leading-relaxed font-sans line-clamp-3">
+                        {practice.desc}
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  {/* Footer Link */}
+                  <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-[9px] font-mono font-semibold text-[#B22030] uppercase tracking-wider">
+                    <span>Explore Practice Area</span>
+                    <motion.span
+                      variants={{
+                        initial: { x: 0 },
+                        hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
+                      }}
+                    >
+                      →
+                    </motion.span>
+                  </div>
+                </motion.div>
+              </motion.article>
+            </Link>
           ))}
         </div>
 
