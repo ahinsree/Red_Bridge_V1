@@ -33,7 +33,7 @@ export default function Advisory() {
       title: "Strategy, Transformation & Institution Building",
       tagline: "Deciding what to change, and making it hold.",
       desc: "Most organisations have a rough sense of where they want to go. The harder questions are what to change, in what order, and who will own the result once the advisers have left. We work with company boards, management teams and public institutions on exactly that.",
-      image: "/images/strategy-transformation-desktop.webp",
+      image: "/images/advisory-strategy-transformation-v2.jpg",
       caps: [
         "Corporate, growth and sector strategy",
         "Operating model and organisation design",
@@ -48,7 +48,7 @@ export default function Advisory() {
       title: "AI, Digital & Data",
       tagline: "Technology adopted with judgement, not haste.",
       desc: "There is a great deal of pressure to adopt AI and very little patience for the groundwork that makes it pay off. We help organisations tell the two apart, whether it is a company putting data to work across its operations or a department modernising a public service.",
-      image: "/images/ai-digital-data-desktop.webp",
+      image: "/images/advisory-ai-digital-data-v2.jpg",
       caps: [
         "AI readiness and adoption strategy",
         "Data strategy, architecture and governance",
@@ -63,7 +63,7 @@ export default function Advisory() {
       title: "Experience & Service Design",
       tagline: "Designing what people actually receive.",
       desc: "A service rarely fails because someone meant it to. It fails in the gap between what an organisation designs and what a person actually gets at the counter, on the call, or in the app. We work in that gap, for companies shaping what their customers and employees receive.",
-      image: "/images/experience-service-design-desktop.webp",
+      image: "/images/advisory-experience-service-design-v2.jpg",
       caps: [
         "Customer and citizen experience strategy",
         "Service design and journey mapping",
@@ -79,7 +79,7 @@ export default function Advisory() {
       title: "Investment, Economic & Infrastructure Advisory",
       tagline: "The analysis behind sound investment decisions.",
       desc: "Before capital moves, someone has to answer hard questions about whether a project actually stands up. That is our work. We prepare the feasibility studies, business cases and project structures behind investment decisions for companies, promoters and investors.",
-      image: "/images/hero-velocity-bg-desktop.webp",
+      image: "/images/advisory-investment-infrastructure-v2.jpg",
       caps: [
         "Feasibility studies and business cases",
         "Detailed project reports and project structuring",
@@ -94,7 +94,7 @@ export default function Advisory() {
       title: "Entrepreneurship, Innovation & Startup Ecosystems",
       tagline: "Building the conditions for enterprise to grow.",
       desc: "Enterprise does not grow on its own. It needs incubation, mentoring, routes to funding, and a policy environment that does not quietly work against it. We design and strengthen that support system for governments, universities, corporates and development agencies.",
-      image: "/images/startup-ecosystem-desktop.webp",
+      image: "/images/advisory-startup-ecosystem-v2.jpg",
       caps: [
         "Incubation and startup support design",
         "Entrepreneurship and innovation programmes",
@@ -110,7 +110,7 @@ export default function Advisory() {
       title: "Programme Management, Monitoring & Evaluation",
       tagline: "Delivery that is managed and verified.",
       desc: "A sound strategy that is poorly delivered is just an expensive document. We handle the delivery, and we check the results. This covers programme and project management for large initiatives, and independent monitoring and evaluation that tells the sponsor.",
-      image: "/images/programme-monitoring-desktop.webp",
+      image: "/images/advisory-programme-monitoring-v2.jpg",
       caps: [
         "Programme and project management units (PMU)",
         "Monitoring and evaluation frameworks",

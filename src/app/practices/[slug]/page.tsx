@@ -604,11 +604,11 @@ export default function PracticeDetailPage() {
               </div>
             </div>
 
-            {/* Right: Premium glowing image container & Case Track record box */}
+            {/* Right: Premium glowing image container */}
             <div className="lg:col-span-5 reveal d1 lg:sticky lg:top-28">
               
               {/* Media image container with floating accent borders and pulsating neon glow */}
-              <div className="relative group" style={{ minHeight: style.imageFit === "contain" ? "auto" : "360px", marginBottom: "40px" }}>
+              <div className="relative group" style={{ minHeight: style.imageFit === "contain" ? "auto" : "360px" }}>
                 {/* Dynamic vibrant gradient backglow rings */}
                 <div 
                   className="absolute inset-0 opacity-15 rounded-xl filter blur-2xl scale-105 pointer-events-none transition-transform duration-700 group-hover:scale-110"
@@ -646,29 +646,6 @@ export default function PracticeDetailPage() {
                     </div>
                   )}
                 </div>
-              </div>
-
-              {/* Track Record / Impact Box */}
-              <div 
-                className="rounded-xl border border-zinc-200/60 bg-white p-6 md:p-8 shadow-[0_8px_30px_rgba(9,9,11,0.02)] relative overflow-hidden"
-              >
-                {/* Accent indicator */}
-                <div 
-                  className="absolute top-0 left-0 w-1.5 h-full" 
-                  style={{
-                    background: `linear-gradient(135deg, ${style.accent}, transparent)`
-                  }}
-                />
-                
-                <span className="text-[9px] font-mono tracking-widest text-zinc-400 uppercase font-bold mb-3 block">
-                  Track Record
-                </span>
-                <h4 className="text-sm font-serif font-bold text-zinc-900 mb-3">
-                  Practice Impact &amp; Delivery
-                </h4>
-                <p className="text-[13px] text-zinc-600 leading-relaxed font-sans mb-0">
-                  {practice.impact}
-                </p>
               </div>
 
             </div>
