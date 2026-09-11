@@ -125,7 +125,7 @@ export default function Advisory() {
 
   return (
     <section
-      className="bg-[#fafafa] pt-32 pb-28 md:pt-44 md:pb-40 relative overflow-hidden transition-colors duration-300"
+      className="bg-[#fafafa] py-28 md:py-36 relative overflow-hidden transition-colors duration-300"
       id="advisory"
       onMouseMove={handleMouseMove}
     >
@@ -159,31 +159,30 @@ export default function Advisory() {
         }}
       />
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1600px] relative z-10">
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
-        {/* Section Header Block - Left Text Stack & CTA Button Row in between header text and widgets */}
-        <header className="mb-12 md:mb-16 reveal">
-          <div className="max-w-3xl mb-8">
+        {/* Section Header Block - Left Text Stack & Right-aligned CTA Link */}
+        <header className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+          <div className="max-w-2xl">
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-4 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-3.5 leading-tight">
               Our Capabilities.<br />Built for institutional complexity.
             </h2>
-            <p className="text-sm md:text-base text-zinc-500 leading-relaxed font-sans mb-0">
+            <p className="text-sm text-zinc-500 leading-relaxed font-sans mb-0">
               These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
             </p>
           </div>
-
-          {/* CTA Button Row in between Header Text & Card Widgets Grid */}
-          <div className="pt-2 pb-6 border-b border-zinc-200/80 flex items-center justify-between gap-4">
+          
+          <div className="shrink-0 self-start md:self-end pb-1">
             <Link
               href="/#contact"
-              className="group inline-flex items-center gap-2.5 text-xs font-mono font-bold text-white bg-[#B22030] hover:bg-[#8e1926] px-6 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
             >
-              <span>Start a conversation</span>
+              Start a conversation
               <motion.span
-                className="inline-block text-sm"
+                className="inline-block"
                 variants={{
                   initial: { x: 0 },
                   hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
@@ -192,9 +191,6 @@ export default function Advisory() {
                 →
               </motion.span>
             </Link>
-            <span className="hidden sm:inline-block text-xs font-mono text-zinc-400 uppercase tracking-widest">
-              6 Dedicated Practice Areas
-            </span>
           </div>
         </header>
 
