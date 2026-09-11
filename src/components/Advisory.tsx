@@ -125,7 +125,7 @@ export default function Advisory() {
 
   return (
     <section
-      className="bg-[#fafafa] py-28 md:py-36 relative overflow-hidden transition-colors duration-300"
+      className="bg-[#fafafa] py-36 md:py-48 relative overflow-hidden transition-colors duration-300"
       id="advisory"
       onMouseMove={handleMouseMove}
     >
@@ -162,7 +162,7 @@ export default function Advisory() {
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
         {/* Section Header Block - Left Text Stack & Right-aligned CTA Link */}
-        <header className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+        <header className="mb-20 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
           <div className="max-w-2xl">
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
