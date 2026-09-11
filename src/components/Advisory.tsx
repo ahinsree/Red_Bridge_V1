@@ -159,7 +159,7 @@ export default function Advisory() {
         }}
       />
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-[1480px] relative z-10">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1600px] relative z-10">
         
         {/* Section Header Block - Left Text Stack & Right-aligned CTA Link (Top Aligned to stay far from widgets) */}
         <header className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-start justify-between gap-8 reveal">
