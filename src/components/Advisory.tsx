@@ -114,8 +114,6 @@ export default function Advisory() {
     },
   ];
 
-  const springConfig = { type: "spring" as const, stiffness: 280, damping: 22 };
-
   return (
     <section
       className="bg-[#fafafa] py-24 md:py-36 relative overflow-hidden transition-colors duration-300"
@@ -192,16 +190,16 @@ export default function Advisory() {
               <motion.article
                 whileHover="hover"
                 initial="initial"
-                className="flex flex-col h-full rounded-2xl overflow-hidden border border-zinc-200/80 bg-white group cursor-pointer w-full shadow-[0_4px_20px_rgba(9,9,11,0.03)] hover:shadow-[0_20px_40px_rgba(9,9,11,0.08)] hover:-translate-y-2 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+                className="flex flex-col h-full rounded-2xl overflow-hidden border border-zinc-200/90 bg-white cursor-pointer w-full shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-300 ease-out will-change-transform"
               >
-                {/* Thumbnail Header Container with Zoom Effect */}
-                <div className="relative w-full h-[220px] sm:h-[240px] overflow-hidden bg-zinc-900">
+                {/* Thumbnail Top Container with Image Zoom */}
+                <div className="relative w-full aspect-[16/9] min-h-[210px] overflow-hidden bg-zinc-950">
                   <motion.div
                     variants={{
                       initial: { scale: 1 },
-                      hover: { scale: 1.05 }
+                      hover: { scale: 1.04 }
                     }}
-                    transition={springConfig}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     className="w-full h-full relative"
                   >
                     <Image
@@ -213,58 +211,47 @@ export default function Advisory() {
                     />
                   </motion.div>
                   
-                  {/* Subtle Gradient & Category Overlay Tag */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
+                  {/* Subtle Gradient & Badge Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                   
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                    <span className="text-[10px] font-mono tracking-widest text-white uppercase font-bold bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                    <span className="text-[10px] font-mono tracking-widest text-white uppercase font-bold bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
                       PRACTICE {practice.num}
                     </span>
-                    <span className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-[#B22030] group-hover:border-[#B22030] transition-colors duration-300">
+                    <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:bg-[#B22030] group-hover:border-[#B22030] transition-colors duration-300 shadow-sm">
                       <ArrowUpRight size={14} />
                     </span>
                   </div>
                 </div>
 
-                {/* Card Body - Content Stack with High Typography Contrast */}
+                {/* Uncrowded Card Body - Clean Grant Thornton Typography Stack */}
                 <div className="flex-1 flex flex-col justify-between p-6 sm:p-8 bg-white">
                   <div>
-                    {/* Practice Area Title - Increased Font Size */}
-                    <h3 className="text-xl sm:text-2xl font-serif font-bold text-zinc-900 leading-snug mb-3 group-hover:text-[#B22030] transition-colors duration-300">
+                    {/* Practice Area Tagline Accent */}
+                    <span className="text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase mb-2.5 block">
+                      &ldquo;{practice.tagline}&rdquo;
+                    </span>
+
+                    {/* Headline Title */}
+                    <h3 className="text-xl sm:text-2xl font-serif font-semibold text-[#09090b] leading-tight mb-3.5 group-hover:text-[#B22030] transition-colors duration-300">
                       {practice.title}
                     </h3>
 
-                    {/* Tagline Accent */}
-                    <p className="text-xs sm:text-sm font-serif italic text-zinc-500 mb-4 leading-relaxed border-l-2 border-[#B22030]/40 pl-3">
-                      &ldquo;{practice.tagline}&rdquo;
-                    </p>
-
-                    {/* Excerpt Description */}
-                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-sans mb-6">
+                    {/* Concise Excerpt Description */}
+                    <p className="text-sm text-zinc-600 leading-relaxed font-sans mb-6">
                       {practice.desc}
                     </p>
-
-                    {/* Key Capability Chips */}
-                    <div className="flex flex-wrap gap-1.5 mb-6">
-                      {practice.caps.map((cap, i) => (
-                        <span
-                          key={i}
-                          className="text-[10px] sm:text-[11px] font-sans font-medium text-zinc-600 bg-zinc-100 group-hover:bg-zinc-200/70 group-hover:text-zinc-900 px-2.5 py-1 rounded-md transition-colors duration-300"
-                        >
-                          {cap}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
-                  {/* Card Bottom CTA Link Bar */}
+                  {/* Clean Bottom Action Bar */}
                   <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono font-bold text-[#B22030] uppercase tracking-wider group-hover:text-zinc-950 transition-colors duration-300">
-                    <span>Explore Practice Capability</span>
+                    <span>Explore Practice</span>
                     <motion.span
                       variants={{
                         initial: { x: 0 },
-                        hover: { x: 5, transition: { type: "spring", stiffness: 400, damping: 12 } }
+                        hover: { x: 5 }
                       }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
                       className="text-base"
                     >
                       →
