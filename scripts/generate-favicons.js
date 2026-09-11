@@ -29,15 +29,7 @@ async function generateFavicons() {
       .toFile(path.join(appDir, 'apple-icon.png'));
     console.log('✔ Generated src/app/apple-icon.png (180x180)');
 
-    // 3. Generate public/favicon.ico (32x32 png renamed/formatted)
-    // Most modern browsers and crawlers support PNG-encoded favicons in the .ico route
-    await sharp(svgPath)
-      .resize(32, 32)
-      .png()
-      .toFile(path.join(publicDir, 'favicon.ico'));
-    console.log('✔ Generated public/favicon.ico (32x32)');
-    
-    // Also save in app directory for Next.js app router route fallback
+    // 3. Generate src/app/favicon.ico (32x32) for Next.js App Router fallback
     await sharp(svgPath)
       .resize(32, 32)
       .png()
