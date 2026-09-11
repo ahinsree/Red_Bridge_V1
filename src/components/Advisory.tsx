@@ -167,12 +167,9 @@ export default function Advisory() {
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-3.5 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-0 leading-tight">
               Our Capabilities.<br />Built for institutional complexity.
             </h2>
-            <p className="text-sm text-zinc-500 leading-relaxed font-sans mb-0">
-              These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
-            </p>
           </div>
           
           <div className="shrink-0 self-start md:self-end pb-1">
