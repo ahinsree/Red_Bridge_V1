@@ -125,7 +125,7 @@ export default function Advisory() {
 
   return (
     <section
-      className="bg-[#fafafa] py-36 md:py-48 relative overflow-hidden transition-colors duration-300"
+      className="bg-[#fafafa] pt-32 pb-28 md:pt-44 md:pb-40 relative overflow-hidden transition-colors duration-300"
       id="advisory"
       onMouseMove={handleMouseMove}
     >
@@ -161,21 +161,21 @@ export default function Advisory() {
 
       <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-[1480px] relative z-10">
         
-        {/* Section Header Block - Left Text Stack & Right-aligned CTA Link */}
-        <header className="mb-20 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
-          <div className="max-w-2xl">
+        {/* Section Header Block - Left Text Stack & Right-aligned CTA Link (Top Aligned to stay far from widgets) */}
+        <header className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-start justify-between gap-8 reveal">
+          <div className="max-w-3xl">
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-3.5 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-serif text-[#09090b] font-medium tracking-tight mb-4 leading-tight">
               Our Capabilities.<br />Built for institutional complexity.
             </h2>
-            <p className="text-sm text-zinc-500 leading-relaxed font-sans mb-0">
+            <p className="text-sm md:text-base text-zinc-500 leading-relaxed font-sans mb-0">
               These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
             </p>
           </div>
           
-          <div className="shrink-0 self-start md:self-end pb-1">
+          <div className="shrink-0 pt-2">
             <Link
               href="/#contact"
               className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
