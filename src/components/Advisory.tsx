@@ -161,9 +161,9 @@ export default function Advisory() {
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-[1600px] relative z-10">
         
-        {/* Section Header Block - Left Text Stack & Right-aligned CTA Link (Top Aligned to stay far from widgets) */}
-        <header className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-start justify-between gap-8 reveal">
-          <div className="max-w-3xl">
+        {/* Section Header Block - Left Text Stack & CTA Button Row in between header text and widgets */}
+        <header className="mb-12 md:mb-16 reveal">
+          <div className="max-w-3xl mb-8">
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
             </span>
@@ -174,15 +174,16 @@ export default function Advisory() {
               These are the strategic and operational mandates we are brought in to solve, working with company boards, management teams, and public institutions to ensure execution that lasts.
             </p>
           </div>
-          
-          <div className="shrink-0 pt-2">
+
+          {/* CTA Button Row in between Header Text & Card Widgets Grid */}
+          <div className="pt-2 pb-6 border-b border-zinc-200/80 flex items-center justify-between gap-4">
             <Link
               href="/#contact"
-              className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
+              className="group inline-flex items-center gap-2.5 text-xs font-mono font-bold text-white bg-[#B22030] hover:bg-[#8e1926] px-6 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
             >
-              Start a conversation
+              <span>Start a conversation</span>
               <motion.span
-                className="inline-block"
+                className="inline-block text-sm"
                 variants={{
                   initial: { x: 0 },
                   hover: { x: 4, transition: { type: "spring", stiffness: 400, damping: 10 } }
@@ -191,6 +192,9 @@ export default function Advisory() {
                 →
               </motion.span>
             </Link>
+            <span className="hidden sm:inline-block text-xs font-mono text-zinc-400 uppercase tracking-widest">
+              6 Dedicated Practice Areas
+            </span>
           </div>
         </header>
 
