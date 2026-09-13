@@ -81,8 +81,8 @@ export default function Footer() {
               <a href="#sectors" className="footer__link" onClick={(e) => handleScrollTo(e, "#sectors")}>
                 Sectors
               </a>
-              <a href="#engagements" className="footer__link" onClick={(e) => handleScrollTo(e, "#engagements")}>
-                Engagements
+              <a href="/work" className="footer__link">
+                Work
               </a>
               <a href="#insights" className="footer__link" onClick={(e) => handleScrollTo(e, "#insights")}>
                 Insights
