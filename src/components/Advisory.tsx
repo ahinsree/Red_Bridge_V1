@@ -162,7 +162,7 @@ export default function Advisory() {
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
         {/* Section Header Block - Left Text Stack & Right-aligned CTA Link */}
-        <header className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8 reveal">
+        <header className="advisory-header-block mb-16 md:mb-20 lg:mb-24 flex flex-col md:flex-row md:items-start justify-between gap-8 reveal">
           <div className="max-w-2xl">
             <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold mb-3.5 block">
               ADVISORY AREAS
@@ -175,7 +175,7 @@ export default function Advisory() {
             </p>
           </div>
           
-          <div className="shrink-0 self-start md:self-end pb-1">
+          <div className="shrink-0 self-start md:self-start pt-1 md:pt-4">
             <Link
               href="/#contact"
               className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-wider uppercase border-b-2 border-[#B22030] pb-1 transition-colors hover:text-zinc-900 hover:border-zinc-900"
@@ -195,7 +195,7 @@ export default function Advisory() {
         </header>
 
         {/* Responsive Grid Layout - items-stretch aligns card heights automatically */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="advisory-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-20 lg:mb-24">
           {practices.map((practice) => (
             <Link
               key={practice.slug}
@@ -280,12 +280,13 @@ export default function Advisory() {
         </div>
 
         {/* Structured Bottom Section Footer CTA */}
-        <div className="mt-20 border-t border-zinc-200/60 pt-10 flex justify-center reveal">
+        <div className="advisory-bottom-cta-block mt-16 md:mt-20 pt-10 pb-16 flex flex-col items-center justify-center text-center reveal">
+          <div className="w-16 h-[1px] bg-zinc-300/80 mb-8" />
           <Link
             href="/#contact"
-            className="group inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B22030] tracking-widest uppercase transition-colors hover:text-zinc-950"
+            className="group inline-flex items-center gap-2.5 text-xs font-mono font-bold text-[#B22030] tracking-widest uppercase transition-all duration-300 hover:text-zinc-950 px-7 py-3 rounded-full bg-white border border-zinc-200/80 shadow-sm hover:shadow-md hover:border-zinc-300"
           >
-            Discuss a specific mandate
+            <span>Discuss a specific mandate</span>
             <motion.span
               className="inline-block"
               variants={{

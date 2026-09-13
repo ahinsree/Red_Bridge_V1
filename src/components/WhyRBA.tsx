@@ -16,7 +16,7 @@ export default function WhyRBA() {
   };
 
   return (
-    <section className="section section--cream" id="why-rba">
+    <section className="section section--cream relative overflow-hidden" id="why-rba">
       <div className="container">
         <div className="why-rba__layout">
           <div className="why-rba__left reveal">

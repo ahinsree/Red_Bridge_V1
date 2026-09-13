@@ -102,7 +102,7 @@ export default function Sectors() {
   ];
 
   return (
-    <section className="section section--cream" id="sectors">
+    <section className="section section--cream relative overflow-hidden border-t border-zinc-200/50" id="sectors">
       <div className="container">
         <div className="sectors__header reveal">
           <div style={{ maxWidth: "480px" }}>
