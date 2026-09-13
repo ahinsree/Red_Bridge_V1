@@ -203,14 +203,16 @@ export default function InsightsPage() {
         </div>
       </div>
 
-      {/* RED Hero Section - Brand Red Header with Generous Spacing */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-r from-[#B22030] via-[#9E1B29] to-[#7D121E] text-white shadow-inner">
+      {/* Executive Dark Navy Hero Section - Matching Practice Area Hero Style (3rd Reference Image) */}
+      <section className="relative py-16 md:py-24 bg-gradient-to-r from-[#0B0F1A] via-[#0F1424] to-[#141B2D] text-white shadow-xl overflow-hidden border-b border-white/10">
+        {/* Subtle background lighting effect */}
+        <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-[#B22030]/10 blur-[100px] pointer-events-none rounded-full" />
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mb-10">
             <h1 className="text-4xl md:text-5.5xl font-serif font-bold tracking-tight leading-[1.1] mb-4 text-white">
               Explore our insights
             </h1>
-            <p className="text-base md:text-xl font-sans font-light text-white/90">
+            <p className="text-base md:text-xl font-sans font-light text-white/80">
               Read reports, case studies, articles &amp; more
             </p>
           </div>
@@ -223,8 +225,8 @@ export default function InsightsPage() {
                 onClick={() => setSelectedTheme(selectedTheme === pill ? null : pill)}
                 className={`px-5 py-2.5 rounded-full text-xs font-mono transition-all border cursor-pointer ${
                   selectedTheme === pill
-                    ? "bg-white text-[#B22030] border-white shadow-md font-bold"
-                    : "bg-white/20 text-white border-white/30 hover:bg-white/35 font-medium shadow-xs"
+                    ? "bg-[#B22030] text-white border-[#B22030] shadow-md font-bold"
+                    : "bg-white/10 text-white border-white/15 hover:bg-white/20 font-medium shadow-xs"
                 }`}
               >
                 {pill}
@@ -234,7 +236,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Filter Control Bar - Spacious Light Grey Horizontal Bar with 4 Dropdowns */}
+      {/* Filter Control Bar - Light Grey Horizontal Bar with 4 Dropdowns */}
       <section className="bg-[#F3F3F1] border-b border-gray-200/80 py-5">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center gap-4 text-xs">
@@ -311,7 +313,7 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Main Section 1: "What's New" & Sidebar - Balanced 8-Column + 4-Column Sidebar Grid */}
+      {/* Main Section 1: "What's New" & Sidebar */}
       <section className="py-20 md:py-24 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
@@ -326,7 +328,7 @@ export default function InsightsPage() {
                 {spotlightPost && (
                   <article
                     onClick={() => setActivePost(spotlightPost)}
-                    className="md:col-span-7 bg-white border border-gray-200/90 rounded-2xl overflow-hidden hover:border-[#B22030]/60 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between group"
+                    className="md:col-span-7 bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#B22030]/60 transition-all duration-300 cursor-pointer flex flex-col justify-between group"
                   >
                     <div>
                       <div className="relative w-full h-72 md:h-80 overflow-hidden bg-gray-100">
@@ -456,8 +458,8 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Main Section 2: "Our Insights" (Spacious 4-Column Card Grid) */}
-      <section className="py-20 md:py-28 bg-[#FAFAF8] border-t border-gray-200">
+      {/* Main Section 2: "Our Insights" (Spacious 4-Column Grid with Generous Bottom Spacing Before Footer) */}
+      <section className="pt-20 pb-28 md:pb-36 bg-[#FAFAF8] border-t border-gray-200">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-10 pb-4 border-b border-gray-200">
             <h2 className="text-2xl md:text-3.5xl font-serif text-gray-900 font-medium">
@@ -486,7 +488,7 @@ export default function InsightsPage() {
               </button>
             </div>
           ) : (
-            <div className="space-y-12">
+            <div className="space-y-16">
               {/* Spacious 4-Column Card Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
                 {filteredPosts.slice(0, visibleCount).map((post) => (
@@ -526,9 +528,9 @@ export default function InsightsPage() {
                 ))}
               </div>
 
-              {/* Centered Load More Button */}
+              {/* Centered Load More Button with Ample Bottom Breathing Room */}
               {visibleCount < filteredPosts.length && (
-                <div className="text-center pt-8">
+                <div className="text-center pt-8 pb-4">
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 4)}
                     className="px-10 py-3.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs font-mono uppercase tracking-wider hover:bg-[#B22030] hover:text-white hover:border-[#B22030] shadow-xs transition-all cursor-pointer"
