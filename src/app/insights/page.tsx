@@ -311,13 +311,14 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Filter Control Bar - Light Grey Horizontal Bar with 4 Dropdowns */}
-      <section className="bg-[#F3F3F1] border-b border-gray-200/80 py-5">
+      {/* Filter Control Bar - Floating Container with Ample Spacing Gap from Hero */}
+      <section className="pt-8 md:pt-12 pb-4 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center gap-4 text-xs">
-            <span className="text-gray-700 font-mono uppercase tracking-wider shrink-0 font-medium">
-              Filter insights by:
-            </span>
+          <div className="bg-[#F3F3F1] border border-gray-200/90 rounded-2xl p-5 md:p-6 shadow-xs">
+            <div className="flex flex-col md:flex-row md:items-center gap-4 text-xs">
+              <span className="text-gray-700 font-mono uppercase tracking-wider shrink-0 font-medium">
+                Filter insights by:
+              </span>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
               {/* Dropdown 1: Content Type */}
@@ -386,7 +387,8 @@ export default function InsightsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Main Section 1: "What's New" & Sidebar */}
       <section className="py-20 md:py-24 bg-white">
