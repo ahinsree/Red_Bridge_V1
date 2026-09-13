@@ -151,8 +151,8 @@ export default function Insights() {
             <span className="sec-label">Insights</span>
             <h2 className="sec-title">Perspectives from the field</h2>
           </div>
-          <a href="#contact" className="btn btn--ghost">
-            All Insights &rarr;
+          <a href="/insights" className="btn btn--ghost">
+            Explore All Insights &rarr;
           </a>
         </div>
 
@@ -227,6 +227,12 @@ export default function Insights() {
             ))}
           </div>
         )}
+
+        <div className="mt-10 text-center reveal d3">
+          <a href="/insights" className="btn btn--primary">
+            Explore All Insights &amp; Publications &rarr;
+          </a>
+        </div>
       </div>
 
       {/* Slide-out detail drawer for viewing full markdown essay content */}
