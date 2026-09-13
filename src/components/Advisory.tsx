@@ -195,7 +195,7 @@ export default function Advisory() {
         </header>
 
         {/* Responsive Grid Layout - items-stretch aligns card heights automatically */}
-        <div className="advisory-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-20 lg:mb-24">
+        <div className="advisory-grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch mb-12 lg:mb-16">
           {practices.map((practice) => (
             <Link
               key={practice.slug}
@@ -280,8 +280,8 @@ export default function Advisory() {
         </div>
 
         {/* Structured Bottom Section Footer CTA */}
-        <div className="advisory-bottom-cta-block mt-16 md:mt-20 pt-10 pb-16 flex flex-col items-center justify-center text-center reveal">
-          <div className="w-16 h-[1px] bg-zinc-300/80 mb-8" />
+        <div className="advisory-bottom-cta-block mt-8 md:mt-12 pt-6 pb-6 flex flex-col items-center justify-center text-center reveal">
+          <div className="w-16 h-[1px] bg-zinc-300/80 mb-6" />
           <Link
             href="/#contact"
             className="group inline-flex items-center gap-2.5 text-xs font-mono font-bold text-[#B22030] tracking-widest uppercase transition-all duration-300 hover:text-zinc-950 px-7 py-3 rounded-full bg-white border border-zinc-200/80 shadow-sm hover:shadow-md hover:border-zinc-300"

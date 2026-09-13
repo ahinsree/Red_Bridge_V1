@@ -640,8 +640,8 @@ img { display: block; width: 100%; object-fit: cover; }
    ADVISORY AREAS & SECTION LAYOUT
 ═══════════════════════════════════ */
 #advisory {
-  padding-top: 100px;
-  padding-bottom: 120px;
+  padding-top: 90px;
+  padding-bottom: 72px;
   position: relative;
   overflow: hidden;
   border-top: 1px solid rgba(200, 196, 188, 0.4);
@@ -649,7 +649,7 @@ img { display: block; width: 100%; object-fit: cover; }
 }
 
 .advisory-header-block {
-  margin-bottom: 80px !important;
+  margin-bottom: 56px !important;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -657,13 +657,13 @@ img { display: block; width: 100%; object-fit: cover; }
 }
 
 .advisory-grid-container {
-  margin-bottom: 96px !important;
+  margin-bottom: 48px !important;
 }
 
 .advisory-bottom-cta-block {
-  margin-top: 80px !important;
-  padding-top: 48px;
-  padding-bottom: 48px;
+  margin-top: 32px !important;
+  padding-top: 16px;
+  padding-bottom: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -675,22 +675,20 @@ img { display: block; width: 100%; object-fit: cover; }
 @media (max-width: 960px) {
   #advisory {
     padding-top: 64px;
-    padding-bottom: 80px;
+    padding-bottom: 48px;
   }
   .advisory-header-block {
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 48px !important;
+    margin-bottom: 40px !important;
   }
   .advisory-grid-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-bottom: 64px !important;
+    margin-bottom: 40px !important;
   }
   .advisory-bottom-cta-block {
-    margin-top: 48px !important;
-    padding-top: 32px;
-    padding-bottom: 32px;
+    margin-top: 24px !important;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 }
 
