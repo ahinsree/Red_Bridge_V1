@@ -592,25 +592,26 @@ export default function InsightsPage() {
                           {post.category}
                         </span>
 
-                        <h4 className="text-base font-serif text-gray-900 font-medium leading-snug mb-3 group-hover:text-[#B22030] transition-colors line-clamp-3">
+                        <h4 className="text-base md:text-[17px] font-serif text-gray-900 font-medium leading-[1.35] mb-3 group-hover:text-[#B22030] transition-colors line-clamp-3">
                           {post.title}
                         </h4>
                       </div>
                     </div>
 
-                    <div className="px-6 pb-6 pt-0 text-[9.5px] font-mono text-gray-500 uppercase border-t border-gray-100 pt-4 mt-auto">
-                      {calculateReadTime(post.body)} | {post.date}
+                    <div className="px-6 pb-5 pt-3.5 text-[10px] font-mono text-gray-400 uppercase border-t border-gray-100 flex items-center justify-between mt-auto">
+                      <span>{calculateReadTime(post.body)}</span>
+                      <span>{post.date}</span>
                     </div>
                   </article>
                 ))}
               </div>
 
-              {/* Centered Load More Button with Ample Bottom Breathing Room */}
+              {/* Centered Load More Button with Ample Bottom Breathing Room (Grant Thornton Style) */}
               {visibleCount < filteredPosts.length && (
                 <div className="text-center pt-8 pb-4">
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 4)}
-                    className="px-10 py-3.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs font-mono uppercase tracking-wider hover:bg-[#B22030] hover:text-white hover:border-[#B22030] shadow-xs transition-all cursor-pointer"
+                    className="px-10 py-3.5 rounded-md bg-white border border-[#B22030] text-[#B22030] text-xs font-mono uppercase tracking-wider hover:bg-[#B22030] hover:text-white shadow-xs transition-all cursor-pointer"
                   >
                     Load more
                   </button>
