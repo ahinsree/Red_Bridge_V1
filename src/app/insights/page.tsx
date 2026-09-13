@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, X, BookOpen, Share2, Check, Sparkles, User } from "lucide-react";
+import { ChevronDown, X, BookOpen, Share2, Check, Sparkles, User, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -73,6 +73,27 @@ export default function InsightsPage() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [copied, setCopied] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
+
+  // Parallax coordinates state matching Practice Hero Banner
+  const [scrollVal, setScrollVal] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollVal(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    setMousePos({
+      x: (clientX / innerWidth - 0.5) * 30,
+      y: (clientY / innerHeight - 0.5) * 30,
+    });
+  };
 
   const typedInsights = insightsData as InsightPost[];
 
@@ -192,30 +213,84 @@ export default function InsightsPage() {
       {/* Top Header Navigation */}
       <Header />
 
-      {/* Top Breadcrumb Bar */}
-      <div className="bg-[#FAFAF8] border-b border-gray-200/80 pt-20 pb-4">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-[11px] font-mono text-gray-500 uppercase tracking-widest">
-            <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
-            <span>•</span>
-            <span className="text-[#B22030] font-semibold">Insights</span>
+      {/* Practice-Style Heroic Banner for Insights with Interactive Mesh Glow & Parallax Floating Geometry */}
+      <section 
+        className="hero relative overflow-hidden" 
+        style={{ 
+          height: "65vh", 
+          minHeight: "540px",
+          background: `radial-gradient(circle at 15% 35%, rgba(178, 32, 48, 0.45) 0%, transparent 65%), #0B0F1A`
+        }}
+        onMouseMove={handleMouseMove}
+      >
+        <div className="hero__bg">
+          {/* Scroll and mouse driven background translation layer */}
+          <div 
+            className="hero__parallax-wrapper" 
+            style={{ 
+              transform: `translate3d(${mousePos.x * -0.3}px, ${scrollVal * 0.28 + mousePos.y * -0.3}px, 0) scale(1.08)` 
+            }}
+          >
+            <div 
+              style={{
+                position: "absolute", top: 0, right: 0, bottom: 0, left: 0,
+                background: `url('/images/hero-velocity-bg-desktop.webp') center/cover no-repeat`,
+                opacity: 0.16,
+                filter: "grayscale(100%) contrast(1.1)",
+                animation: "heroKenBurns 45s ease-in-out infinite alternate"
+              }}
+            />
           </div>
         </div>
-      </div>
+        
+        {/* Animated breathing light beam utilizing dynamic color overlay */}
+        <div 
+          className="hero__lightbeam" 
+          style={{
+            background: `linear-gradient(135deg, rgba(178, 32, 48, 0.45) 0%, transparent 60%)`
+          }}
+        />
 
-      {/* Executive Dark Navy Hero Section - Matching Practice Area Hero Style (3rd Reference Image) */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-r from-[#0B0F1A] via-[#0F1424] to-[#141B2D] text-white shadow-xl overflow-hidden border-b border-white/10">
-        {/* Subtle background lighting effect */}
-        <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-[#B22030]/10 blur-[100px] pointer-events-none rounded-full" />
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mb-10">
-            <h1 className="text-4xl md:text-5.5xl font-serif font-bold tracking-tight leading-[1.1] mb-4 text-white">
-              Explore our insights
-            </h1>
-            <p className="text-base md:text-xl font-sans font-light text-white/80">
-              Read reports, case studies, articles &amp; more
-            </p>
+        {/* Custom Parallax floating geometry */}
+        <div 
+          className="hero__floating-geometry hidden md:block"
+          style={{
+            transform: `translate3d(${mousePos.x * 0.5}px, ${scrollVal * -0.15 + mousePos.y * 0.5}px, 0) rotate(${scrollVal * 0.06}deg)`,
+            transition: "transform 0.1s ease-out"
+          }}
+        >
+          <div className="hero__floating-geometry-inner">
+            <svg width="240" height="240" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 110 L110 10 L210 110 L110 210 Z" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+              <path d="M40 110 L110 40 L180 110 L110 180 Z" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+              <circle cx="110" cy="110" r="5" fill="#B22030" />
+            </svg>
           </div>
+        </div>
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10" style={{ paddingTop: "140px", paddingBottom: "60px" }}>
+          <div className="mb-6">
+            <Link 
+              href="/" 
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/80 hover:text-white bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full transition-all hover:bg-white/10 hover:border-white/20"
+            >
+              <ArrowLeft size={12} className="text-[#B22030]" /> Back to Home
+            </Link>
+          </div>
+          
+          <div className="flex items-center gap-4 mb-4">
+            <span className="bg-gradient-to-r from-[#B22030] to-[#E31E24] bg-clip-text text-transparent text-xs font-bold tracking-widest uppercase">
+              04 / Insights &amp; Research Portal
+            </span>
+            <div className="w-12 h-[1px] bg-[#B22030]" />
+          </div>
+          
+          <h1 className="hero__primary" style={{ fontSize: "clamp(34px, 5.5vw, 62px)", lineHeight: 1.1 }}>
+            Explore Our Insights
+          </h1>
+          <p className="hero__secondary max-w-2xl" style={{ fontSize: "clamp(18px, 2.2vw, 24px)", color: "rgba(255,255,255,0.8)", marginBottom: "2rem" }}>
+            Bridging empirical research, policy analysis, and strategic intelligence to drive sustainable impact.
+          </p>
 
           {/* Quick Access Topic Pills */}
           <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
