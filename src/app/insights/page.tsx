@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, BookOpen, ArrowRight, Share2, Check, Sparkles } from "lucide-react";
+import { ChevronDown, X, BookOpen, Share2, Check, Sparkles, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -16,6 +16,10 @@ interface InsightPost {
   title: string;
   date: string;
   category: string;
+  contentType?: string;
+  sector?: string;
+  serviceLine?: string;
+  author?: string;
   featured: boolean;
   excerpt: string;
   image?: string;
@@ -35,7 +39,7 @@ const categoryImages: Record<string, string> = {
 
 const getPostImage = (post: InsightPost): string => {
   if (post.image && post.image.trim() !== "") return post.image;
-  const catLower = post.category.toLowerCase();
+  const catLower = (post.category + " " + (post.contentType || "")).toLowerCase();
   for (const [key, url] of Object.entries(categoryImages)) {
     if (catLower.includes(key)) {
       return url;
@@ -51,18 +55,20 @@ const calculateReadTime = (text: string): string => {
   return `${minutes} min read`;
 };
 
-const CATEGORIES = [
-  "All Insights",
-  "Leadership",
-  "Strategy",
-  "AI & Digital",
-  "Experience & Design",
-  "Investment & Infrastructure",
-];
+// Filter Dropdown Options matching Grant Thornton structure
+const CONTENT_TYPES = ["All Content Types", "Article", "Case Study", "Thought Leadership", "Newsletter", "Chapter Report"];
+const INDUSTRIES = ["All Industries", "Infrastructure & Cities", "Public Policy & Govt", "Digital & Technology", "Tourism & Livelihoods", "Enterprise"];
+const SERVICE_LINES = ["All Practice Areas", "Strategy & Transformation", "AI, Digital & Data", "Experience & Service Design", "Investment & Economic Advisory"];
+const FOCUS_AREAS = ["All Focus Areas", "AI Readiness", "Institutional Leadership", "Execution Gap", "Public Governance"];
 
 export default function InsightsPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All Insights");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedType, setSelectedType] = useState("All Content Types");
+  const [selectedIndustry, setSelectedIndustry] = useState("All Industries");
+  const [selectedService, setSelectedService] = useState("All Practice Areas");
+  const [selectedFocus, setSelectedFocus] = useState("All Focus Areas");
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+
+  const [visibleCount, setVisibleCount] = useState(8);
   const [activePost, setActivePost] = useState<InsightPost | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [copied, setCopied] = useState(false);
@@ -70,70 +76,33 @@ export default function InsightsPage() {
 
   const typedInsights = insightsData as InsightPost[];
 
-  // Scroll reveal setup
-  useEffect(() => {
-    document.documentElement.classList.add("js-ready");
-    const revealEls = Array.from(document.querySelectorAll(".reveal"));
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    revealEls.forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (r.top < vh - 16) el.classList.add("in");
-    });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            observer.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.06 }
-    );
-
-    revealEls.forEach((el) => {
-      if (!el.classList.contains("in")) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Filter posts based on category and search query
+  // Filter logic across 4 dropdown controls
   const filteredPosts = useMemo(() => {
     return typedInsights.filter((post) => {
-      const matchesCategory =
-        selectedCategory === "All Insights"
-          ? true
-          : post.category.toLowerCase().includes(selectedCategory.toLowerCase().replace(" & digital", "").replace(" & design", "").replace(" & infrastructure", ""));
+      const matchType = selectedType === "All Content Types" || (post.contentType && post.contentType.toLowerCase() === selectedType.toLowerCase()) || post.category.toLowerCase().includes(selectedType.toLowerCase());
+      const matchIndustry = selectedIndustry === "All Industries" || (post.sector && post.sector.toLowerCase().includes(selectedIndustry.toLowerCase().split(" ")[0]));
+      const matchService = selectedService === "All Practice Areas" || (post.serviceLine && post.serviceLine.toLowerCase().includes(selectedService.toLowerCase().split(" ")[0]));
+      const matchFocus = selectedFocus === "All Focus Areas" || post.title.toLowerCase().includes(selectedFocus.toLowerCase()) || post.excerpt.toLowerCase().includes(selectedFocus.toLowerCase());
+      const matchTheme = !selectedTheme || post.category.toLowerCase().includes(selectedTheme.toLowerCase()) || (post.contentType && post.contentType.toLowerCase().includes(selectedTheme.toLowerCase()));
 
-      const query = searchQuery.trim().toLowerCase();
-      const matchesSearch =
-        query === "" ||
-        post.title.toLowerCase().includes(query) ||
-        post.excerpt.toLowerCase().includes(query) ||
-        post.category.toLowerCase().includes(query) ||
-        post.body.toLowerCase().includes(query);
-
-      return matchesCategory && matchesSearch;
+      return matchType && matchIndustry && matchService && matchFocus && matchTheme;
     });
-  }, [typedInsights, selectedCategory, searchQuery]);
+  }, [typedInsights, selectedType, selectedIndustry, selectedService, selectedFocus, selectedTheme]);
 
-  // Main featured post (first featured or top item)
-  const featuredPost = useMemo(() => {
-    if (selectedCategory !== "All Insights" || searchQuery !== "") {
-      return filteredPosts[0] || null;
-    }
+  // "What's New" featured posts (Spotlight, Middle 2 stacked)
+  const spotlightPost = useMemo(() => {
     return typedInsights.find((p) => p.featured) || typedInsights[0];
-  }, [filteredPosts, typedInsights, selectedCategory, searchQuery]);
+  }, [typedInsights]);
 
-  // Regular grid posts (excluding the spotlight featured post)
-  const gridPosts = useMemo(() => {
-    if (!featuredPost) return filteredPosts;
-    return filteredPosts.filter((p) => p.slug !== featuredPost.slug);
-  }, [filteredPosts, featuredPost]);
+  const middlePosts = useMemo(() => {
+    return typedInsights.filter((p) => p.slug !== spotlightPost?.slug).slice(0, 2);
+  }, [typedInsights, spotlightPost]);
 
-  // Scroll progress in detail drawer
+  const trendingArticles = useMemo(() => {
+    return typedInsights.slice(0, 3);
+  }, [typedInsights]);
+
+  // Scroll progress for detail drawer
   useEffect(() => {
     setScrollProgress(0);
     setCopied(false);
@@ -156,7 +125,7 @@ export default function InsightsPage() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  // Render article markdown content
+  // Render markdown article body
   const renderParagraphs = (bodyText: string) => {
     if (!bodyText) return null;
     const items = bodyText.split(/\r?\n\r?\n/).map((p) => p.trim()).filter(Boolean);
@@ -220,225 +189,352 @@ export default function InsightsPage() {
 
   return (
     <div className="relative min-h-screen bg-[#0A0D14] text-cream selection:bg-[#B22030] selection:text-white">
-      {/* Navigation Header */}
+      {/* Top Header Navigation */}
       <Header />
 
-      {/* Hero Banner Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 border-b border-white/10 overflow-hidden bg-gradient-to-b from-[#0F1420] via-[#0A0D14] to-[#0A0D14]">
-        {/* Background glow effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#B22030]/10 blur-[120px] rounded-full pointer-events-none" />
+      {/* Hero Section - Matching Grant Thornton structure */}
+      <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 border-b border-white/10 bg-gradient-to-r from-[#1A080C] via-[#0E0507] to-[#121724]">
         <div className="container relative z-10">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-[11px] font-mono text-muted/60 uppercase mb-6 tracking-widest">
             <Link href="/" className="hover:text-cream transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-[#B22030] font-semibold">Insights &amp; Publications</span>
+            <span>•</span>
+            <span className="text-[#B22030] font-semibold">Insights</span>
           </div>
 
-          <div className="max-w-3xl mb-12">
-            <h1 className="text-3xl md:text-5xl font-serif text-cream font-medium tracking-tight leading-[1.15] mb-6">
-              Perspectives from the field — Bridging Insight to Impact
+          <div className="max-w-3xl mb-8">
+            <h1 className="text-4xl md:text-6xl font-serif text-cream font-bold tracking-tight leading-[1.1] mb-4">
+              Explore our insights
             </h1>
-            <p className="text-base md:text-lg text-cream/70 leading-relaxed font-sans font-light">
-              Strategic essays, empirical research, and institutional policy analysis authored by Red Bridge Advisory partners to navigate enterprise transformation and public delivery.
+            <p className="text-base md:text-xl text-cream/75 font-sans font-light">
+              Read reports, case studies, articles &amp; more
             </p>
           </div>
 
-          {/* Search & Category Filter Controls */}
-          <div className="space-y-6">
-            {/* Search Input Bar */}
-            <div className="relative max-w-xl">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-cream/40" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by topic, strategy, or key term..."
-                className="w-full pl-11 pr-10 py-3.5 bg-white/[0.04] border border-white/12 rounded-lg text-cream placeholder:text-cream/35 text-sm focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] transition-all"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-cream/40 hover:text-cream p-1 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
+          {/* Quick Access Topic Pills */}
+          <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
+            {["GST Compendium", "Dealtracker", "Podcasts", "AI Readiness"].map((pill) => (
+              <button
+                key={pill}
+                onClick={() => setSelectedTheme(selectedTheme === pill ? null : pill)}
+                className={`px-4 py-2 rounded-full text-xs font-mono transition-all border cursor-pointer ${
+                  selectedTheme === pill
+                    ? "bg-[#B22030] text-white border-[#B22030] shadow-lg shadow-[#B22030]/20 font-semibold"
+                    : "bg-white/10 text-cream/80 border-white/15 hover:bg-white/20 hover:text-cream"
+                }`}
+              >
+                {pill}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-white/5 pt-2">
-              {CATEGORIES.map((cat) => {
-                const isActive = selectedCategory === cat;
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-2 rounded-full text-xs font-mono transition-all whitespace-nowrap border cursor-pointer ${
-                      isActive
-                        ? "bg-[#B22030] text-white border-[#B22030] shadow-md shadow-[#B22030]/20 font-semibold"
-                        : "bg-white/[0.03] text-cream/70 border-white/10 hover:border-white/25 hover:text-cream hover:bg-white/[0.06]"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
+      {/* Filter Control Bar - 4 Dropdown Select Controls */}
+      <section className="bg-[#0D1019] border-b border-white/10 py-4">
+        <div className="container">
+          <div className="flex flex-col md:flex-row md:items-center gap-4 text-xs">
+            <span className="text-cream/50 font-mono uppercase tracking-wider shrink-0 font-medium">
+              Filter insights by:
+            </span>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
+              {/* Dropdown 1: Content Type */}
+              <div className="relative">
+                <select
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className="w-full appearance-none bg-[#141A28] border border-white/15 rounded-full px-4 py-2.5 pr-8 text-cream text-xs focus:outline-none focus:border-[#B22030] cursor-pointer transition-colors"
+                >
+                  {CONTENT_TYPES.map((t) => (
+                    <option key={t} value={t} className="bg-[#0C101B] text-cream">
+                      {t}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-cream/50 pointer-events-none" />
+              </div>
+
+              {/* Dropdown 2: Industry / Sector */}
+              <div className="relative">
+                <select
+                  value={selectedIndustry}
+                  onChange={(e) => setSelectedIndustry(e.target.value)}
+                  className="w-full appearance-none bg-[#141A28] border border-white/15 rounded-full px-4 py-2.5 pr-8 text-cream text-xs focus:outline-none focus:border-[#B22030] cursor-pointer transition-colors"
+                >
+                  {INDUSTRIES.map((ind) => (
+                    <option key={ind} value={ind} className="bg-[#0C101B] text-cream">
+                      {ind}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-cream/50 pointer-events-none" />
+              </div>
+
+              {/* Dropdown 3: Service Line */}
+              <div className="relative">
+                <select
+                  value={selectedService}
+                  onChange={(e) => setSelectedService(e.target.value)}
+                  className="w-full appearance-none bg-[#141A28] border border-white/15 rounded-full px-4 py-2.5 pr-8 text-cream text-xs focus:outline-none focus:border-[#B22030] cursor-pointer transition-colors"
+                >
+                  {SERVICE_LINES.map((s) => (
+                    <option key={s} value={s} className="bg-[#0C101B] text-cream">
+                      {s}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-cream/50 pointer-events-none" />
+              </div>
+
+              {/* Dropdown 4: Focus Areas */}
+              <div className="relative">
+                <select
+                  value={selectedFocus}
+                  onChange={(e) => setSelectedFocus(e.target.value)}
+                  className="w-full appearance-none bg-[#141A28] border border-white/15 rounded-full px-4 py-2.5 pr-8 text-cream text-xs focus:outline-none focus:border-[#B22030] cursor-pointer transition-colors"
+                >
+                  {FOCUS_AREAS.map((f) => (
+                    <option key={f} value={f} className="bg-[#0C101B] text-cream">
+                      {f}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-cream/50 pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content Area */}
-      <main className="py-16 md:py-24">
+      {/* Main Section 1: "What's New" & Sidebar */}
+      <section className="py-16 md:py-20 border-b border-white/10">
         <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left & Middle: What's New Block (lg:col-span-9) */}
+            <div className="lg:col-span-9 space-y-6">
+              <h2 className="text-2xl md:text-3xl font-serif text-cream font-medium">
+                What&apos;s New
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                {/* Large Featured Spotlight Card (md:col-span-7) */}
+                {spotlightPost && (
+                  <article
+                    onClick={() => setActivePost(spotlightPost)}
+                    className="md:col-span-7 bg-[#121726] border border-white/10 rounded-2xl overflow-hidden hover:border-[#B22030]/60 transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-xl group"
+                  >
+                    <div>
+                      <div className="relative w-full h-64 overflow-hidden bg-black/40">
+                        <Image
+                          src={getPostImage(spotlightPost)}
+                          alt={spotlightPost.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 55vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                          priority
+                        />
+                      </div>
+                      <div className="p-6 md:p-8">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-3">
+                          {spotlightPost.category}
+                        </span>
+                        <h3 className="text-xl md:text-2.5xl font-serif text-cream font-medium leading-tight mb-4 group-hover:text-white transition-colors">
+                          {spotlightPost.title}
+                        </h3>
+                        <p className="text-xs md:text-sm text-cream/70 leading-relaxed font-sans line-clamp-3 mb-6">
+                          {spotlightPost.excerpt}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="px-6 md:px-8 pb-6 text-[10px] font-mono text-cream/50 uppercase border-t border-white/5 pt-4">
+                      {spotlightPost.date}
+                    </div>
+                  </article>
+                )}
+
+                {/* Middle Stacked Column (md:col-span-5) */}
+                <div className="md:col-span-5 flex flex-col gap-6">
+                  {middlePosts.map((post) => (
+                    <article
+                      key={post.slug}
+                      onClick={() => setActivePost(post)}
+                      className="bg-[#121726] border border-white/10 rounded-2xl overflow-hidden hover:border-[#B22030]/60 transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-lg group flex-1"
+                    >
+                      <div>
+                        <div className="relative w-full h-36 overflow-hidden bg-black/40">
+                          <Image
+                            src={getPostImage(post)}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 40vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                          />
+                        </div>
+                        <div className="p-5">
+                          <span className="text-[9.5px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-2">
+                            {post.category}
+                          </span>
+                          <h4 className="text-sm font-serif text-cream font-medium leading-snug mb-2 group-hover:text-white transition-colors line-clamp-2">
+                            {post.title}
+                          </h4>
+                          {post.author && (
+                            <div className="flex items-center gap-2 text-[10px] font-mono text-cream/50 mt-3">
+                              <User className="w-3 h-3 text-[#B22030]" />
+                              <span>{post.author}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="px-5 pb-4 text-[9.5px] font-mono text-cream/50 uppercase flex items-center justify-between border-t border-white/5 pt-3">
+                        <span>{calculateReadTime(post.body)}</span>
+                        <span>{post.date}</span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Sidebar: Themes & Trending Articles (lg:col-span-3) */}
+            <div className="lg:col-span-3 space-y-8 border-l border-white/10 lg:pl-8">
+              {/* Themes Tag Cloud */}
+              <div>
+                <h3 className="text-xl font-serif text-cream font-medium mb-4">Themes</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["2026", "Thought leadership", "Articles", "Newsletters", "Case Study", "Podcast"].map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => setSelectedTheme(selectedTheme === tag ? null : tag)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-sans transition-all border cursor-pointer ${
+                        selectedTheme === tag
+                          ? "bg-[#B22030] text-white border-[#B22030] font-medium"
+                          : "bg-white/5 text-cream/70 border-white/10 hover:border-white/25 hover:text-cream"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Trending Articles Ranking List */}
+              <div className="pt-4 border-t border-white/10">
+                <h3 className="text-xl font-serif text-cream font-medium mb-4">Trending articles</h3>
+                <div className="space-y-4">
+                  {trendingArticles.map((article) => (
+                    <div
+                      key={article.slug}
+                      onClick={() => setActivePost(article)}
+                      className="p-4 rounded-xl bg-white/[0.02] border border-white/8 hover:border-[#B22030]/50 transition-all cursor-pointer group"
+                    >
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-1">
+                        {article.category}
+                      </span>
+                      <h5 className="text-xs font-serif text-cream/90 font-medium leading-snug mb-2 group-hover:text-white line-clamp-2">
+                        {article.title}
+                      </h5>
+                      <div className="flex items-center gap-2 text-[9px] font-mono text-cream/40 uppercase">
+                        <span>{calculateReadTime(article.body)}</span>
+                        <span>•</span>
+                        <span>{article.date}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Section 2: "Our Insights" (4-Column Grid) */}
+      <section className="py-16 md:py-24">
+        <div className="container">
+          <div className="flex justify-between items-center mb-10 pb-4 border-b border-white/10">
+            <h2 className="text-2xl md:text-3.5xl font-serif text-cream font-medium">
+              Our Insights
+            </h2>
+            <span className="text-xs font-mono text-cream/40 uppercase">
+              Showing {Math.min(visibleCount, filteredPosts.length)} of {filteredPosts.length} Insights
+            </span>
+          </div>
+
           {filteredPosts.length === 0 ? (
-            /* Empty Search/Filter State */
-            <div className="text-center py-20 bg-white/[0.02] rounded-xl border border-white/5 max-w-lg mx-auto">
-              <Sparkles className="w-10 h-10 text-[#B22030] mx-auto mb-4 opacity-80" />
-              <h3 className="text-lg font-serif text-cream mb-2">No matching insights found</h3>
-              <p className="text-xs text-cream/60 mb-6 font-sans">
-                Try adjusting your search terms or category filter.
-              </p>
+            <div className="text-center py-16 bg-white/[0.02] rounded-xl border border-white/5 max-w-md mx-auto">
+              <Sparkles className="w-8 h-8 text-[#B22030] mx-auto mb-3" />
+              <p className="text-sm text-cream/70 mb-4">No publications match your selected filters.</p>
               <button
                 onClick={() => {
-                  setSelectedCategory("All Insights");
-                  setSearchQuery("");
+                  setSelectedType("All Content Types");
+                  setSelectedIndustry("All Industries");
+                  setSelectedService("All Practice Areas");
+                  setSelectedFocus("All Focus Areas");
+                  setSelectedTheme(null);
                 }}
                 className="btn btn--primary text-xs"
               >
-                Reset Filters
+                Reset All Filters
               </button>
             </div>
           ) : (
-            <div className="space-y-16">
-              {/* Featured Spotlight Card */}
-              {featuredPost && (
-                <div className="reveal in">
-                  <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-[#B22030] font-semibold mb-4">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Featured Spotlight</span>
-                  </div>
-
-                  <div className="group relative bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 hover:border-white/20 transition-all duration-300 shadow-xl">
-                    <div className="relative lg:col-span-7 h-64 lg:h-auto min-h-[300px] overflow-hidden bg-black/40">
-                      <Image
-                        src={getPostImage(featuredPost)}
-                        alt={featuredPost.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 60vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                        priority
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-transparent to-transparent lg:hidden" />
-                    </div>
-
-                    <div className="lg:col-span-5 p-6 md:p-10 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-3 text-[10px] font-mono text-cream/60 uppercase mb-4 tracking-wider">
-                          <span className="px-2.5 py-1 rounded bg-[#B22030]/20 text-[#B22030] font-semibold border border-[#B22030]/30">
-                            {featuredPost.category}
-                          </span>
-                          <span>•</span>
-                          <span>{featuredPost.date}</span>
-                          <span>•</span>
-                          <span className="flex items-center gap-1">
-                            <BookOpen className="w-3 h-3 text-[#B22030]" />
-                            {calculateReadTime(featuredPost.body)}
-                          </span>
-                        </div>
-
-                        <h2 className="text-xl md:text-2.5xl font-serif text-cream font-medium leading-tight mb-4 group-hover:text-white transition-colors">
-                          {featuredPost.title}
-                        </h2>
-
-                        <p className="text-xs md:text-sm text-cream/70 leading-relaxed font-sans mb-8">
-                          {featuredPost.excerpt}
-                        </p>
+            <div className="space-y-12">
+              {/* 4-Column Grid matching Grant Thornton */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredPosts.slice(0, visibleCount).map((post) => (
+                  <article
+                    key={post.slug}
+                    onClick={() => setActivePost(post)}
+                    className="group bg-[#121724] border border-white/10 rounded-xl overflow-hidden hover:border-[#B22030]/60 hover:bg-[#161D2E] transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-md hover:-translate-y-1"
+                  >
+                    <div>
+                      {/* Image Top */}
+                      <div className="relative w-full h-44 overflow-hidden bg-black/40 border-b border-white/5">
+                        <Image
+                          src={getPostImage(post)}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                        />
                       </div>
 
-                      <button
-                        onClick={() => setActivePost(featuredPost)}
-                        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#B22030] font-semibold group-hover:translate-x-1 transition-transform cursor-pointer border-none bg-transparent"
-                      >
-                        <span>Read Full Essay</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
+                      {/* Content */}
+                      <div className="p-5">
+                        <span className="text-[9px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-2">
+                          {post.category}
+                        </span>
+
+                        <h4 className="text-sm font-serif text-cream font-medium leading-snug mb-3 group-hover:text-white transition-colors line-clamp-3">
+                          {post.title}
+                        </h4>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              )}
 
-              {/* Grid of Regular Insights */}
-              {gridPosts.length > 0 && (
-                <div>
-                  <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/5">
-                    <h3 className="text-lg font-serif text-cream font-medium">
-                      All Publications ({filteredPosts.length})
-                    </h3>
-                    <span className="text-[11px] font-mono text-cream/40 uppercase">
-                      Category: {selectedCategory}
-                    </span>
-                  </div>
+                    <div className="px-5 pb-5 pt-0 text-[9.5px] font-mono text-cream/45 uppercase border-t border-white/5 pt-3 mt-auto">
+                      {calculateReadTime(post.body)} | {post.date}
+                    </div>
+                  </article>
+                ))}
+              </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {gridPosts.map((post) => (
-                      <article
-                        key={post.slug}
-                        onClick={() => setActivePost(post)}
-                        className="group bg-white/[0.02] border border-white/8 rounded-xl overflow-hidden hover:border-[#B22030]/50 hover:bg-white/[0.04] transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1 shadow-lg"
-                      >
-                        <div>
-                          {/* Image */}
-                          <div className="relative w-full h-48 overflow-hidden bg-black/40 border-b border-white/5">
-                            <Image
-                              src={getPostImage(post)}
-                              alt={post.title}
-                              fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                              className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                            />
-                            <div className="absolute top-3 left-3">
-                              <span className="text-[9px] font-mono uppercase font-bold tracking-wider px-2.5 py-1 rounded bg-black/75 backdrop-blur-md text-cream border border-white/10">
-                                {post.category}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Content */}
-                          <div className="p-6">
-                            <div className="flex items-center gap-3 text-[9.5px] font-mono text-cream/50 uppercase mb-3">
-                              <span>{post.date}</span>
-                              <span>•</span>
-                              <span className="flex items-center gap-1">
-                                <BookOpen className="w-3 h-3 text-[#B22030]" />
-                                {calculateReadTime(post.body)}
-                              </span>
-                            </div>
-
-                            <h4 className="text-base font-serif text-cream font-medium leading-snug mb-3 group-hover:text-white transition-colors line-clamp-2">
-                              {post.title}
-                            </h4>
-
-                            <p className="text-xs text-cream/65 leading-relaxed font-sans line-clamp-3 mb-4">
-                              {post.excerpt}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="px-6 pb-6 pt-0 flex justify-between items-center border-t border-white/5 mt-auto text-[11px] font-mono text-cream/50 group-hover:text-[#B22030] transition-colors">
-                          <span>Read Essay</span>
-                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+              {/* Load More Centered Pagination Button */}
+              {visibleCount < filteredPosts.length && (
+                <div className="text-center pt-6">
+                  <button
+                    onClick={() => setVisibleCount((prev) => prev + 4)}
+                    className="px-8 py-3 rounded-md bg-transparent border border-white/25 text-cream text-xs font-mono uppercase tracking-wider hover:border-[#B22030] hover:bg-[#B22030]/10 hover:text-white transition-all cursor-pointer"
+                  >
+                    Load more
+                  </button>
                 </div>
               )}
             </div>
           )}
         </div>
-      </main>
+      </section>
 
       {/* Slide-out Full Briefing Reader Drawer */}
       <AnimatePresence>
@@ -447,13 +543,13 @@ export default function InsightsPage() {
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
+              animate={{ opacity: 0.75 }}
               exit={{ opacity: 0 }}
               onClick={() => setActivePost(null)}
-              className="fixed inset-0 bg-black/75 z-50 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/80 z-50 backdrop-blur-sm"
             />
 
-            {/* Sliding Drawer */}
+            {/* Sliding Panel */}
             <motion.div
               ref={drawerRef}
               onScroll={handleScroll}
@@ -463,7 +559,7 @@ export default function InsightsPage() {
               transition={{ type: "spring", damping: 30, stiffness: 220 }}
               className="fixed right-0 top-0 bottom-0 w-full md:w-[720px] lg:w-[840px] max-w-[92vw] bg-[#0C101B] border-l border-white/10 z-50 overflow-y-auto flex flex-col justify-between shadow-2xl text-cream p-6 md:p-10"
             >
-              {/* Dynamic Scroll Progress Bar */}
+              {/* Scroll Progress Bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 z-50">
                 <div
                   className="h-full bg-[#B22030] transition-all duration-75"
@@ -475,27 +571,27 @@ export default function InsightsPage() {
                 {/* Header Actions */}
                 <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
                   <span className="text-[10px] font-mono tracking-widest text-[#B22030] uppercase font-bold">
-                    {activePost.category} • Executive Briefing
+                    {activePost.category} • Briefing
                   </span>
                   <div className="flex items-center gap-3">
                     <button
                       onClick={handleShare}
-                      title="Copy link to briefing"
-                      className="inline-flex items-center gap-1.5 text-xs font-mono text-cream/70 hover:text-cream transition-colors p-2 rounded bg-white/5 hover:bg-white/10 cursor-pointer border-none"
+                      title="Copy link"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-cream/70 hover:text-cream p-2 rounded bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border-none"
                     >
                       {copied ? <Check className="w-4 h-4 text-green-400" /> : <Share2 className="w-4 h-4" />}
                       <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
                     </button>
                     <button
                       onClick={() => setActivePost(null)}
-                      className="text-cream/50 hover:text-cream transition-colors p-2 rounded bg-white/5 hover:bg-white/10 cursor-pointer border-none"
+                      className="text-cream/50 hover:text-cream p-2 rounded bg-white/5 hover:bg-white/10 transition-colors cursor-pointer border-none"
                     >
                       <X className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
 
-                {/* Article Cover Image */}
+                {/* Cover Image */}
                 <div className="relative w-full h-64 md:h-80 mb-8 overflow-hidden rounded-xl border border-white/10 bg-black/45 shadow-inner">
                   <Image
                     src={getPostImage(activePost)}
@@ -506,7 +602,7 @@ export default function InsightsPage() {
                   />
                 </div>
 
-                {/* Metadata Row */}
+                {/* Metadata */}
                 <div className="inline-flex items-center gap-3 text-[10.5px] font-mono text-cream/70 mb-5 bg-white/5 py-1.5 px-3.5 rounded-full border border-white/5">
                   <span>{activePost.date}</span>
                   <span className="text-white/20">•</span>
@@ -516,18 +612,18 @@ export default function InsightsPage() {
                   </span>
                 </div>
 
-                {/* Essay Title */}
+                {/* Title */}
                 <h2 className="text-2xl md:text-3.5xl font-serif text-cream font-medium leading-tight mb-8">
                   {activePost.title}
                 </h2>
 
-                {/* Essay Body Paragraph Content */}
+                {/* Essay Body Content */}
                 <div className="space-y-6 text-sm text-cream/80 leading-relaxed font-sans">
                   {renderParagraphs(activePost.body)}
                 </div>
               </div>
 
-              {/* Drawer Footer Signature */}
+              {/* Drawer Footer */}
               <div className="mt-16 pt-6 border-t border-white/5 text-[10px] font-mono text-cream/40 uppercase flex justify-between items-center">
                 <span>Authored by Red Bridge Advisory Partners</span>
                 <span className="text-[#B22030] font-semibold">Red Bridge Research</span>
@@ -540,7 +636,7 @@ export default function InsightsPage() {
       {/* Footer Navigation */}
       <Footer />
 
-      {/* Floating Utilities */}
+      {/* Utilities */}
       <Chatbot />
       <ScrollToggle />
     </div>
