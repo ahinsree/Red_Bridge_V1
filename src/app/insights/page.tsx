@@ -193,8 +193,8 @@ export default function InsightsPage() {
       <Header />
 
       {/* Top Breadcrumb Bar */}
-      <div className="bg-[#FAFAF8] border-b border-gray-200 pt-20 pb-3">
-        <div className="container">
+      <div className="bg-[#FAFAF8] border-b border-gray-200/80 pt-20 pb-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-[11px] font-mono text-gray-500 uppercase tracking-widest">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
             <span>•</span>
@@ -203,11 +203,11 @@ export default function InsightsPage() {
         </div>
       </div>
 
-      {/* RED Hero Section - Replacing Grant Thornton's Purple Banner with Brand Red */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-r from-[#B22030] via-[#A01C2B] to-[#8C1623] text-white shadow-inner">
-        <div className="container relative z-10">
-          <div className="max-w-3xl mb-8">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight leading-[1.1] mb-4 text-white">
+      {/* RED Hero Section - Brand Red Header with Generous Spacing */}
+      <section className="relative py-16 md:py-24 bg-gradient-to-r from-[#B22030] via-[#9E1B29] to-[#7D121E] text-white shadow-inner">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl mb-10">
+            <h1 className="text-4xl md:text-5.5xl font-serif font-bold tracking-tight leading-[1.1] mb-4 text-white">
               Explore our insights
             </h1>
             <p className="text-base md:text-xl font-sans font-light text-white/90">
@@ -221,10 +221,10 @@ export default function InsightsPage() {
               <button
                 key={pill}
                 onClick={() => setSelectedTheme(selectedTheme === pill ? null : pill)}
-                className={`px-4 py-2 rounded-full text-xs font-mono transition-all border cursor-pointer ${
+                className={`px-5 py-2.5 rounded-full text-xs font-mono transition-all border cursor-pointer ${
                   selectedTheme === pill
-                    ? "bg-white text-[#B22030] border-white shadow-lg font-bold"
-                    : "bg-white/20 text-white border-white/30 hover:bg-white/30"
+                    ? "bg-white text-[#B22030] border-white shadow-md font-bold"
+                    : "bg-white/20 text-white border-white/30 hover:bg-white/35 font-medium shadow-xs"
                 }`}
               >
                 {pill}
@@ -234,21 +234,21 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Filter Control Bar - Light Grey Horizontal Bar with 4 Dropdown Selects */}
-      <section className="bg-[#F4F4F2] border-b border-gray-200 py-4">
-        <div className="container">
+      {/* Filter Control Bar - Spacious Light Grey Horizontal Bar with 4 Dropdowns */}
+      <section className="bg-[#F3F3F1] border-b border-gray-200/80 py-5">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center gap-4 text-xs">
             <span className="text-gray-700 font-mono uppercase tracking-wider shrink-0 font-medium">
               Filter insights by:
             </span>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
               {/* Dropdown 1: Content Type */}
               <div className="relative">
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-4 py-2.5 pr-8 text-gray-800 text-xs focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-sm transition-colors"
+                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-5 py-3 pr-10 text-gray-800 text-xs font-medium focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-xs transition-colors"
                 >
                   {CONTENT_TYPES.map((t) => (
                     <option key={t} value={t} className="bg-white text-gray-900">
@@ -256,7 +256,7 @@ export default function InsightsPage() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
               </div>
 
               {/* Dropdown 2: Industry / Sector */}
@@ -264,7 +264,7 @@ export default function InsightsPage() {
                 <select
                   value={selectedIndustry}
                   onChange={(e) => setSelectedIndustry(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-4 py-2.5 pr-8 text-gray-800 text-xs focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-sm transition-colors"
+                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-5 py-3 pr-10 text-gray-800 text-xs font-medium focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-xs transition-colors"
                 >
                   {INDUSTRIES.map((ind) => (
                     <option key={ind} value={ind} className="bg-white text-gray-900">
@@ -272,7 +272,7 @@ export default function InsightsPage() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
               </div>
 
               {/* Dropdown 3: Service Line */}
@@ -280,7 +280,7 @@ export default function InsightsPage() {
                 <select
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-4 py-2.5 pr-8 text-gray-800 text-xs focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-sm transition-colors"
+                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-5 py-3 pr-10 text-gray-800 text-xs font-medium focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-xs transition-colors"
                 >
                   {SERVICE_LINES.map((s) => (
                     <option key={s} value={s} className="bg-white text-gray-900">
@@ -288,7 +288,7 @@ export default function InsightsPage() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
               </div>
 
               {/* Dropdown 4: Focus Areas */}
@@ -296,7 +296,7 @@ export default function InsightsPage() {
                 <select
                   value={selectedFocus}
                   onChange={(e) => setSelectedFocus(e.target.value)}
-                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-4 py-2.5 pr-8 text-gray-800 text-xs focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-sm transition-colors"
+                  className="w-full appearance-none bg-white border border-gray-300 rounded-full px-5 py-3 pr-10 text-gray-800 text-xs font-medium focus:outline-none focus:border-[#B22030] focus:ring-1 focus:ring-[#B22030] cursor-pointer shadow-xs transition-colors"
                 >
                   {FOCUS_AREAS.map((f) => (
                     <option key={f} value={f} className="bg-white text-gray-900">
@@ -304,46 +304,46 @@ export default function InsightsPage() {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Section 1: "What's New" & Sidebar - Clean White Background */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Left & Middle: What's New Block (lg:col-span-9) */}
-            <div className="lg:col-span-9 space-y-6">
-              <h2 className="text-2xl md:text-3xl font-serif text-gray-900 font-medium">
+      {/* Main Section 1: "What's New" & Sidebar - Balanced 8-Column + 4-Column Sidebar Grid */}
+      <section className="py-20 md:py-24 bg-white">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
+            {/* Left Main What's New Block (lg:col-span-8) */}
+            <div className="lg:col-span-8 space-y-6">
+              <h2 className="text-2xl md:text-3.5xl font-serif text-gray-900 font-medium mb-6">
                 What&apos;s New
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
                 {/* Large Featured Spotlight Card (md:col-span-7) */}
                 {spotlightPost && (
                   <article
                     onClick={() => setActivePost(spotlightPost)}
-                    className="md:col-span-7 bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#B22030]/60 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group"
+                    className="md:col-span-7 bg-white border border-gray-200/90 rounded-2xl overflow-hidden hover:border-[#B22030]/60 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between group"
                   >
                     <div>
-                      <div className="relative w-full h-64 overflow-hidden bg-gray-100">
+                      <div className="relative w-full h-72 md:h-80 overflow-hidden bg-gray-100">
                         <Image
                           src={getPostImage(spotlightPost)}
                           alt={spotlightPost.title}
                           fill
-                          sizes="(max-width: 768px) 100vw, 55vw"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                           priority
                         />
                       </div>
                       <div className="p-6 md:p-8">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-2">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-2.5">
                           {spotlightPost.category}
                         </span>
-                        <h3 className="text-xl md:text-2.5xl font-serif text-gray-900 font-medium leading-tight mb-3 group-hover:text-[#B22030] transition-colors">
+                        <h3 className="text-xl md:text-2.5xl font-serif text-gray-900 font-medium leading-snug mb-3 group-hover:text-[#B22030] transition-colors">
                           {spotlightPost.title}
                         </h3>
                         <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-sans line-clamp-3 mb-6">
@@ -364,15 +364,15 @@ export default function InsightsPage() {
                     <article
                       key={post.slug}
                       onClick={() => setActivePost(post)}
-                      className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:border-[#B22030]/60 transition-all duration-300 cursor-pointer flex flex-col justify-between group flex-1"
+                      className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-xs hover:shadow-lg hover:border-[#B22030]/60 transition-all duration-300 cursor-pointer flex flex-col justify-between group flex-1"
                     >
                       <div>
-                        <div className="relative w-full h-36 overflow-hidden bg-gray-100">
+                        <div className="relative w-full h-44 overflow-hidden bg-gray-100">
                           <Image
                             src={getPostImage(post)}
                             alt={post.title}
                             fill
-                            sizes="(max-width: 768px) 100vw, 40vw"
+                            sizes="(max-width: 768px) 100vw, 35vw"
                             className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                           />
                         </div>
@@ -402,51 +402,53 @@ export default function InsightsPage() {
               </div>
             </div>
 
-            {/* Right Sidebar: Themes & Trending Articles (lg:col-span-3) */}
-            <div className="lg:col-span-3 space-y-8 border-l border-gray-200 lg:pl-8">
-              {/* Themes Tag Cloud */}
-              <div>
-                <h3 className="text-xl font-serif text-gray-900 font-medium mb-4">Themes</h3>
-                <div className="flex flex-wrap gap-2">
-                  {["2026", "Thought leadership", "Articles", "Newsletters", "Case Study", "Podcast"].map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => setSelectedTheme(selectedTheme === tag ? null : tag)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition-all border cursor-pointer ${
-                        selectedTheme === tag
-                          ? "bg-[#B22030] text-white border-[#B22030] font-medium shadow-sm"
-                          : "bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:text-gray-900"
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
+            {/* Right Dedicated Sidebar Box (lg:col-span-4) */}
+            <div className="lg:col-span-4">
+              <div className="bg-[#F8F8F6] border border-gray-200/80 p-6 md:p-8 rounded-2xl space-y-8 shadow-xs">
+                {/* Themes Tag Cloud */}
+                <div>
+                  <h3 className="text-xl font-serif text-gray-900 font-medium mb-4">Themes</h3>
+                  <div className="flex flex-wrap gap-2.5">
+                    {["2026", "Thought leadership", "Articles", "Newsletters", "Case Study", "Podcast"].map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => setSelectedTheme(selectedTheme === tag ? null : tag)}
+                        className={`px-4 py-2 rounded-full text-xs font-sans transition-all border cursor-pointer ${
+                          selectedTheme === tag
+                            ? "bg-[#B22030] text-white border-[#B22030] font-medium shadow-xs"
+                            : "bg-white text-gray-700 border-gray-200 hover:border-[#B22030] hover:text-[#B22030] shadow-xs"
+                        }`}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Trending Articles Ranking List */}
-              <div className="pt-4 border-t border-gray-200">
-                <h3 className="text-xl font-serif text-gray-900 font-medium mb-4">Trending articles</h3>
-                <div className="space-y-3.5">
-                  {trendingArticles.map((article) => (
-                    <div
-                      key={article.slug}
-                      onClick={() => setActivePost(article)}
-                      className="p-4 rounded-xl bg-gray-50/80 border border-gray-200 hover:border-[#B22030] hover:bg-white transition-all cursor-pointer group shadow-xs"
-                    >
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-1">
-                        {article.category}
-                      </span>
-                      <h5 className="text-xs font-serif text-gray-900 font-medium leading-snug mb-2 group-hover:text-[#B22030] transition-colors line-clamp-2">
-                        {article.title}
-                      </h5>
-                      <div className="flex items-center gap-2 text-[9px] font-mono text-gray-500 uppercase">
-                        <span>{calculateReadTime(article.body)}</span>
-                        <span>•</span>
-                        <span>{article.date}</span>
+                {/* Trending Articles Ranking List */}
+                <div className="pt-6 border-t border-gray-200/80">
+                  <h3 className="text-xl font-serif text-gray-900 font-medium mb-4">Trending articles</h3>
+                  <div className="space-y-4">
+                    {trendingArticles.map((article) => (
+                      <div
+                        key={article.slug}
+                        onClick={() => setActivePost(article)}
+                        className="p-4 rounded-xl bg-white border border-gray-200/80 hover:border-[#B22030] transition-all cursor-pointer group shadow-xs hover:shadow-md"
+                      >
+                        <span className="text-[9px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-1">
+                          {article.category}
+                        </span>
+                        <h5 className="text-xs font-serif text-gray-900 font-medium leading-snug mb-2 group-hover:text-[#B22030] transition-colors line-clamp-2">
+                          {article.title}
+                        </h5>
+                        <div className="flex items-center gap-2 text-[9px] font-mono text-gray-500 uppercase">
+                          <span>{calculateReadTime(article.body)}</span>
+                          <span>•</span>
+                          <span>{article.date}</span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -454,9 +456,9 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Main Section 2: "Our Insights" (4-Column Grid - White / Off-White Theme) */}
-      <section className="py-16 md:py-24 bg-[#FAFAF8] border-t border-gray-200">
-        <div className="container">
+      {/* Main Section 2: "Our Insights" (Spacious 4-Column Card Grid) */}
+      <section className="py-20 md:py-28 bg-[#FAFAF8] border-t border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-10 pb-4 border-b border-gray-200">
             <h2 className="text-2xl md:text-3.5xl font-serif text-gray-900 font-medium">
               Our Insights
@@ -467,7 +469,7 @@ export default function InsightsPage() {
           </div>
 
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-xl border border-gray-200 max-w-md mx-auto shadow-sm">
+            <div className="text-center py-16 bg-white rounded-2xl border border-gray-200 max-w-md mx-auto shadow-xs">
               <Sparkles className="w-8 h-8 text-[#B22030] mx-auto mb-3" />
               <p className="text-sm text-gray-700 mb-4">No publications match your selected filters.</p>
               <button
@@ -485,17 +487,17 @@ export default function InsightsPage() {
             </div>
           ) : (
             <div className="space-y-12">
-              {/* 4-Column Grid matching Grant Thornton */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Spacious 4-Column Card Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
                 {filteredPosts.slice(0, visibleCount).map((post) => (
                   <article
                     key={post.slug}
                     onClick={() => setActivePost(post)}
-                    className="group bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#B22030] transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1"
+                    className="group bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-xs hover:shadow-2xl hover:border-[#B22030] transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5"
                   >
                     <div>
                       {/* Image Top */}
-                      <div className="relative w-full h-44 overflow-hidden bg-gray-100 border-b border-gray-100">
+                      <div className="relative w-full h-52 md:h-56 overflow-hidden bg-gray-100 border-b border-gray-100">
                         <Image
                           src={getPostImage(post)}
                           alt={post.title}
@@ -506,30 +508,30 @@ export default function InsightsPage() {
                       </div>
 
                       {/* Content */}
-                      <div className="p-5">
-                        <span className="text-[9px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-2">
+                      <div className="p-6">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#B22030] font-bold block mb-2.5">
                           {post.category}
                         </span>
 
-                        <h4 className="text-sm font-serif text-gray-900 font-medium leading-snug mb-3 group-hover:text-[#B22030] transition-colors line-clamp-3">
+                        <h4 className="text-base font-serif text-gray-900 font-medium leading-snug mb-3 group-hover:text-[#B22030] transition-colors line-clamp-3">
                           {post.title}
                         </h4>
                       </div>
                     </div>
 
-                    <div className="px-5 pb-5 pt-0 text-[9.5px] font-mono text-gray-500 uppercase border-t border-gray-100 pt-3 mt-auto">
+                    <div className="px-6 pb-6 pt-0 text-[9.5px] font-mono text-gray-500 uppercase border-t border-gray-100 pt-4 mt-auto">
                       {calculateReadTime(post.body)} | {post.date}
                     </div>
                   </article>
                 ))}
               </div>
 
-              {/* Load More Centered Pagination Button */}
+              {/* Centered Load More Button */}
               {visibleCount < filteredPosts.length && (
-                <div className="text-center pt-6">
+                <div className="text-center pt-8">
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 4)}
-                    className="px-8 py-3 rounded-md bg-white border border-gray-300 text-gray-800 text-xs font-mono uppercase tracking-wider hover:border-[#B22030] hover:bg-[#B22030] hover:text-white transition-all shadow-sm cursor-pointer"
+                    className="px-10 py-3.5 rounded-full bg-white border border-gray-300 text-gray-800 text-xs font-mono uppercase tracking-wider hover:bg-[#B22030] hover:text-white hover:border-[#B22030] shadow-xs transition-all cursor-pointer"
                   >
                     Load more
                   </button>
