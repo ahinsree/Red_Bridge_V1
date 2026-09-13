@@ -85,8 +85,8 @@ export default function Home() {
       {/* Parallax Visual Pause */}
       <VisualPause />
 
-      {/* Selected Engagements */}
-      <Engagements />
+      {/* Selected Engagements (Temporarily paused) */}
+      {/* <Engagements /> */}
 
       {/* Our Approach (Principles) */}
       <HowWeWork />

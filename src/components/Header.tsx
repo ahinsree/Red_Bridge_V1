@@ -212,11 +212,11 @@ export default function Header() {
             </div>
           </div>
 
-          <div className="nav__item">
+          {/* <div className="nav__item">
             <Link href="/work" className="nav__link" onClick={() => setMobileMenuOpen(false)}>
               Work
             </Link>
-          </div>
+          </div> */}
           <div className="nav__item">
             <Link href={pathname === "/" ? "#insights" : "/#insights"} className="nav__link" onClick={(e) => handleLinkClick(e, "#insights")}>
               Insights
