@@ -1,21 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  CheckCircle2,
-  ChevronRight,
-  Sparkles,
-  ShieldCheck,
-  TrendingUp,
-  Clock,
-  Target,
-  RefreshCw,
+  Check,
   Share2,
-  Check
+  ChevronRight
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -23,26 +15,7 @@ import Chatbot from "@/components/Chatbot";
 import ScrollToggle from "@/components/ScrollToggle";
 
 export default function WorkPage() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [scrollVal, setScrollVal] = useState(0);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollVal(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    setMousePos({
-      x: (clientX / innerWidth - 0.5) * 30,
-      y: (clientY / innerHeight - 0.5) * 30,
-    });
-  };
 
   const handleShare = () => {
     if (typeof window !== "undefined") {
@@ -53,201 +26,135 @@ export default function WorkPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#FBFBFA] text-[#1A1A1A] selection:bg-[#B22030] selection:text-white font-sans">
-      {/* Top Header Navigation */}
+    <div className="relative min-h-screen bg-[#FFFFFF] text-[#111827] selection:bg-[#B22030] selection:text-white font-sans antialiased">
+      {/* Top Navigation */}
       <Header />
 
       {/* ========================================================================= */}
-      {/* 1. HERO BANNER (Turtlewax Style Dark Executive Header) */}
+      {/* 1. HERO HEADER SECTION (Turtlewax Clean Spacious Aesthetic) */}
       {/* ========================================================================= */}
-      <section 
-        className="hero relative overflow-hidden" 
-        style={{ 
-          minHeight: "560px",
-          background: `radial-gradient(circle at 20% 30%, rgba(178, 32, 48, 0.45) 0%, transparent 70%), #0B0F1A`
-        }}
-        onMouseMove={handleMouseMove}
-      >
-        {/* Background Parallax Layer */}
-        <div className="hero__bg">
-          <div 
-            className="hero__parallax-wrapper" 
-            style={{ 
-              transform: `translate3d(${mousePos.x * -0.3}px, ${scrollVal * 0.25 + mousePos.y * -0.3}px, 0) scale(1.08)` 
-            }}
-          >
-            <div 
-              style={{
-                position: "absolute", top: 0, right: 0, bottom: 0, left: 0,
-                background: `url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1600&q=80') center/cover no-repeat`,
-                opacity: 0.18,
-                filter: "grayscale(80%) contrast(1.2)",
-                animation: "heroKenBurns 45s ease-in-out infinite alternate"
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Ambient Lightbeam */}
-        <div 
-          className="hero__lightbeam" 
-          style={{
-            background: `linear-gradient(135deg, rgba(178, 32, 48, 0.4) 0%, transparent 65%)`
-          }}
-        />
-
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10" style={{ paddingTop: "140px", paddingBottom: "70px" }}>
-          {/* Top Breadcrumb & Share */}
-          <div className="flex items-center justify-between gap-4 mb-6">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-[#FAFAFA] border-b border-gray-200/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          
+          {/* Top Breadcrumb & Share Link */}
+          <div className="flex items-center justify-between gap-4">
             <Link 
               href="/" 
-              className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-widest text-white/70 hover:text-white bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full transition-all hover:bg-white/10"
+              className="inline-flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-widest text-gray-500 hover:text-[#B22030] transition-colors"
             >
-              <ArrowLeft size={12} className="text-[#E31E24]" /> Work / Case Study
+              <ArrowLeft size={13} /> Back to Overview
             </Link>
 
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-white/70 hover:text-white bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full transition-all hover:bg-white/10 cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
             >
-              {copied ? <Check size={13} className="text-emerald-400" /> : <Share2 size={13} />}
+              {copied ? <Check size={14} className="text-emerald-600" /> : <Share2 size={14} />}
               <span>{copied ? "Link Copied" : "Share Case Study"}</span>
             </button>
           </div>
 
-          {/* Subtitle Pill */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="px-3.5 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-widest bg-[#B22030] text-white shadow-md">
-              Automotive • Customer Experience Transformation
-            </span>
-            <span className="text-xs font-mono text-white/60 hidden sm:inline-block">Middle East Region</span>
-          </div>
+          {/* Tag & Title Block */}
+          <div className="space-y-4 max-w-4xl">
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono uppercase tracking-widest font-semibold text-[#B22030]">
+                Case Study • Automotive
+              </span>
+              <span className="text-gray-300">•</span>
+              <span className="text-xs font-mono text-gray-500">Middle East Region</span>
+            </div>
 
-          {/* Main Title & Subtitle */}
-          <div className="max-w-4xl space-y-4">
-            <h1 
-              className="font-serif font-bold text-white leading-[1.1] tracking-tight"
-              style={{ fontSize: "clamp(32px, 5vw, 62px)" }}
-            >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-gray-900 leading-[1.15] tracking-tight">
               From Customer Feedback to Customer Action
             </h1>
-            <p 
-              className="font-sans text-white/80 font-light max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(17px, 2vw, 22px)" }}
-            >
+
+            <p className="text-lg sm:text-xl font-sans text-gray-600 font-normal leading-relaxed max-w-3xl pt-2">
               Transforming Customer Experience for a Leading Automotive Dealer in the Middle Eastern Region.
             </p>
           </div>
 
-          {/* Quick Specifications Metadata Grid */}
-          <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono text-white/70">
+          {/* Quick Specifications Metadata Strip */}
+          <div className="pt-8 border-t border-gray-200 grid grid-cols-2 sm:grid-cols-4 gap-6 text-xs font-mono text-gray-600">
             <div>
-              <span className="text-white/40 block text-[10px] uppercase tracking-wider mb-0.5">Industry</span>
-              <span className="text-white font-medium">Automotive</span>
+              <span className="text-gray-400 uppercase tracking-wider text-[10px] block mb-1">Industry</span>
+              <span className="text-gray-900 font-semibold">Automotive</span>
             </div>
             <div>
-              <span className="text-white/40 block text-[10px] uppercase tracking-wider mb-0.5">Region</span>
-              <span className="text-white font-medium">Middle East</span>
+              <span className="text-gray-400 uppercase tracking-wider text-[10px] block mb-1">Region</span>
+              <span className="text-gray-900 font-semibold">Middle East</span>
             </div>
             <div>
-              <span className="text-white/40 block text-[10px] uppercase tracking-wider mb-0.5">Journey Verticals</span>
-              <span className="text-white font-medium">Presales | Sales | Service | Bodyshop</span>
+              <span className="text-gray-400 uppercase tracking-wider text-[10px] block mb-1">Coverage</span>
+              <span className="text-gray-900 font-semibold">Presales | Sales | Service | Bodyshop</span>
             </div>
             <div>
-              <span className="text-white/40 block text-[10px] uppercase tracking-wider mb-0.5">Impact Scope</span>
-              <span className="text-emerald-400 font-medium">Closed-Loop Resolution</span>
+              <span className="text-gray-400 uppercase tracking-wider text-[10px] block mb-1">Core Outcome</span>
+              <span className="text-[#B22030] font-semibold">Closed-Loop Issue Resolution</span>
             </div>
           </div>
+
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. SERVICES & EXECUTIVE OVERVIEW SECTION (Turtlewax 2-Column Specs Layout) */}
+      {/* 2. OVERVIEW & SERVICES SECTION (Turtlewax 2-Column Specs Layout) */}
       {/* ========================================================================= */}
-      <section className="py-16 md:py-20 bg-white border-b border-gray-200/80">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <section className="py-20 md:py-28 bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Left Column: Services Provided Pill Badges (4 cols) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="space-y-2">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-                  Capabilities &amp; Services Delivered
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900">
-                  Engagement Overview
-                </h2>
-              </div>
-
-              <div className="flex flex-wrap gap-2.5">
-                {[
-                  "Voice of Customer (VOC)",
-                  "Presales Journey Architecture",
-                  "Sales & Service Integration",
-                  "Bodyshop Experience Framework",
-                  "Role-Based CX Dashboards",
-                  "Closed-Loop Ticketing System",
-                  "Operational Issue Resolution",
-                  "Executive Experience Intelligence"
-                ].map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="px-4 py-2 rounded-xl bg-[#F4F4F2] border border-gray-200 text-gray-800 text-xs font-mono font-medium hover:border-[#B22030] transition-colors"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Quick Spec Box */}
-              <div className="p-6 rounded-2xl bg-[#0B0F1A] text-white space-y-4 shadow-lg border border-white/10 mt-6">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#E31E24] font-bold">
-                  Engagement Mandate
-                </h4>
-                <div className="space-y-2.5 text-xs font-mono">
-                  <div className="flex justify-between border-b border-white/10 pb-2">
-                    <span className="text-white/50">Client Category</span>
-                    <span className="text-white font-medium">Leading Automotive Dealer</span>
-                  </div>
-                  <div className="flex justify-between border-b border-white/10 pb-2">
-                    <span className="text-white/50">Geographic Footprint</span>
-                    <span className="text-white font-medium">Middle Eastern Region</span>
-                  </div>
-                  <div className="flex justify-between border-b border-white/10 pb-2">
-                    <span className="text-white/50">Touchpoint Coverage</span>
-                    <span className="text-white font-medium">4 Critical Verticals</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-white/50">Primary Objective</span>
-                    <span className="text-emerald-400 font-medium">Feedback-to-Action Ecosystem</span>
-                  </div>
-                </div>
-              </div>
+            {/* Left Column: Services Provided List (4 cols) */}
+            <div className="lg:col-span-4 space-y-6">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
+                Services Provided
+              </span>
+              
+              <ul className="space-y-3 text-sm font-sans text-gray-700 divide-y divide-gray-100">
+                <li className="pt-2 font-medium">Voice of Customer Framework (VOC)</li>
+                <li className="pt-2">Presales Journey Streamlining</li>
+                <li className="pt-2">Sales &amp; Service Feedback Architecture</li>
+                <li className="pt-2">Bodyshop Touchpoint Optimisation</li>
+                <li className="pt-2">Role-Based CX Dashboards</li>
+                <li className="pt-2">Closed-Loop Ticketing Engine</li>
+                <li className="pt-2">Executive Experience Governance</li>
+              </ul>
             </div>
 
-            {/* Right Column: Narrative Executive Summary (7 cols offset) */}
-            <div className="lg:col-span-7 space-y-6 lg:pl-6 text-gray-700">
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-gray-900 leading-snug">
-                Transitioning an Automotive Giant from Passive Survey Reporting to Closed-Loop Operational Action.
-              </h3>
-              
-              <p className="text-base font-sans leading-relaxed text-gray-600">
-                A leading automotive dealership group operating across the Middle Eastern region possessed an established customer feedback program covering key customer touchpoints across Presales, Sales, Service, and Bodyshop operations.
+            {/* Right Column: Executive Overview Narrative (8 cols) */}
+            <div className="lg:col-span-8 space-y-6">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
+                Overview
+              </span>
+
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 leading-snug">
+                Moving Beyond Traditional CX Measurement to Build an Operational Action Ecosystem
+              </h2>
+
+              <p className="text-base sm:text-lg font-sans text-gray-600 leading-relaxed">
+                A leading automotive dealer in the Middle Eastern region had an established customer feedback program across key stages of the automotive journey—covering Presales, Sales, Service, and Bodyshop operations.
               </p>
 
-              <p className="text-base font-sans leading-relaxed text-gray-600">
-                Despite gathering substantial volumes of feedback, fragmented survey structures and traditional descriptive reporting made it exceptionally difficult to translate customer sentiment into clear operational priorities or track timely issue resolution.
+              <p className="text-base font-sans text-gray-600 leading-relaxed">
+                However, fragmented survey structures and reporting processes made it challenging to consistently translate customer feedback into clear insights, operational action, and timely issue resolution.
               </p>
 
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border-l-4 border-[#B22030] space-y-2">
+              <div className="p-6 rounded-2xl bg-[#F9F9F8] border-l-4 border-[#B22030] my-4">
                 <p className="text-sm font-serif italic text-gray-900 font-medium leading-relaxed">
                   &ldquo;The organisation needed to move beyond traditional CX reporting and create an ecosystem where teams could quickly answer: What are customers telling us? Where is the problem? Who needs to act? And has it been resolved?&rdquo;
                 </p>
               </div>
 
-              <p className="text-base font-sans leading-relaxed text-gray-600">
-                Red Bridge Advisory collaborated with leadership to redesign the survey architecture, reimagine decision-driven role-based dashboards, and build a closed-loop ticketing mechanism that assigns accountability and enforces resolution across all 4 customer journey verticals.
-              </p>
+              {/* Spec Details Table */}
+              <div className="pt-4 border-t border-gray-200 grid grid-cols-2 gap-4 text-xs font-mono text-gray-600">
+                <div>
+                  <span className="text-gray-400 block mb-0.5">CLIENT</span>
+                  <span className="text-gray-900 font-medium">Leading Automotive Dealer</span>
+                </div>
+                <div>
+                  <span className="text-gray-400 block mb-0.5">GEOGRAPHY</span>
+                  <span className="text-gray-900 font-medium">Middle Eastern Region</span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -255,145 +162,109 @@ export default function WorkPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. VISUAL SHOWCASE BANNER (Turtlewax Widescreen Highlight Box) */}
+      {/* 3. VISUAL SHOWCASE BANNER (Turtlewax Clean Widescreen Banner) */}
       {/* ========================================================================= */}
-      <section className="py-12 bg-[#FBFBFA]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-[32px] overflow-hidden bg-[#0B0F1A] border border-white/10 shadow-2xl p-8 sm:p-12 md:p-16">
-            
-            {/* Background Image Overlay */}
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=80"
-                alt="Automotive Customer Experience"
-                fill
-                sizes="100vw"
-                className="object-cover opacity-20 filter grayscale"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F1A] via-[#0B0F1A]/90 to-transparent" />
-            </div>
-
-            {/* Glowing Accent */}
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#B22030]/20 rounded-full blur-3xl pointer-events-none" />
-
+      <section className="py-12 bg-[#FAFAFA]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl overflow-hidden bg-[#111827] text-white p-8 sm:p-14 shadow-xl">
             <div className="relative z-10 max-w-2xl space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono text-white">
-                <Sparkles size={14} className="text-[#E31E24]" />
-                <span>Connected Experience Management System</span>
-              </div>
+              <span className="text-xs font-mono uppercase tracking-widest text-[#E31E24] font-bold block">
+                Integrated Experience Management
+              </span>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-                Listen. Understand. Act.
+                Listen → Understand → Act
               </h2>
 
-              <p className="text-base sm:text-lg font-sans text-white/80 font-light leading-relaxed">
-                Integrating Voice of Customer measurement directly with operational workflows to ensure no customer concern goes unresolved.
+              <p className="text-base sm:text-lg font-sans text-gray-300 font-light leading-relaxed">
+                Connecting customer feedback directly to operational workflows, role-based dashboards, and accountable issue closure.
               </p>
 
-              {/* 4 Feature Badges */}
-              <div className="grid grid-cols-2 gap-3 pt-4 text-xs font-mono text-white/90">
-                <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2.5">
-                  <CheckCircle2 size={16} className="text-[#E31E24] shrink-0" />
-                  <span>4 Journey Verticals</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 text-xs font-mono text-white/80">
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <span className="font-bold block text-white text-sm">4</span> Verticals
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2.5">
-                  <CheckCircle2 size={16} className="text-[#E31E24] shrink-0" />
-                  <span>1 Ecosystem</span>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <span className="font-bold block text-white text-sm">1</span> Ecosystem
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2.5">
-                  <CheckCircle2 size={16} className="text-[#E31E24] shrink-0" />
-                  <span>Role-Based Intelligence</span>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <span className="font-bold block text-white text-sm">Role-Based</span> Intelligence
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center gap-2.5">
-                  <CheckCircle2 size={16} className="text-[#E31E24] shrink-0" />
-                  <span>Closed-Loop Ticketing</span>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <span className="font-bold block text-emerald-400 text-sm">Closed-Loop</span> Resolution
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. THE CHALLENGE SECTION (Problem Statement & 4 Core Questions Grid) */}
+      {/* 4. THE CHALLENGE SECTION (Turtlewax Clean 4-Card Problem Layout) */}
       {/* ========================================================================= */}
-      <section className="py-16 md:py-24 bg-white border-y border-gray-200/80">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="py-20 md:py-28 bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="max-w-3xl space-y-4">
+          <div className="max-w-3xl space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-              01 / The Challenge
+              The Challenge
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 leading-snug">
               Customer feedback was being collected. The opportunity was turning it into action.
             </h2>
-            <p className="text-base sm:text-lg font-sans text-gray-600 leading-relaxed">
-              A leading automotive dealer in the Middle Eastern region had an established customer feedback program across key stages of the automotive journey. However, fragmented survey structures and reporting processes made it challenging to consistently translate customer feedback into clear insights, operational action and timely issue resolution.
+            <p className="text-base sm:text-lg font-sans text-gray-600 leading-relaxed pt-2">
+              Fragmented survey structures and reporting processes made it challenging to consistently translate customer feedback into clear insights, operational action, and timely issue resolution.
             </p>
           </div>
 
-          {/* 4 Operational Questions Box Grid */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-[#0B0F1A] text-white space-y-8 border border-white/10 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#B22030]/10 rounded-full blur-3xl pointer-events-none" />
+          {/* 4 Operational Questions Grid */}
+          <div className="space-y-4">
+            <span className="text-xs font-mono uppercase tracking-wider text-gray-400 font-medium block">
+              The 4 Critical Operational Questions to Answer:
+            </span>
 
-            <div className="max-w-2xl space-y-2">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#E31E24] font-bold block">
-                The Core Operational Imperative
-              </span>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-white">
-                The organisation needed to move beyond traditional CX reporting and create an ecosystem where teams could quickly answer:
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#E31E24] transition-all space-y-3">
-                <span className="w-8 h-8 rounded-lg bg-[#B22030]/20 text-[#E31E24] font-mono text-xs font-bold flex items-center justify-center">
-                  01
-                </span>
-                <h4 className="text-lg font-serif font-bold text-white">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-3">
+                <span className="text-xs font-mono font-bold text-[#B22030]">QUESTION 01</span>
+                <h3 className="text-lg font-serif font-bold text-gray-900">
                   What are customers telling us?
-                </h4>
-                <p className="text-xs font-sans text-white/70 leading-relaxed">
-                  Streamlined survey framework capturing relevant sentiment at key journey moments.
+                </h3>
+                <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                  Streamlined survey framework capturing actionable feedback at relevant journey moments.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#E31E24] transition-all space-y-3">
-                <span className="w-8 h-8 rounded-lg bg-[#B22030]/20 text-[#E31E24] font-mono text-xs font-bold flex items-center justify-center">
-                  02
-                </span>
-                <h4 className="text-lg font-serif font-bold text-white">
+              <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-3">
+                <span className="text-xs font-mono font-bold text-[#B22030]">QUESTION 02</span>
+                <h3 className="text-lg font-serif font-bold text-gray-900">
                   Where is the problem?
-                </h4>
-                <p className="text-xs font-sans text-white/70 leading-relaxed">
-                  Pinpointing root-cause operational friction across Presales, Sales, Service, or Bodyshop.
+                </h3>
+                <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                  Diagnostic dashboards isolating friction points across Presales, Sales, Service, or Bodyshop.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#E31E24] transition-all space-y-3">
-                <span className="w-8 h-8 rounded-lg bg-[#B22030]/20 text-[#E31E24] font-mono text-xs font-bold flex items-center justify-center">
-                  03
-                </span>
-                <h4 className="text-lg font-serif font-bold text-white">
+              <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-3">
+                <span className="text-xs font-mono font-bold text-[#B22030]">QUESTION 03</span>
+                <h3 className="text-lg font-serif font-bold text-gray-900">
                   Who needs to act?
-                </h4>
-                <p className="text-xs font-sans text-white/70 leading-relaxed">
-                  Role-based reporting routing actionable tickets directly to designated department owners.
+                </h3>
+                <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                  Role-based permissions routing specific tickets directly to responsible operational owners.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500 transition-all space-y-3">
-                <span className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold flex items-center justify-center">
-                  04
-                </span>
-                <h4 className="text-lg font-serif font-bold text-white">
+              <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-3">
+                <span className="text-xs font-mono font-bold text-emerald-600">QUESTION 04</span>
+                <h3 className="text-lg font-serif font-bold text-gray-900">
                   And has it been resolved?
-                </h4>
-                <p className="text-xs font-sans text-white/70 leading-relaxed">
-                  Closed-loop verification ensuring issues are tracked through resolution to final closure.
+                </h3>
+                <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                  Closed-loop verification tracking ticket lifecycle from assignment through to closure.
                 </p>
               </div>
+
             </div>
           </div>
 
@@ -401,181 +272,124 @@ export default function WorkPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. WHAT WE DID SECTION (Turtlewax 3-Stage Transformation Process) */}
+      {/* 5. WHAT WE DID SECTION (Turtlewax 3-Stage Process Clean Cards) */}
       {/* ========================================================================= */}
-      <section className="py-16 md:py-24 bg-[#FBFBFA]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <section className="py-20 md:py-28 bg-[#FAFAFA] border-b border-gray-200/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           
           <div className="max-w-2xl space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-              02 / What We Did
+              What We Did
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900">
-              The 3-Stage Transformation Roadmap
+              The 3-Stage Transformation Strategy
             </h2>
-            <p className="text-base font-sans text-gray-600">
-              A comprehensive restructuring of Voice of Customer measurement, CX reporting intelligence, and operational issue management.
-            </p>
           </div>
 
           {/* Stage 01 */}
-          <div className="p-8 sm:p-12 rounded-[28px] bg-white border border-gray-200/90 shadow-xs space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-6">
-              <div className="space-y-1">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-                  01 — Redesigned the Voice of Customer
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900">
-                  Making every question count.
-                </h3>
-              </div>
-              <span className="px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-[#F4F4F2] text-gray-700 w-fit">
-                Presales | Sales | Service | Bodyshop
+          <div className="p-8 sm:p-10 rounded-2xl bg-white border border-gray-200 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold">
+                01 — Redesigned the Voice of Customer
               </span>
+              <span className="text-xs font-mono text-gray-400">Presales | Sales | Service | Bodyshop</span>
             </div>
 
-            <p className="text-base font-sans text-gray-700 leading-relaxed max-w-4xl">
+            <h3 className="text-2xl font-serif font-bold text-gray-900">
+              Making every question count.
+            </h3>
+
+            <p className="text-base font-sans text-gray-600 leading-relaxed max-w-4xl">
               We restructured and streamlined the customer survey framework across Presales, Sales, Service and Bodyshop. The new approach focused on capturing feedback at the most relevant moments of the customer journey while generating insights that could directly support improvement.
             </p>
 
-            {/* Shift Box */}
-            <div className="p-6 rounded-2xl bg-[#0B0F1A] text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
-              <div className="space-y-1 text-center sm:text-left">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 block">FROM PREVIOUS APPROACH</span>
-                <span className="text-sm font-mono font-medium text-white/80">Collecting customer feedback</span>
+            <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+              <div className="text-gray-500">
+                <span className="text-gray-400 block text-[10px]">FROM</span>
+                Collecting customer feedback
               </div>
-
-              <div className="w-10 h-10 rounded-full bg-[#B22030] flex items-center justify-center shrink-0">
-                <ArrowRight size={18} className="text-white" />
-              </div>
-
-              <div className="space-y-1 text-center sm:text-right">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 block">TO TRANSFORMED APPROACH</span>
-                <span className="text-sm font-mono font-bold text-white">Capturing feedback designed for action</span>
+              <ArrowRight size={16} className="text-[#B22030] hidden sm:block shrink-0" />
+              <div className="text-gray-900 font-bold">
+                <span className="text-[#B22030] block text-[10px]">TO</span>
+                Capturing feedback designed for action
               </div>
             </div>
           </div>
 
           {/* Stage 02 */}
-          <div className="p-8 sm:p-12 rounded-[28px] bg-white border border-gray-200/90 shadow-xs space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-6">
-              <div className="space-y-1">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-                  02 — Reimagined CX Reporting
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900">
-                  From dashboards full of data to dashboards built for decisions.
-                </h3>
-              </div>
-              <span className="px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-[#F4F4F2] text-gray-700 w-fit">
-                Role-Based Experience Intelligence
+          <div className="p-8 sm:p-10 rounded-2xl bg-white border border-gray-200 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold">
+                02 — Reimagined CX Reporting
               </span>
+              <span className="text-xs font-mono text-gray-400">Decision-Built Intelligence</span>
             </div>
 
-            <p className="text-base font-sans text-gray-700 leading-relaxed max-w-4xl">
+            <h3 className="text-2xl font-serif font-bold text-gray-900">
+              From dashboards full of data to dashboards built for decisions.
+            </h3>
+
+            <p className="text-base font-sans text-gray-600 leading-relaxed max-w-4xl">
               We completely revamped the CX reporting and dashboard ecosystem, transforming customer feedback into meaningful, actionable insights. Dashboards were designed around the needs of different stakeholder groups, providing the right information at the right level—from leadership visibility to operational action. A robust role-based access and permission structure ensured that stakeholders could access the insights relevant to their responsibilities.
             </p>
 
-            {/* 3 Outcome Metric Chips */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 space-y-2">
-                <span className="text-sm font-mono font-bold text-[#B22030] flex items-center gap-1.5">
-                  <TrendingUp size={16} /> ↑ Visibility
-                </span>
-                <h4 className="text-sm font-serif font-bold text-gray-900">Clearer Understanding</h4>
-                <p className="text-xs font-sans text-gray-600">A clear, unvarnished view of CX performance across all dealerships.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 space-y-1">
+                <span className="text-xs font-mono font-bold text-[#B22030] block">↑ Visibility</span>
+                <span className="text-xs font-sans text-gray-600">Clearer understanding of CX performance</span>
               </div>
-
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 space-y-2">
-                <span className="text-sm font-mono font-bold text-[#B22030] flex items-center gap-1.5">
-                  <Target size={16} /> ↑ Actionability
-                </span>
-                <h4 className="text-sm font-serif font-bold text-gray-900">Decision-Connected</h4>
-                <p className="text-xs font-sans text-gray-600">Insights directly connected to specific operational opportunities.</p>
+              <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 space-y-1">
+                <span className="text-xs font-mono font-bold text-[#B22030] block">↑ Actionability</span>
+                <span className="text-xs font-sans text-gray-600">Insights connected to specific opportunities</span>
               </div>
-
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 space-y-2">
-                <span className="text-sm font-mono font-bold text-[#B22030] flex items-center gap-1.5">
-                  <ShieldCheck size={16} /> ↑ Accountability
-                </span>
-                <h4 className="text-sm font-serif font-bold text-gray-900">Right Stakeholders</h4>
-                <p className="text-xs font-sans text-gray-600">The right teams seeing the exact information relevant to their roles.</p>
+              <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 space-y-1">
+                <span className="text-xs font-mono font-bold text-[#B22030] block">↑ Accountability</span>
+                <span className="text-xs font-sans text-gray-600">Right teams seeing right information</span>
               </div>
             </div>
           </div>
 
           {/* Stage 03 */}
-          <div className="p-8 sm:p-12 rounded-[28px] bg-white border border-gray-200/90 shadow-xs space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-6">
-              <div className="space-y-1">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-                  03 — Closed the Loop on Customer Issues
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900">
-                  Because identifying an issue is only the beginning.
-                </h3>
-              </div>
-              <span className="px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-[#F4F4F2] text-gray-700 w-fit">
-                Closed-Loop Issue Management
+          <div className="p-8 sm:p-10 rounded-2xl bg-white border border-gray-200 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-4">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold">
+                03 — Closed the Loop on Customer Issues
               </span>
+              <span className="text-xs font-mono text-gray-400">Issue Resolution Engine</span>
             </div>
 
-            <p className="text-base font-sans text-gray-700 leading-relaxed max-w-4xl">
+            <h3 className="text-2xl font-serif font-bold text-gray-900">
+              Because identifying an issue is only the beginning.
+            </h3>
+
+            <p className="text-base font-sans text-gray-600 leading-relaxed max-w-4xl">
               We built a closed-loop ticketing and issue-management process to connect customer feedback directly to action. When a customer issue was identified, it could be converted into a ticket, routed to the appropriate owner, tracked through resolution and closed once the required action was completed.
             </p>
 
-            {/* Ticket Flow Banner */}
-            <div className="p-6 rounded-2xl bg-[#0B0F1A] text-white space-y-4">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#E31E24] font-bold block">
-                Closed-Loop Resolution Architecture
-              </span>
-              <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-                <div className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-white font-medium">
-                  Feedback
-                </div>
-                <ChevronRight size={16} className="text-[#E31E24]" />
-                <div className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-white font-medium">
-                  Ticket
-                </div>
-                <ChevronRight size={16} className="text-[#E31E24]" />
-                <div className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-white font-medium">
-                  Ownership
-                </div>
-                <ChevronRight size={16} className="text-[#E31E24]" />
-                <div className="px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 text-white font-medium">
-                  Resolution
-                </div>
-                <ChevronRight size={16} className="text-[#E31E24]" />
-                <div className="px-4 py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
-                  Closure
-                </div>
-              </div>
+            <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-center">
+              <span className="text-gray-700 font-medium">Feedback</span>
+              <ChevronRight size={14} className="text-gray-400" />
+              <span className="text-gray-700 font-medium">Ticket</span>
+              <ChevronRight size={14} className="text-gray-400" />
+              <span className="text-gray-700 font-medium">Ownership</span>
+              <ChevronRight size={14} className="text-gray-400" />
+              <span className="text-gray-700 font-medium">Resolution</span>
+              <ChevronRight size={14} className="text-gray-400" />
+              <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Closure</span>
             </div>
 
-            {/* 3 Outcome Metric Chips */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 space-y-2">
-                <span className="text-sm font-mono font-bold text-emerald-600 flex items-center gap-1.5">
-                  <Clock size={16} /> ↓ Time to Action
-                </span>
-                <h4 className="text-sm font-serif font-bold text-gray-900">Accelerated Routing</h4>
-                <p className="text-xs font-sans text-gray-600">Issues could be routed quickly to the right teams without delay.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 space-y-1">
+                <span className="text-xs font-mono font-bold text-emerald-600 block">↓ Time to Action</span>
+                <span className="text-xs font-sans text-gray-600">Issues routed quickly to right teams</span>
               </div>
-
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 space-y-2">
-                <span className="text-sm font-mono font-bold text-[#B22030] flex items-center gap-1.5">
-                  <ShieldCheck size={16} /> ↑ Ownership
-                </span>
-                <h4 className="text-sm font-serif font-bold text-gray-900">Clear Accountability</h4>
-                <p className="text-xs font-sans text-gray-600">Explicit single-point accountability for every flagged issue.</p>
+              <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 space-y-1">
+                <span className="text-xs font-mono font-bold text-[#B22030] block">↑ Ownership</span>
+                <span className="text-xs font-sans text-gray-600">Clear accountability for every issue</span>
               </div>
-
-              <div className="p-6 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 space-y-2">
-                <span className="text-sm font-mono font-bold text-emerald-600 flex items-center gap-1.5">
-                  <RefreshCw size={16} /> ↓ Unresolved Issues
-                </span>
-                <h4 className="text-sm font-serif font-bold text-gray-900">Resolution Visibility</h4>
-                <p className="text-xs font-sans text-gray-600">Greater end-to-end visibility of open issues through to closure.</p>
+              <div className="p-4 rounded-xl bg-[#F9F9F8] border border-gray-200 space-y-1">
+                <span className="text-xs font-mono font-bold text-emerald-600 block">↓ Unresolved Issues</span>
+                <span className="text-xs font-sans text-gray-600">Visibility of open issues through closure</span>
               </div>
             </div>
           </div>
@@ -584,14 +398,14 @@ export default function WorkPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. THE IMPACT SECTION (Turtlewax 5 Impact Cards Grid) */}
+      {/* 6. THE IMPACT SECTION (Turtlewax Clean Results Grid) */}
       {/* ========================================================================= */}
-      <section className="py-16 md:py-24 bg-white border-t border-gray-200/80">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="py-20 md:py-28 bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="max-w-2xl space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-              03 / The Impact
+              The Impact
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900">
               A connected CX ecosystem built around action
@@ -601,76 +415,46 @@ export default function WorkPage() {
             </p>
           </div>
 
-          {/* 5 Impact Cards Grid */}
+          {/* 5 Clean Outcome Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            {/* Impact 1 */}
-            <div className="p-8 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 hover:border-[#B22030] transition-all space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 font-mono text-sm font-bold flex items-center justify-center">
-                  ↑
-                </span>
-                <span className="text-xs font-mono text-gray-400">01 / Visibility</span>
-              </div>
-              <h3 className="text-xl font-serif font-bold text-gray-900">Customer Visibility</h3>
-              <p className="text-sm font-sans text-gray-600 leading-relaxed">
-                A clearer, unified view of customer experience across every phase of the automotive journey—Presales, Sales, Service, and Bodyshop.
+            <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-2">
+              <span className="text-xs font-mono font-bold text-[#B22030]">↑ CUSTOMER VISIBILITY</span>
+              <h3 className="text-lg font-serif font-bold text-gray-900">Journey-Wide View</h3>
+              <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                A clearer view of customer experience across the automotive journey.
               </p>
             </div>
 
-            {/* Impact 2 */}
-            <div className="p-8 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 hover:border-[#B22030] transition-all space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 font-mono text-sm font-bold flex items-center justify-center">
-                  ↑
-                </span>
-                <span className="text-xs font-mono text-gray-400">02 / Decisions</span>
-              </div>
-              <h3 className="text-xl font-serif font-bold text-gray-900">Decision Quality</h3>
-              <p className="text-sm font-sans text-gray-600 leading-relaxed">
-                Actionable operational insights replacing fragmented, lagged, or purely descriptive survey reporting.
+            <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-2">
+              <span className="text-xs font-mono font-bold text-[#B22030]">↑ DECISION QUALITY</span>
+              <h3 className="text-lg font-serif font-bold text-gray-900">Actionable Insights</h3>
+              <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                Actionable insights replacing fragmented or purely descriptive reporting.
               </p>
             </div>
 
-            {/* Impact 3 */}
-            <div className="p-8 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 hover:border-[#B22030] transition-all space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 font-mono text-sm font-bold flex items-center justify-center">
-                  ↑
-                </span>
-                <span className="text-xs font-mono text-gray-400">03 / Ownership</span>
-              </div>
-              <h3 className="text-xl font-serif font-bold text-gray-900">Operational Accountability</h3>
-              <p className="text-sm font-sans text-gray-600 leading-relaxed">
-                Role-based reporting and structured ownership helped operational teams focus on the specific issues within their direct control.
+            <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-2">
+              <span className="text-xs font-mono font-bold text-[#B22030]">↑ ACCOUNTABILITY</span>
+              <h3 className="text-lg font-serif font-bold text-gray-900">Operational Focus</h3>
+              <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                Role-based reporting helped teams focus on issues within their control.
               </p>
             </div>
 
-            {/* Impact 4 */}
-            <div className="p-8 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 hover:border-[#B22030] transition-all space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 font-mono text-sm font-bold flex items-center justify-center">
-                  ↓
-                </span>
-                <span className="text-xs font-mono text-gray-400">04 / Friction</span>
-              </div>
-              <h3 className="text-xl font-serif font-bold text-gray-900">Resolution Friction</h3>
-              <p className="text-sm font-sans text-gray-600 leading-relaxed">
-                Closed-loop ticketing created a streamlined, friction-free path from identifying a customer issue to fully resolving it.
+            <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-2">
+              <span className="text-xs font-mono font-bold text-emerald-600">↓ RESOLUTION FRICTION</span>
+              <h3 className="text-lg font-serif font-bold text-gray-900">Streamlined Path</h3>
+              <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                Closed-loop ticketing created a faster path from issue to resolution.
               </p>
             </div>
 
-            {/* Impact 5 */}
-            <div className="p-8 rounded-2xl bg-[#F8F8F6] border border-gray-200/80 hover:border-[#B22030] transition-all space-y-4 lg:col-span-2">
-              <div className="flex items-center justify-between">
-                <span className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 font-mono text-sm font-bold flex items-center justify-center">
-                  ↑
-                </span>
-                <span className="text-xs font-mono text-gray-400">05 / Culture</span>
-              </div>
-              <h3 className="text-xl font-serif font-bold text-gray-900">Customer-Centricity</h3>
-              <p className="text-sm font-sans text-gray-600 leading-relaxed">
-                Customer feedback shifted to become an active, ongoing input into operational improvement across departments, rather than simply a static score reported to leadership.
+            <div className="p-6 rounded-2xl bg-[#F9F9F8] border border-gray-200/80 space-y-2 lg:col-span-2">
+              <span className="text-xs font-mono font-bold text-[#B22030]">↑ CUSTOMER-CENTRICITY</span>
+              <h3 className="text-lg font-serif font-bold text-gray-900">Operational Active Input</h3>
+              <p className="text-xs font-sans text-gray-600 leading-relaxed">
+                Customer feedback became an active input into operational improvement rather than simply a score reported to the organisation.
               </p>
             </div>
 
@@ -680,66 +464,39 @@ export default function WorkPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. TRANSFORMATION AT A GLANCE (Turtlewax 4 Metric Cards Grid) */}
+      {/* 7. TRANSFORMATION AT A GLANCE (Clean Numbers Strip) */}
       {/* ========================================================================= */}
-      <section className="py-16 md:py-20 bg-[#0B0F1A] text-white">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="py-16 md:py-20 bg-[#FAFAFA] border-b border-gray-200/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E31E24] font-bold block">
-              Executive Highlights
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
-              The Transformation at a Glance
-            </h2>
-          </div>
+          <span className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold text-center block">
+            The Transformation at a Glance
+          </span>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Metric 1 */}
-            <div className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center space-y-3 hover:border-[#E31E24] transition-colors">
-              <span className="text-5xl font-serif font-bold text-[#E31E24] block">4</span>
-              <h4 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
-                Customer Journey Verticals
-              </h4>
-              <p className="text-xs font-sans text-white/60">
-                Presales | Sales | Service | Bodyshop
-              </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 space-y-2">
+              <span className="text-4xl font-serif font-bold text-gray-900 block">4</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-gray-500 font-bold block">Journey Verticals</span>
+              <span className="text-[11px] font-sans text-gray-400 block">Presales | Sales | Service | Bodyshop</span>
             </div>
 
-            {/* Metric 2 */}
-            <div className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center space-y-3 hover:border-[#E31E24] transition-colors">
-              <span className="text-5xl font-serif font-bold text-white block">1</span>
-              <h4 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
-                Connected CX Ecosystem
-              </h4>
-              <p className="text-xs font-sans text-white/60">
-                Listen → Understand → Act
-              </p>
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 space-y-2">
+              <span className="text-4xl font-serif font-bold text-gray-900 block">1</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-gray-500 font-bold block">Connected CX Ecosystem</span>
+              <span className="text-[11px] font-sans text-gray-400 block">Listen → Understand → Act</span>
             </div>
 
-            {/* Metric 3 */}
-            <div className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center space-y-3 hover:border-[#E31E24] transition-colors">
-              <span className="text-3xl font-serif font-bold text-white block pt-2">Role-Based</span>
-              <h4 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
-                Experience Intelligence
-              </h4>
-              <p className="text-xs font-sans text-white/60">
-                Right insight. Right stakeholder. Right action.
-              </p>
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 space-y-2">
+              <span className="text-2xl font-serif font-bold text-gray-900 block pt-1">Role-Based</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-gray-500 font-bold block">Experience Intelligence</span>
+              <span className="text-[11px] font-sans text-gray-400 block">Right insight. Right stakeholder.</span>
             </div>
 
-            {/* Metric 4 */}
-            <div className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center space-y-3 hover:border-emerald-500 transition-colors">
-              <span className="text-3xl font-serif font-bold text-emerald-400 block pt-2">Closed-Loop</span>
-              <h4 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
-                Issue Management
-              </h4>
-              <p className="text-xs font-sans text-white/60">
-                Identify → Assign → Resolve → Close
-              </p>
+            <div className="p-6 rounded-2xl bg-white border border-gray-200 space-y-2">
+              <span className="text-2xl font-serif font-bold text-[#B22030] block pt-1">Closed-Loop</span>
+              <span className="text-xs font-mono uppercase tracking-wider text-gray-500 font-bold block">Issue Management</span>
+              <span className="text-[11px] font-sans text-gray-400 block">Identify → Assign → Resolve → Close</span>
             </div>
-
           </div>
 
         </div>
@@ -748,36 +505,34 @@ export default function WorkPage() {
       {/* ========================================================================= */}
       {/* 8. CORE PHILOSOPHY QUOTE BANNER (Turtlewax Highlight Quote Box) */}
       {/* ========================================================================= */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-10 sm:p-14 md:p-16 rounded-[32px] bg-[#F4F4F0] border border-gray-200 space-y-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#B22030]/10 rounded-full blur-3xl pointer-events-none" />
-
+      <section className="py-20 md:py-28 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="p-10 sm:p-14 rounded-3xl bg-[#F9F9F8] border border-gray-200 space-y-6">
             <span className="text-xs font-mono uppercase tracking-widest text-[#B22030] font-bold block">
-              Strategic Takeaway
+              Core Shift
             </span>
 
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 leading-tight">
+            <h3 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 leading-tight">
               From Measuring Experience to Managing Experience
             </h3>
 
             <div className="space-y-4 text-base sm:text-lg font-sans text-gray-700 leading-relaxed max-w-4xl">
-              <p className="text-gray-500 italic">
+              <p className="text-gray-500">
                 The transformation shifted the organisation from asking:
               </p>
-              <blockquote className="pl-6 border-l-4 border-gray-400 text-gray-600 font-serif italic text-xl">
+              <p className="text-gray-500 italic pl-4 border-l-2 border-gray-300">
                 &ldquo;What is our customer experience score?&rdquo;
-              </blockquote>
-              <p className="text-gray-500 italic">
+              </p>
+              <p className="text-gray-500">
                 to asking:
               </p>
-              <blockquote className="pl-6 border-l-4 border-[#B22030] text-[#B22030] font-serif font-bold text-xl sm:text-2xl">
+              <p className="text-[#B22030] font-serif font-semibold text-xl sm:text-2xl pl-4 border-l-2 border-[#B22030]">
                 &ldquo;What are our customers telling us, what needs to change, who needs to act—and have we resolved it?&rdquo;
-              </blockquote>
+              </p>
             </div>
 
-            <div className="pt-6 border-t border-gray-300/80">
-              <p className="text-xs font-mono uppercase tracking-wider text-gray-600 font-bold">
+            <div className="pt-6 border-t border-gray-200">
+              <p className="text-xs font-mono uppercase tracking-wider text-gray-500 font-bold">
                 That is the difference between measuring customer experience and actively managing it.
               </p>
             </div>
@@ -788,26 +543,26 @@ export default function WorkPage() {
       {/* ========================================================================= */}
       {/* 9. CONTACT / ADVISORY CTA FOOTER BANNER */}
       {/* ========================================================================= */}
-      <section className="py-16 bg-[#0B0F1A] text-white">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-10 sm:p-14 rounded-[32px] bg-gradient-to-r from-[#B22030] to-[#7E1521] flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-            <div className="space-y-3 text-center md:text-left max-w-2xl">
-              <span className="text-xs font-mono uppercase tracking-widest text-white/70 font-bold block">
-                Red Bridge Advisory • Experience Management Mandates
+      <section className="py-16 bg-[#111827] text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
+            <div className="space-y-2 text-center sm:text-left">
+              <span className="text-xs font-mono uppercase tracking-widest text-gray-400 font-bold block">
+                Red Bridge Advisory
               </span>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white">
-                Transform Customer Experience into Operational Action
+              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+                Transform Customer Experience in Your Organisation
               </h3>
-              <p className="text-sm sm:text-base font-sans text-white/80 font-light leading-relaxed">
-                Connect with our senior practice partners to structure your customer listening framework, role-based dashboards, and closed-loop issue management.
+              <p className="text-sm font-sans text-gray-400">
+                Connect with our senior partners to structure your customer experience management ecosystem.
               </p>
             </div>
 
             <Link
               href="/#contact"
-              className="px-8 py-4 rounded-full bg-white text-[#B22030] text-xs font-mono uppercase tracking-widest font-bold hover:bg-gray-100 shadow-xl transition-all hover:scale-105 shrink-0"
+              className="px-8 py-3.5 rounded-full bg-white text-gray-900 text-xs font-mono uppercase tracking-wider font-bold hover:bg-gray-100 transition-all shrink-0"
             >
-              Discuss Mandate &rarr;
+              Discuss Engagement &rarr;
             </Link>
           </div>
         </div>
