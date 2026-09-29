@@ -2,13 +2,33 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { useParallaxEnabled } from "@/hooks/useParallaxEnabled";
 
 export default function VisualPause() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  
-  const [scrollVal, setScrollVal] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const parallax = useParallaxEnabled();
+
+  // 0 when the section top enters the viewport bottom, 1 when its bottom leaves the top
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 20 });
+
+  const bgX = useTransform(smoothX, (m) => m * -0.6);
+  const bgY = useTransform(
+    [scrollYProgress, smoothY],
+    ([p, m]: number[]) => {
+      // Matches the previous (rect.top - viewHeight) * 0.16 speed
+      const height = sectionRef.current?.offsetHeight ?? 0;
+      const travel = window.innerHeight + height;
+      return -p * travel * 0.16 + m * -0.6;
+    }
+  );
+  const contentX = useTransform(smoothX, (m) => m * 0.4);
+  const contentY = useTransform(smoothY, (m) => m * 0.4);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,78 +48,44 @@ export default function VisualPause() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (sectionRef.current) {
-            const rect = sectionRef.current.getBoundingClientRect();
-            const viewHeight = window.innerHeight;
-            
-            // Check if the section is in the viewport
-            if (rect.top < viewHeight && rect.bottom > 0) {
-              const relativeY = rect.top - viewHeight;
-              setScrollVal(relativeY * 0.16); // parallax speed factor
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial position call
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 35; // Max 35px translation
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 35;
-    setMousePos({ x, y });
+    mouseX.set(((e.clientX - rect.left) / rect.width - 0.5) * 35); // Max 35px translation
+    mouseY.set(((e.clientY - rect.top) / rect.height - 0.5) * 35);
   };
 
   const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 });
+    mouseX.set(0);
+    mouseY.set(0);
   };
 
   return (
-    <section 
-      ref={sectionRef} 
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`visual-pause ${isVisible ? "is-visible" : ""}`} 
+    <section
+      ref={sectionRef}
+      onMouseMove={parallax ? handleMouseMove : undefined}
+      onMouseLeave={parallax ? handleMouseLeave : undefined}
+      className={`visual-pause ${isVisible ? "is-visible" : ""}`}
       id="visual-pause"
     >
       <div className="visual-pause__bg">
-        <div 
-          className="visual-pause__parallax-wrapper" 
-          style={{ 
-            transform: `translate3d(${mousePos.x * -0.6}px, ${scrollVal + mousePos.y * -0.6}px, 0) scale(1.1)`,
-            transition: "transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-          }}
+        <motion.div
+          className="visual-pause__parallax-wrapper"
+          style={parallax ? { x: bgX, y: bgY, scale: 1.1 } : { scale: 1.1 }}
         >
           <Image
             className="visual-pause__bg-img"
             src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80"
-            alt="Red Bridge Advisory system network cinematic interlude"
-            aria-hidden="true"
+            alt=""
             fill
             sizes="100vw"
           />
-        </div>
+        </motion.div>
       </div>
       <div className="visual-pause__overlay"></div>
-      <div 
+      <motion.div
         className="visual-pause__content"
-        style={{
-          transform: `translate3d(${mousePos.x * 0.4}px, ${mousePos.y * 0.4}px, 0)`,
-          transition: "transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-        }}
+        style={parallax ? { x: contentX, y: contentY } : undefined}
       >
         <span className="visual-pause__rule"></span>
         <p className="visual-pause__statement">
@@ -108,7 +94,7 @@ export default function VisualPause() {
           the meaning of strategy.
         </p>
         <p className="visual-pause__attr">Red Bridge Advisory</p>
-      </div>
+      </motion.div>
     </section>
   );
 }

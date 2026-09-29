@@ -1,27 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { useParallaxEnabled } from "@/hooks/useParallaxEnabled";
 
 export default function Hero() {
-  const [scrollVal, setScrollVal] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const parallax = useParallaxEnabled();
+  const { scrollY } = useScroll();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 150, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 150, damping: 20 });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollVal(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Combine scroll parallax and mouse movement parallax
+  const bgX = useTransform(smoothX, (m) => m * -0.5);
+  const bgY = useTransform([scrollY, smoothY], ([s, m]: number[]) => s * 0.35 + m * -0.5);
+  const patternX = useTransform(smoothX, (m) => m * 0.4);
+  const patternY = useTransform([scrollY, smoothY], ([s, m]: number[]) => s * -0.22 + m * 0.4);
+  const geometryX = useTransform(smoothX, (m) => m * 0.6);
+  const geometryY = useTransform([scrollY, smoothY], ([s, m]: number[]) => s * -0.08 + m * 0.6);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
     // Map mouse position to range of [-15px, 15px]
-    const x = (clientX / innerWidth - 0.5) * 30;
-    const y = (clientY / innerHeight - 0.5) * 30;
-    setMousePos({ x, y });
+    mouseX.set((clientX / innerWidth - 0.5) * 30);
+    mouseY.set((clientY / innerHeight - 0.5) * 30);
   };
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -36,38 +40,27 @@ export default function Hero() {
     }
   };
 
-  // Combine scroll parallax and mouse movement parallax
-  const bgTransform = `translate3d(${mousePos.x * -0.5}px, ${scrollVal * 0.35 + mousePos.y * -0.5}px, 0) scale(1.06)`;
-  const patternTransform = `translate3d(${mousePos.x * 0.4}px, ${scrollVal * -0.22 + mousePos.y * 0.4}px, 0)`;
-
   return (
-    <section className="hero" id="hero" onMouseMove={handleMouseMove}>
+    <section className="hero" id="hero" onMouseMove={parallax ? handleMouseMove : undefined}>
       <div className="hero__bg">
-        <div 
-          className="hero__parallax-wrapper" 
-          style={{ 
-            transform: bgTransform,
-            transition: "transform 0.1s ease-out" 
-          }}
+        <motion.div
+          className="hero__parallax-wrapper"
+          style={parallax ? { x: bgX, y: bgY, scale: 1.06 } : { scale: 1.06 }}
         >
           <Image
             className="hero__bg-img"
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
-            alt="Red Bridge Advisory corporate operational background"
-            aria-hidden="true"
+            alt=""
             fill
             sizes="100vw"
             priority
           />
-        </div>
+        </motion.div>
 
         {/* Floating layered pattern overlay */}
-        <div 
+        <motion.div
           className="hero__pattern"
-          style={{
-            transform: patternTransform,
-            transition: "transform 0.1s ease-out"
-          }}
+          style={parallax ? { x: patternX, y: patternY } : undefined}
         />
       </div>
       
@@ -75,7 +68,7 @@ export default function Hero() {
       <div className="hero__lightbeam" />
 
       {/* Floating abstract bridge geometry */}
-      <div 
+      <motion.div
         className="hero__floating-geometry"
         style={{
           position: "absolute",
@@ -85,8 +78,7 @@ export default function Hero() {
           height: "220px",
           opacity: 0.12,
           pointerEvents: "none",
-          transform: `translate3d(${mousePos.x * 0.6}px, ${scrollVal * -0.08 + mousePos.y * 0.6}px, 0)`,
-          transition: "transform 0.1s ease-out"
+          ...(parallax ? { x: geometryX, y: geometryY } : {}),
         }}
       >
         <div className="hero__floating-geometry-inner">
@@ -99,7 +91,7 @@ export default function Hero() {
             <circle cx="50" cy="35" r="8" />
           </svg>
         </div>
-      </div>
+      </motion.div>
 
       <div className="hero__overlay"></div>
       

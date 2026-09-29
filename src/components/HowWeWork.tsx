@@ -1,28 +1,19 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 
 export default function HowWeWork() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  // 0 when the section top enters the viewport bottom, 1 when its bottom leaves the top
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  // Number of principle dots lit so far; only re-renders when this count changes
+  const [activeDots, setActiveDots] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      const total = rect.height + windowHeight;
-      const current = windowHeight - rect.top;
-      const progress = Math.min(Math.max(current / total, 0), 1);
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run once on load
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    const count = [0, 1, 2, 3].filter((i) => progress > (i + 0.5) / 4).length;
+    setActiveDots((prev) => (prev === count ? prev : count));
+  });
 
   const principles = [
     {
@@ -62,9 +53,9 @@ export default function HowWeWork() {
 
         {/* Scroll-driven growing timeline connector */}
         <div className="approach__timeline-container">
-          <div 
-            className="approach__timeline-line-grow" 
-            style={{ transform: `scaleX(${scrollProgress})` }}
+          <motion.div
+            className="approach__timeline-line-grow"
+            style={{ scaleX: scrollYProgress }}
           />
           <div className="approach__timeline-line-bg" />
         </div>
@@ -74,7 +65,7 @@ export default function HowWeWork() {
             <div key={index} className="approach-item reveal">
               <div className="approach-item__node">
                 <span className="approach-item__num">{principle.num}</span>
-                <div className="approach-item__dot" style={{ opacity: scrollProgress > (index + 0.5) / 4 ? 1 : 0.3 }} />
+                <div className="approach-item__dot" style={{ opacity: index < activeDots ? 1 : 0.3 }} />
               </div>
               <h3 className="approach-item__title">{principle.title}</h3>
               <p className="approach-item__desc">{principle.desc}</p>

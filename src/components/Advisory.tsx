@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useParallaxEnabled } from "@/hooks/useParallaxEnabled";
 
 interface PracticeArea {
   num: string;
@@ -16,14 +16,21 @@ interface PracticeArea {
 }
 
 export default function Advisory() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const parallax = useParallaxEnabled();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 20 });
+  const nodeAX = useTransform(smoothX, (m) => m * -0.4);
+  const nodeAY = useTransform(smoothY, (m) => m * -0.4);
+  const nodeBX = useTransform(smoothX, (m) => m * 0.3);
+  const nodeBY = useTransform(smoothY, (m) => m * 0.3);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-    const x = (clientX / innerWidth - 0.5) * 20;
-    const y = (clientY / innerHeight - 0.5) * 20;
-    setMousePos({ x, y });
+    mouseX.set((clientX / innerWidth - 0.5) * 20);
+    mouseY.set((clientY / innerHeight - 0.5) * 20);
   };
 
   const practices: PracticeArea[] = [
@@ -127,10 +134,10 @@ export default function Advisory() {
     <section
       className="bg-[#fafafa] py-28 md:py-36 relative overflow-hidden transition-colors duration-300"
       id="advisory"
-      onMouseMove={handleMouseMove}
+      onMouseMove={parallax ? handleMouseMove : undefined}
     >
       {/* Parallax background floating glass nodes */}
-      <div
+      <motion.div
         className="absolute rounded-full border border-[rgba(255,255,255,0.7)] pointer-events-none hidden md:block"
         style={{
           width: "350px",
@@ -138,13 +145,13 @@ export default function Advisory() {
           left: "2%",
           top: "18%",
           background: "radial-gradient(circle, rgba(178,32,48,0.03) 0%, transparent 70%)",
-          transform: `translate3d(${mousePos.x * -0.4}px, ${mousePos.y * -0.4}px, 0)`,
-          transition: "transform 0.15s ease-out",
+          x: nodeAX,
+          y: nodeAY,
           filter: "blur(40px)",
           zIndex: 0,
         }}
       />
-      <div
+      <motion.div
         className="absolute rounded-full border border-[rgba(255,255,255,0.8)] pointer-events-none hidden md:block"
         style={{
           width: "480px",
@@ -152,8 +159,8 @@ export default function Advisory() {
           right: "4%",
           bottom: "12%",
           background: "radial-gradient(circle, rgba(27,38,59,0.01) 0%, transparent 85%)",
-          transform: `translate3d(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px, 0)`,
-          transition: "transform 0.15s ease-out",
+          x: nodeBX,
+          y: nodeBY,
           filter: "blur(30px)",
           zIndex: 0,
         }}

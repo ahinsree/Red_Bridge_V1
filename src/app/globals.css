@@ -2036,4 +2036,56 @@ img { display: block; width: 100%; object-fit: cover; }
   overflow: hidden;
 }
 
+/* ═══════════════════════════════════
+   CUSTOM CURSOR (position set via transform in CustomCursor.tsx)
+═══════════════════════════════════ */
+.custom-cursor-trail,
+.custom-cursor-dot {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  border-radius: 50%; pointer-events: none;
+  opacity: 0; will-change: transform;
+}
+.custom-cursor-trail {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(178, 32, 48, 0.42);
+  background-color: transparent;
+  transition: width 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              height 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.2s, background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+.custom-cursor-trail.is-hovered {
+  width: 48px; height: 48px;
+  border-color: rgba(178, 32, 48, 0.85);
+  background-color: rgba(178, 32, 48, 0.08);
+  box-shadow: 0 0 16px rgba(178, 32, 48, 0.15);
+}
+.custom-cursor-dot {
+  width: 6px; height: 6px;
+  background-color: var(--red);
+  box-shadow: 0 0 8px rgba(178, 32, 48, 0.6);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+}
+.custom-cursor-dot.is-hovered { width: 8px; height: 8px; }
+
+/* ═══════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Show content immediately instead of animating it in */
+  .reveal { opacity: 1; transform: none; }
+  .hero__eyebrow, .hero__secondary, .hero__sub, .hero__actions, .hero__reveal-word {
+    opacity: 1; transform: none;
+  }
+  /* Stop continuous decorative motion */
+  .hero__bg-img, .hero__lightbeam, .hero__floating-geometry-inner,
+  .hero__scroll-line, .practice-marquee__list { animation: none !important; }
+}
+
 
