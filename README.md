@@ -57,7 +57,7 @@ Articles and briefings inside the **Insights** section are fully managed using *
    * **Body**: The rich-text markdown editor where you write the core paragraphs of your briefing.
 3. **Publishing**: Click the **Publish** button at the top of the interface.
    * *Local Dev*: Writes a formatted `.md` file under `src/data/insights/` instantly.
-   * *Production*: Commits a `.md` file directly to the `main` branch of your GitHub repository. The automated **GitHub Pages action** detects the commit, runs our pre-build script to compile files, and deploys the live update in 2–3 minutes.
+   * *Production*: Commits a `.md` file directly to the `main` branch of your GitHub repository. **Vercel** detects the commit, runs our pre-build script to compile files, and deploys the live update in 2–3 minutes.
 
 #### C. Manual Code Authoring (Developer-only)
 Developers can skip the GUI and write markdown directly. Create a file under `src/data/insights/article-slug.md` with standard YAML frontmatter matching:
@@ -150,7 +150,7 @@ npx tsc --noEmit
 npm run lint
 ```
 
-When changes are pushed to the `main` branch, the GitHub Actions deployment pipeline automatically compiles and deploys the production bundle to GitHub Pages.
+When changes are pushed to the `main` branch, Vercel builds and deploys the production site; other branches get preview deployments. See [docs/deployment-vercel.md](docs/deployment-vercel.md) for environment variables, the CMS OAuth app and DNS.
 
 ---
 

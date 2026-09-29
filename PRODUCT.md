@@ -26,9 +26,9 @@ Boutique high-touch executive consulting with custom digital portals, combining 
 ## Capabilities and Constraints
 
 - **Stack:** Next.js 15, React 19, Tailwind CSS v4, Framer Motion 12, Three.js (WebGL 3D).
-- **CMS & Operations:** Decap CMS for Insights articles with automated GitHub Actions build and deployment.
+- **CMS & Operations:** Decap CMS for Insights articles; commits to `main` trigger an automatic Vercel deployment.
 - **Interactive Features:** Floating AI Chatbot assistant with rule-based response mapping, slide-in briefing drawers, lead submission proxy via Google Sheets API.
-- **Constraints:** GitHub Pages static site deployment, clean build and linting (`npm run lint`), strict type-checking (`tsc --noEmit`).
+- **Constraints:** Vercel hosting (API routes, redirects and security headers require a server), clean build and linting (`npm run lint`), strict type-checking (`tsc --noEmit`).
 
 ## Brand Commitments
 
