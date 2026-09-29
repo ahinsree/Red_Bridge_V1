@@ -1,8 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { OAUTH_STATE_COOKIE } from "@/lib/oauth";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+export async function GET(request: NextRequest) {
+  const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
+  const state = searchParams.get("state");
+  const expectedState = request.cookies.get(OAUTH_STATE_COOKIE)?.value;
 
   const clientId = process.env.GITHUB_CLIENT_ID;
   const clientSecret = process.env.GITHUB_CLIENT_SECRET;
@@ -14,6 +17,10 @@ export async function GET(request: Request) {
 
   if (!code) {
     return NextResponse.json({ error: "No code returned from GitHub" }, { status: 400 });
+  }
+
+  if (!state || !expectedState || state !== expectedState) {
+    return NextResponse.json({ error: "Invalid OAuth state" }, { status: 400 });
   }
 
   try {
@@ -34,13 +41,19 @@ export async function GET(request: Request) {
     const tokenData = await tokenResponse.json();
 
     if (tokenData.error) {
-      console.error("GitHub returned OAuth error:", tokenData);
+      console.error("GitHub returned OAuth error:", tokenData.error);
       return NextResponse.json({ error: tokenData.error_description || tokenData.error }, { status: 400 });
     }
 
-    const accessToken = tokenData.access_token;
+    const message = `authorization:github:success:${JSON.stringify({
+      token: tokenData.access_token,
+      provider: "github",
+    })}`;
+    // Escape "<" so the values can't close the inline script
+    const toScript = (value: string) => JSON.stringify(value).replace(/</g, "\\u003c");
 
-    // Render HTML page that communicates with Decap CMS using postMessage
+    // Render HTML page that communicates with Decap CMS using postMessage.
+    // Only this site's own origin (where /admin runs) may receive the token.
     const html = `
       <!DOCTYPE html>
       <html lang="en">
@@ -51,29 +64,29 @@ export async function GET(request: Request) {
       <body>
         <p>Connecting with GitHub...</p>
         <script>
+          const allowedOrigin = ${toScript(origin)};
           const receiveMessage = (event) => {
+            if (event.origin !== allowedOrigin) return;
             // Send the auth success token back to Decap CMS
-            window.opener.postMessage(
-              'authorization:github:success:${JSON.stringify({
-                token: accessToken,
-                provider: "github",
-              })}',
-              event.origin
-            );
+            window.opener.postMessage(${toScript(message)}, allowedOrigin);
+            window.removeEventListener("message", receiveMessage, false);
           };
           window.addEventListener("message", receiveMessage, false);
           // Alert the parent window that we are authorizing
-          window.opener.postMessage("authorizing:github", "*");
+          window.opener.postMessage("authorizing:github", allowedOrigin);
         </script>
       </body>
       </html>
     `;
 
-    return new Response(html, {
+    const response = new NextResponse(html, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store",
       },
     });
+    response.cookies.delete({ name: OAUTH_STATE_COOKIE, path: "/api/callback" });
+    return response;
   } catch (error) {
     console.error("OAuth callback error during token exchange:", error);
     return NextResponse.json({ error: "Failed to exchange token" }, { status: 500 });

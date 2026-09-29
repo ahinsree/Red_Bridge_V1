@@ -1,17 +1,26 @@
 import { NextResponse } from "next/server";
+import { OAUTH_STATE_COOKIE } from "@/lib/oauth";
 
-export async function GET(request: Request) {
+export async function GET() {
   const clientId = process.env.GITHUB_CLIENT_ID;
   if (!clientId) {
     console.error("GITHUB_CLIENT_ID environment variable is missing.");
     return NextResponse.json({ error: "GITHUB_CLIENT_ID is missing" }, { status: 500 });
   }
 
-  // Generate a random state for security
-  const state = Math.random().toString(36).substring(2, 15);
+  // Unguessable state, checked in /api/callback to prevent login CSRF
+  const state = crypto.randomUUID();
 
   // Redirect the browser to GitHub's OAuth authorization page
-  const redirectUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo&state=${state}`;
+  const redirectUrl = `https://github.com/login/oauth/authorize?client_id=${encodeURIComponent(clientId)}&scope=repo&state=${state}`;
 
-  return NextResponse.redirect(redirectUrl);
+  const response = NextResponse.redirect(redirectUrl);
+  response.cookies.set(OAUTH_STATE_COOKIE, state, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/api/callback",
+    maxAge: 600,
+  });
+  return response;
 }
