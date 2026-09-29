@@ -3,7 +3,9 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { email, message } = body;
+    // The form sends firstName/lastName; older clients may send a single name
+    const name = [body.firstName, body.lastName].filter(Boolean).join(" ").trim() || body.name;
 
     // Field-level validation checks
     if (!name || typeof name !== "string" || name.trim().length === 0 || name.length > 100) {
@@ -22,8 +24,13 @@ export async function POST(request: Request) {
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
 
     if (!googleScriptUrl) {
-      console.warn("GOOGLE_SCRIPT_URL environment variable is missing. Mocking success.");
-      return NextResponse.json({ success: true, mocked: true });
+      // Only mock locally; in production a missing URL would silently drop leads
+      if (process.env.NODE_ENV !== "production") {
+        console.warn("GOOGLE_SCRIPT_URL environment variable is missing. Mocking success.");
+        return NextResponse.json({ success: true, mocked: true });
+      }
+      console.error("GOOGLE_SCRIPT_URL environment variable is missing in production.");
+      return NextResponse.json({ error: "Contact service is not configured" }, { status: 503 });
     }
 
     // Proxy the request from server-side to the Google Sheet URL
@@ -32,7 +39,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({ ...body, name }),
     });
 
     if (!response.ok) {
@@ -40,16 +47,15 @@ export async function POST(request: Request) {
       console.error("Google Sheets API returned non-ok status:", response.status, errorText);
       return NextResponse.json(
         { error: "Google Sheets API submission failed" },
-        { status: response.status }
+        { status: 502 }
       );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error in contact server API route:", error);
-    const errorMessage = error instanceof Error ? error.message : "Internal Server Error";
     return NextResponse.json(
-      { error: errorMessage },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }
