@@ -22,6 +22,8 @@ export default function VisualPause() {
     [scrollYProgress, smoothY],
     ([p, m]: number[]) => {
       // Matches the previous (rect.top - viewHeight) * 0.16 speed
+      // Also evaluated once during server render, where window is unavailable
+      if (typeof window === "undefined") return 0;
       const height = sectionRef.current?.offsetHeight ?? 0;
       const travel = window.innerHeight + height;
       return -p * travel * 0.16 + m * -0.6;
