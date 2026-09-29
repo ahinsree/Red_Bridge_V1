@@ -2,10 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useParallaxEnabled } from "@/hooks/useParallaxEnabled";
 
 export default function ContactForm() {
+  const parallax = useParallaxEnabled();
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
 
@@ -27,6 +30,7 @@ export default function ContactForm() {
   };
 
   useEffect(() => {
+    if (!parallax) return;
     let ticking = false;
 
     const handleScroll = () => {
@@ -51,14 +55,15 @@ export default function ContactForm() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [parallax]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError(false);
 
     try {
-      await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,10 +78,11 @@ export default function ContactForm() {
         }),
       });
 
+      if (!res.ok) throw new Error(`Contact API responded ${res.status}`);
       setSuccess(true);
-    } catch (error) {
-      console.warn("Contact API fallback triggered:", error);
-      setSuccess(true);
+    } catch (err) {
+      console.error("Contact form submission failed:", err);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -94,8 +100,7 @@ export default function ContactForm() {
           <Image
             className="contact__bg-img"
             src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?w=1920&q=80"
-            alt="Red Bridge Advisory architectural lines"
-            aria-hidden="true"
+            alt=""
             fill
             sizes="100vw"
           />
@@ -269,6 +274,28 @@ export default function ContactForm() {
                   }}
                 >
                   Thank you. We will be in touch within 48 hours.
+                </div>
+              )}
+
+              {error && (
+                <div
+                  id="form-error"
+                  role="alert"
+                  style={{
+                    display: "block",
+                    marginTop: "16px",
+                    padding: "14px 18px",
+                    background: "rgba(194, 25, 42, 0.08)",
+                    borderLeft: "3px solid var(--red)",
+                    fontSize: "13.5px",
+                    color: "var(--charcoal)",
+                  }}
+                >
+                  Sorry, your message could not be sent. Please try again or email us at{" "}
+                  <a href="mailto:contact@redbridgeadvisory.com" style={{ textDecoration: "underline" }}>
+                    contact@redbridgeadvisory.com
+                  </a>
+                  .
                 </div>
               )}
             </form>
