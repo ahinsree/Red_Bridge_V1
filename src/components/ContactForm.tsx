@@ -20,6 +20,7 @@ export default function ContactForm() {
     lname: "",
     org: "",
     email: "",
+    phone: "",
     topic: "",
     msg: "",
   });
@@ -74,6 +75,7 @@ export default function ContactForm() {
           lastName: values.lname,
           organisation: values.org,
           email: values.email,
+          phone: values.phone,
           topic: values.topic,
           message: values.msg,
         }),
@@ -209,17 +211,32 @@ export default function ContactForm() {
                 <label htmlFor="cf-org">Organisation</label>
               </div>
 
-              <div className={`form-field floating-label-group ${isFieldActive("email") ? "active" : ""}`}>
-                <input 
-                  type="email" 
-                  id="cf-email" 
-                  value={values.email}
-                  onFocus={() => handleFocus("email")}
-                  onBlur={handleBlur}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  required 
-                />
-                <label htmlFor="cf-email">Email Address</label>
+              <div className="form-row">
+                <div className={`form-field floating-label-group ${isFieldActive("email") ? "active" : ""}`}>
+                  <input 
+                    type="email" 
+                    id="cf-email" 
+                    value={values.email}
+                    onFocus={() => handleFocus("email")}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange("email", e.target.value)}
+                    required 
+                  />
+                  <label htmlFor="cf-email">Email Address</label>
+                </div>
+                <div className={`form-field floating-label-group ${isFieldActive("phone") ? "active" : ""}`}>
+                  <input 
+                    type="tel" 
+                    id="cf-phone" 
+                    autoComplete="tel"
+                    maxLength={30}
+                    value={values.phone}
+                    onFocus={() => handleFocus("phone")}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange("phone", e.target.value)}
+                  />
+                  <label htmlFor="cf-phone">Phone Number</label>
+                </div>
               </div>
 
               <div className={`form-field floating-label-group ${isFieldActive("topic") ? "active" : ""}`}>

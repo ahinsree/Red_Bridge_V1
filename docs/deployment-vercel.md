@@ -39,6 +39,7 @@ Each form submission creates a record in Zoho CRM → **Leads**:
 |---|---|
 | First / last name | First Name / Last Name |
 | Email | Email |
+| Phone Number (optional) | Phone |
 | Organisation | Company (`Not provided` if blank) |
 | Area of Interest + message | Description |
 

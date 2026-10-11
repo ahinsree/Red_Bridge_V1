@@ -28,6 +28,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid organisation length" }, { status: 400 });
     }
 
+    // Optional; digits with common separators and an optional leading +
+    const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+    if (phone && !/^\+?[\d\s().-]{6,30}$/.test(phone)) {
+      return NextResponse.json({ error: "Invalid phone number" }, { status: 400 });
+    }
+
     const topic = typeof body.topic === "string" ? body.topic : "";
     const topicLabel = topic ? getContactTopicLabel(topic) : undefined;
     if (topic && !topicLabel) {
@@ -53,6 +59,7 @@ export async function POST(request: Request) {
         ...(lastName && firstName ? { First_Name: firstName } : {}),
         Last_Name: lastName || name.trim(),
         Email: email.trim(),
+        ...(phone ? { Phone: phone } : {}),
         Company: organisation || "Not provided",
         Description: topicLabel ? `Area of interest: ${topicLabel}\n\n${message.trim()}` : message.trim(),
         ...(process.env.ZOHO_LEAD_SOURCE ? { Lead_Source: process.env.ZOHO_LEAD_SOURCE } : {}),
