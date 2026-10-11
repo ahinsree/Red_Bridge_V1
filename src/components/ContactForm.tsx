@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useParallaxEnabled } from "@/hooks/useParallaxEnabled";
+import { CONTACT_TOPICS } from "@/data/contactTopics";
 
 export default function ContactForm() {
   const parallax = useParallaxEnabled();
@@ -230,13 +231,11 @@ export default function ContactForm() {
                   onChange={(e) => handleChange("topic", e.target.value)}
                 >
                   <option value=""></option>
-                  <option value="strategy">Strategy, Transformation &amp; Institution Building</option>
-                  <option value="ai">AI, Digital &amp; Data</option>
-                  <option value="design">Experience &amp; Service Design</option>
-                  <option value="investment">Investment, Economic &amp; Infrastructure Advisory</option>
-                  <option value="startup">Entrepreneurship, Innovation &amp; Startup Ecosystems</option>
-                  <option value="pm">Programme Management, Monitoring &amp; Evaluation</option>
-                  <option value="general">General Enquiry</option>
+                  {CONTACT_TOPICS.map((topic) => (
+                    <option key={topic.value} value={topic.value}>
+                      {topic.label}
+                    </option>
+                  ))}
                 </select>
                 <label htmlFor="cf-topic">Area of Interest</label>
               </div>
