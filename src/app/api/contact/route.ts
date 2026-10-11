@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
+import { getContactTopicLabel } from "@/data/contactTopics";
+import { createLead, isZohoConfigured } from "@/lib/zoho";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { email, message } = body;
+    // The form sends firstName/lastName; older clients may send a single name
+    const name = [body.firstName, body.lastName].filter(Boolean).join(" ").trim() || body.name;
 
     // Field-level validation checks
     if (!name || typeof name !== "string" || name.trim().length === 0 || name.length > 100) {
@@ -19,37 +23,50 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid message format or length" }, { status: 400 });
     }
 
-    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
-
-    if (!googleScriptUrl) {
-      console.warn("GOOGLE_SCRIPT_URL environment variable is missing. Mocking success.");
-      return NextResponse.json({ success: true, mocked: true });
+    const organisation = typeof body.organisation === "string" ? body.organisation.trim() : "";
+    if (organisation.length > 150) {
+      return NextResponse.json({ error: "Invalid organisation length" }, { status: 400 });
     }
 
-    // Proxy the request from server-side to the Google Sheet URL
-    const response = await fetch(googleScriptUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const topic = typeof body.topic === "string" ? body.topic : "";
+    const topicLabel = topic ? getContactTopicLabel(topic) : undefined;
+    if (topic && !topicLabel) {
+      return NextResponse.json({ error: "Invalid area of interest" }, { status: 400 });
+    }
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Google Sheets API returned non-ok status:", response.status, errorText);
-      return NextResponse.json(
-        { error: "Google Sheets API submission failed" },
-        { status: response.status }
-      );
+    if (!isZohoConfigured()) {
+      // Only mock locally; in production missing credentials would silently drop leads
+      if (process.env.NODE_ENV !== "production") {
+        console.warn("Zoho CRM environment variables are missing. Mocking success.");
+        return NextResponse.json({ success: true, mocked: true });
+      }
+      console.error("Zoho CRM environment variables are missing in production.");
+      return NextResponse.json({ error: "Contact service is not configured" }, { status: 503 });
+    }
+
+    // Zoho requires Last_Name; fall back to the full name when no last name was given
+    const firstName = typeof body.firstName === "string" ? body.firstName.trim() : "";
+    const lastName = typeof body.lastName === "string" ? body.lastName.trim() : "";
+
+    try {
+      await createLead({
+        ...(lastName && firstName ? { First_Name: firstName } : {}),
+        Last_Name: lastName || name.trim(),
+        Email: email.trim(),
+        Company: organisation || "Not provided",
+        Description: topicLabel ? `Area of interest: ${topicLabel}\n\n${message.trim()}` : message.trim(),
+        ...(process.env.ZOHO_LEAD_SOURCE ? { Lead_Source: process.env.ZOHO_LEAD_SOURCE } : {}),
+      });
+    } catch (zohoError) {
+      console.error(zohoError);
+      return NextResponse.json({ error: "Lead submission failed" }, { status: 502 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error in contact server API route:", error);
-    const errorMessage = error instanceof Error ? error.message : "Internal Server Error";
     return NextResponse.json(
-      { error: errorMessage },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }

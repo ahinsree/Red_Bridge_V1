@@ -27,7 +27,7 @@ Boutique high-touch executive consulting with custom digital portals, combining 
 
 - **Stack:** Next.js 15, React 19, Tailwind CSS v4, Framer Motion 12, Three.js (WebGL 3D).
 - **CMS & Operations:** Decap CMS for Insights articles with automated GitHub Actions build and deployment.
-- **Interactive Features:** Floating AI Chatbot assistant with rule-based response mapping, slide-in briefing drawers, lead submission proxy via Google Sheets API.
+- **Interactive Features:** Floating AI Chatbot assistant with rule-based response mapping, slide-in briefing drawers, lead submission to Zoho CRM (Leads) via a server-side API route.
 - **Constraints:** GitHub Pages static site deployment, clean build and linting (`npm run lint`), strict type-checking (`tsc --noEmit`).
 
 ## Brand Commitments
