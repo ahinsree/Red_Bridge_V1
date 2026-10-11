@@ -8,6 +8,7 @@ export type ZohoLead = {
   First_Name?: string;
   Last_Name: string;
   Email: string;
+  Phone?: string;
   Company: string;
   Description?: string;
   Lead_Source?: string;
