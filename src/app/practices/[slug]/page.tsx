@@ -18,6 +18,7 @@ interface StyleSystem {
   darkGlow: string;
   accent: string;
   image: string;
+  video?: string; // Optional explainer video shown in place of the image (image becomes the poster)
   bgX: number; // Mouse movement parallax multiplier
   bgY: number; // Scroll movement parallax multiplier
   shapeTransform: (mousePos: { x: number; y: number }, scrollVal: number) => string;
@@ -54,6 +55,7 @@ const styleSystemData: Record<string, StyleSystem> = {
     darkGlow: "rgba(255, 51, 102, 0.08)",
     accent: "#FF3366",
     image: "/images/experience-service-design-desktop.webp",
+    video: "/videos/experience-service-design.mp4",
     bgX: 0.4,
     bgY: 0.36,
     shapeTransform: (mousePos, scrollVal) => 
@@ -608,6 +610,28 @@ export default function PracticeDetailPage() {
             <div className="lg:col-span-5 reveal d1 lg:sticky lg:top-28">
               
               {/* Media image container with floating accent borders and pulsating neon glow */}
+              {style.video ? (
+                <div className="relative group">
+                  <div
+                    className="absolute inset-0 opacity-15 rounded-xl filter blur-2xl scale-105 pointer-events-none transition-transform duration-700 group-hover:scale-110"
+                    style={{
+                      background: `linear-gradient(135deg, ${style.accent}, transparent)`,
+                      boxShadow: `0 24px 80px -15px ${style.darkGlow}`
+                    }}
+                  />
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-[var(--divider-soft)] bg-[#141724]">
+                    <video
+                      className="absolute inset-0 w-full h-full object-contain"
+                      src={style.video}
+                      poster={style.image}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      aria-label={`${practice.title} video`}
+                    />
+                  </div>
+                </div>
+              ) : (
               <div className="relative group" style={{ minHeight: style.imageFit === "contain" ? "auto" : "360px" }}>
                 {/* Dynamic vibrant gradient backglow rings */}
                 <div 
@@ -647,6 +671,7 @@ export default function PracticeDetailPage() {
                   )}
                 </div>
               </div>
+              )}
 
             </div>
 
